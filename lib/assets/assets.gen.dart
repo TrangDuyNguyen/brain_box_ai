@@ -9,20 +9,64 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsAuthGen {
+  const $AssetsAuthGen();
+
+  /// File path: assets/auth/ic_auth_logo.png
+  AssetGenImage get icAuthLogo =>
+      const AssetGenImage('assets/auth/ic_auth_logo.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [icAuthLogo];
+}
+
 class $AssetsOnBoardingGen {
   const $AssetsOnBoardingGen();
+
+  /// File path: assets/on_boarding/ic_arrow_next.png
+  AssetGenImage get icArrowNext =>
+      const AssetGenImage('assets/on_boarding/ic_arrow_next.png');
+
+  /// File path: assets/on_boarding/ic_arrow_pre.png
+  AssetGenImage get icArrowPre =>
+      const AssetGenImage('assets/on_boarding/ic_arrow_pre.png');
+
+  /// File path: assets/on_boarding/ic_dot.png
+  AssetGenImage get icDot =>
+      const AssetGenImage('assets/on_boarding/ic_dot.png');
+
+  /// File path: assets/on_boarding/ic_dot_slide.png
+  AssetGenImage get icDotSlide =>
+      const AssetGenImage('assets/on_boarding/ic_dot_slide.png');
 
   /// File path: assets/on_boarding/on_boarding1.png
   AssetGenImage get onBoarding1 =>
       const AssetGenImage('assets/on_boarding/on_boarding1.png');
 
+  /// File path: assets/on_boarding/on_boarding2.png
+  AssetGenImage get onBoarding2 =>
+      const AssetGenImage('assets/on_boarding/on_boarding2.png');
+
+  /// File path: assets/on_boarding/on_boarding3.png
+  AssetGenImage get onBoarding3 =>
+      const AssetGenImage('assets/on_boarding/on_boarding3.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [onBoarding1];
+  List<AssetGenImage> get values => [
+        icArrowNext,
+        icArrowPre,
+        icDot,
+        icDotSlide,
+        onBoarding1,
+        onBoarding2,
+        onBoarding3
+      ];
 }
 
 class Assets {
   Assets._();
 
+  static const $AssetsAuthGen auth = $AssetsAuthGen();
   static const $AssetsOnBoardingGen onBoarding = $AssetsOnBoardingGen();
 }
 

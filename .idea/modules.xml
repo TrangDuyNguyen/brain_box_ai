@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/brain_box_ai.iml" filepath="$PROJECT_DIR$/brain_box_ai.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/brain_box_ai_android.iml" filepath="$PROJECT_DIR$/android/brain_box_ai_android.iml" />
     </modules>
   </component>
 </project>

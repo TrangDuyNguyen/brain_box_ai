@@ -1,6 +1,7 @@
 import 'package:brain_box_ai/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'assets/assets.gen.dart';
 import 'core/environments/app_config.dart';
 import 'core/environments/flavor_config.dart';
 import 'core/router/router.dart';
@@ -32,19 +33,6 @@ class App extends HookConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
-    );
-  }
-}
-
-class OnBoardingPage extends StatelessWidget {
-  const OnBoardingPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(AppStr.of(context).helloWorld),
-      ),
     );
   }
 }
