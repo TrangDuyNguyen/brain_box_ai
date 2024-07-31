@@ -67,7 +67,17 @@ class Assets {
   Assets._();
 
   static const $AssetsAuthGen auth = $AssetsAuthGen();
+  static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
+  static const AssetGenImage icEmail = AssetGenImage('assets/ic_email.png');
+  static const AssetGenImage icEyeOff = AssetGenImage('assets/ic_eye_off.png');
+  static const AssetGenImage icLock = AssetGenImage('assets/ic_lock.png');
+  static const AssetGenImage icPhone = AssetGenImage('assets/ic_phone.png');
+  static const AssetGenImage icUser = AssetGenImage('assets/ic_user.png');
   static const $AssetsOnBoardingGen onBoarding = $AssetsOnBoardingGen();
+
+  /// List of all assets
+  static List<AssetGenImage> get values =>
+      [icBack, icEmail, icEyeOff, icLock, icPhone, icUser];
 }
 
 class AssetGenImage {

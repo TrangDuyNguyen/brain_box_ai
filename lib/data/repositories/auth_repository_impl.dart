@@ -21,5 +21,19 @@ class AuthRepositoryImpl implements AuthRepository {
       return Result.errors(e);
     }
   }
-  // TODO: implement your AuthRepositoryImpl
+
+  @override
+  Future<Result> register(
+      {required String email,
+      required username,
+      required String password}) async {
+    // TODO: implement register
+    try {
+      final response = await dataSource.register(email, username, password);
+      // Xử lý response và trả về kết quả
+      return Result.success(NoResult); // Giả sử xác thực thành công
+    } on Exception catch (e) {
+      return Result.errors(e);
+    }
+  }
 }
