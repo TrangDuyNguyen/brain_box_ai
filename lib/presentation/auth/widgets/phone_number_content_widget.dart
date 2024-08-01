@@ -52,7 +52,7 @@ class PhoneNumberContentWidget extends HookConsumerWidget {
                 .paddingVerticalSpace(SpaceType.extraLarge)
                 .paddingHorizontalSpace(SpaceType.medium),
             Text(
-              "Enter Your Phone \nNumber",
+              "Enter Your Email",
               style: context.appTextStyles.displaySmall.bold,
             )
                 .paddingHorizontalSpace(SpaceType.medium)
@@ -63,26 +63,24 @@ class PhoneNumberContentWidget extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               height: 60,
-              child: IntlPhoneField(
+              child: TextFormField(
                 controller: phoneNumberTextFieldController,
-                showCountryFlag: false,
-                disableLengthCheck: true,
                 decoration: InputDecoration(
                   icon: Padding(
                     padding: const EdgeInsets.only(left: 20),
-                    child: Assets.icPhone.image(),
+                    child: Assets.icEmail.image(),
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  hintText: "Phone Number",
+                  hintText: "Enter Your Email",
                   hintStyle: TextStyle(
                     color: context.appColors.secondary.withOpacity(0.4),
                     fontSize: 14,
                   ),
                 ),
-              )
+              ),
             ).paddingHorizontalSpace(SpaceType.medium)
                 .paddingBottomSpace(SpaceType.large),
             MaterialButton(

@@ -7,4 +7,10 @@ abstract class AuthRepository {
 
   Future<Result> register(
       {required String email, required username, required String password});
+
+  Future<Result> sendVerify({required String email});
+
+  Future<Result> verify({required String code});
+
+  Future<Result> forgotPassword({required String password});
 }

@@ -4,64 +4,65 @@ import 'package:flutter/material.dart';
 
 const ColorScheme flexSchemeLight = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xff2e59b8),
+  primary: Color(0xff212121), // Adjusted to a darker gray
   onPrimary: Color(0xffffffff),
-  primaryContainer: Color(0xffdae2ff),
-  onPrimaryContainer: Color(0xff001848),
-  secondary: Color(0xff575e71),
+  primaryContainer: Color(0xffe0e0e0), // Lighter gray for containers
+  onPrimaryContainer: Color(0xff212121),
+  secondary: Color(0xff616161), // Secondary dark gray
   onSecondary: Color(0xffffffff),
-  secondaryContainer: Color(0xffdbe2f9),
-  onSecondaryContainer: Color(0xff141b2c),
-  tertiary: Color(0xff82524d),
+  secondaryContainer: Color(0xffbdbdbd), // Light gray for secondary containers
+  onSecondaryContainer: Color(0xff212121),
+  tertiary: Color(0xff757575), // Tertiary gray
   onTertiary: Color(0xffffffff),
-  tertiaryContainer: Color(0xffffdad6),
-  onTertiaryContainer: Color(0xff33110e),
-  error: Color(0xffba1a1a),
+  tertiaryContainer: Color(0xffe0e0e0), // Light gray for tertiary containers
+  onTertiaryContainer: Color(0xff212121),
+  error: Color(0xffd32f2f),
   onError: Color(0xffffffff),
-  errorContainer: Color(0xffffdad6),
-  onErrorContainer: Color(0xff410002),
-  surface: Color(0xfff8f6fd),
-  onSurface: Color(0xff1b1b1f),
-  surfaceContainerHighest: Color(0xffdcdeea),
-  onSurfaceVariant: Color(0xff45464f),
-  outline: Color(0xff757780),
-  outlineVariant: Color(0xffc5c6d0),
+  errorContainer: Color(0xfff9bdbb), // Light red for error containers
+  onErrorContainer: Color(0xff212121),
+  surface: Color(0xfffafafa), // Light surface
+  onSurface: Color(0xff212121),
+  surfaceContainerHighest:
+      Color(0xfff5f5f5), // Very light gray for high contrast
+  onSurfaceVariant: Color(0xff616161),
+  outline: Color(0xffbdbdbd),
+  outlineVariant: Color(0xffe0e0e0),
   shadow: Color(0xff000000),
   scrim: Color(0xff000000),
-  inverseSurface: Color(0xff2f3137),
-  onInverseSurface: Color(0xfff2f0f4),
-  inversePrimary: Color(0xffb2c5ff),
-  surfaceTint: Color(0xff2e59b8),
+  inverseSurface: Color(0xff212121),
+  onInverseSurface: Color(0xfffafafa),
+  inversePrimary: Color(0xffbdbdbd),
+  surfaceTint: Color(0xff212121),
 );
 
 const ColorScheme flexSchemeDark = ColorScheme(
   brightness: Brightness.dark,
-  primary: Color(0xffa5c8ff),
-  onPrimary: Color(0xff00315e),
-  primaryContainer: Color(0xff004785),
-  onPrimaryContainer: Color(0xffd4e3ff),
-  secondary: Color(0xffbcc7db),
-  onSecondary: Color(0xff263141),
-  secondaryContainer: Color(0xff3c4758),
-  onSecondaryContainer: Color(0xffd8e3f8),
-  tertiary: Color(0xfff4b7b7),
-  onTertiary: Color(0xff4c2526),
-  tertiaryContainer: Color(0xff663b3c),
-  onTertiaryContainer: Color(0xffffdad9),
-  error: Color(0xffffb4ab),
-  onError: Color(0xff690005),
-  errorContainer: Color(0xff93000a),
-  onErrorContainer: Color(0xffffb4ab),
-  surface: Color(0xff212429),
-  onSurface: Color(0xffe3e2e6),
-  surfaceContainerHighest: Color(0xff474d57),
-  onSurfaceVariant: Color(0xffc3c6cf),
-  outline: Color(0xff8d9199),
-  outlineVariant: Color(0xff43474e),
-  shadow: Color(0xff000000),
-  scrim: Color(0xff000000),
-  inverseSurface: Color(0xffdfe0e7),
-  onInverseSurface: Color(0xff2f3033),
-  inversePrimary: Color(0xff1d5fa6),
-  surfaceTint: Color(0xffa5c8ff),
+  primary: Color(0xff1e1e1e), // Màu nền chính tối
+  onPrimary: Color(0xffffffff), // Màu chữ trên nền chính
+  primaryContainer: Color(0xff333333), // Màu nền cho các thành phần chứa
+  onPrimaryContainer: Color(0xffffffff), // Màu chữ trên các thành phần chứa
+  secondary: Color(0xff424242), // Màu phụ tối
+  onSecondary: Color(0xffffffff), // Màu chữ trên nền phụ
+  secondaryContainer: Color(0xff616161), // Màu nền cho các thành phần chứa phụ
+  onSecondaryContainer: Color(0xffffffff), // Màu chữ trên các thành phần chứa phụ
+  tertiary: Color(0xff757575), // Màu thứ ba tối
+  onTertiary: Color(0xffffffff), // Màu chữ trên nền thứ ba
+  tertiaryContainer: Color(0xff9e9e9e), // Màu nền cho các thành phần chứa thứ ba
+  onTertiaryContainer: Color(0xff000000), // Màu chữ trên các thành phần chứa thứ ba
+  error: Color(0xffd32f2f), // Màu lỗi
+  onError: Color(0xffffffff), // Màu chữ trên nền lỗi
+  errorContainer: Color(0xffb00020), // Màu nền cho các thành phần chứa lỗi
+  onErrorContainer: Color(0xffffb4ab), // Màu chữ trên các thành phần chứa lỗi
+  surface: Color(0xff121212), // Màu nền bề mặt
+  onSurface: Color(0xffe0e0e0), // Màu chữ trên nền bề mặt
+  surfaceContainerHighest: Color(0xff1f1f1f), // Màu nền cho các thành phần chứa bề mặt
+  onSurfaceVariant: Color(0xff616161), // Màu chữ trên các biến thể bề mặt
+  outline: Color(0xffbdbdbd), // Màu đường viền
+  outlineVariant: Color(0xff43474e), // Biến thể màu đường viền
+  shadow: Color(0xff000000), // Màu bóng
+  scrim: Color(0xff000000), // Màu mờ
+  inverseSurface: Color(0xffe0e0e0), // Màu bề mặt ngược lại
+  onInverseSurface: Color(0xff121212), // Màu chữ trên bề mặt ngược lại
+  inversePrimary: Color(0xffbb86fc), // Màu chính ngược lại
+  surfaceTint: Color(0xffbb86fc), // Màu tint bề mặt
 );

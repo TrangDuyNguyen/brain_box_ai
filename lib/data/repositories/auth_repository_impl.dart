@@ -36,4 +36,40 @@ class AuthRepositoryImpl implements AuthRepository {
       return Result.errors(e);
     }
   }
+
+  @override
+  Future<Result> forgotPassword({required String password}) async {
+    // TODO: implement forgotPassword
+    try {
+      final response = await dataSource.forgot(password);
+      // Xử lý response và trả về kết quả
+      return Result.success(NoResult); // Giả sử xác thực thành công
+    } on Exception catch (e) {
+      return Result.errors(e);
+    }
+  }
+
+  @override
+  Future<Result> verify({required String code}) async {
+    // TODO: implement verify
+    try {
+      final response = await dataSource.verify(code);
+      // Xử lý response và trả về kết quả
+      return Result.success(NoResult); // Giả sử xác thực thành công
+    } on Exception catch (e) {
+      return Result.errors(e);
+    }
+  }
+
+  @override
+  Future<Result> sendVerify({required String email}) async {
+    // TODO: implement sendVerify
+    try {
+      final response = await dataSource.sendVerify(email);
+      // Xử lý response và trả về kết quả
+      return Result.success(NoResult); // Giả sử xác thực thành công
+    } on Exception catch (e) {
+      return Result.errors(e);
+    }
+  }
 }

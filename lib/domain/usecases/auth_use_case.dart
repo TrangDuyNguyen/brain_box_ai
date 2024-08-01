@@ -32,6 +32,24 @@ class AuthUseCase implements UseCase<void, AuthParams> {
       password: params.password ?? '',
     );
   }
+
+  Future<Result> verifyAccount(AuthParams params) async {
+    // TODO: implement createAccount
+    return await repository.register(
+      email: params.email ?? '',
+      username: params.username ?? '',
+      password: params.password ?? '',
+    );
+  }
+
+  Future<Result> forgotAccount(AuthParams params) async {
+    // TODO: implement createAccount
+    return await repository.register(
+      email: params.email ?? '',
+      username: params.username ?? '',
+      password: params.password ?? '',
+    );
+  }
 }
 
 class AuthParams {
