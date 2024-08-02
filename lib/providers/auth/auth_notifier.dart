@@ -1,43 +1,51 @@
-import 'package:brain_box_ai/providers/state/auth_state.dart';
+
+import 'package:brain_box_ai/providers/auth/state/auth_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/usecases/auth_use_case.dart';
+import 'auth_provider.dart';
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthUseCase useCase;
+  final AuthUseCase authUseCase;
 
-  AuthNotifier(this.useCase) : super(const AuthInitial());
+  AuthNotifier(this.authUseCase) : super(const AuthInitial());
 
   Future<void> login(String email, String password) async {
     state = const AuthLoading();
     final params = AuthParams(email: email, password: password);
-    final result = await useCase.login(params);
-    // result.when(
-    //   success: (data) {
-    //     state = Authenticated();
-    //   },
-    //   error: (error) {
-    //     state = AuthError(error.toString());
-    //   },
-    // );
+    final result = await authUseCase.login(params);
+    result.fold(
+      (error) {
+        state = AuthError(error.toString());
+      },
+      (data) {
+        state = const Authenticated();
+      },
+    );
   }
 
   Future<void> register(String email, String username, String password) async {
     state = const AuthLoading();
-    final params = AuthParams(email: email, username: username, password: password);
-    final result = await useCase.createAccount(params);
-    // result.when(
-    //   success: (data) {
-    //     state = Authenticated();
-    //   },
-    //   error: (error) {
-    //     state = AuthError(error.toString());
-    //   },
-    // );
+    final params =
+        AuthParams(email: email, username: username, password: password);
+    final result = await authUseCase.createAccount(params);
+    result.fold(
+      (error) {
+        state = AuthError(error.toString());
+      },
+      (data) {
+        state = const Authenticated();
+      },
+    );
   }
 
   Future<void> logout() async {
     state = const AuthInitial();
-
   }
 }
+
+final authNotifierProvider =
+    StateNotifierProvider<AuthNotifier, AuthState>((ref) {
+  final useCase = ref.read(authUseCaseProvider);
+  return AuthNotifier(useCase);
+});

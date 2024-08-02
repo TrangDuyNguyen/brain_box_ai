@@ -5,7 +5,6 @@ import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../assets/assets.gen.dart';
 
@@ -81,7 +80,8 @@ class PhoneNumberContentWidget extends HookConsumerWidget {
                   ),
                 ),
               ),
-            ).paddingHorizontalSpace(SpaceType.medium)
+            )
+                .paddingHorizontalSpace(SpaceType.medium)
                 .paddingBottomSpace(SpaceType.large),
             MaterialButton(
               onPressed: () {

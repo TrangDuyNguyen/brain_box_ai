@@ -5,19 +5,18 @@ import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../../domain/usecases/auth_use_case.dart';
 
-// DataSource Provider
-final authDataSourceProvider = Provider<AuthDataSource>((ref) {
+final verifyDataSourceProvider = Provider<AuthDataSource>((ref) {
   return AuthDataSourceImpl();
 });
 
 // Repository Provider
-final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  final dataSource = ref.read(authDataSourceProvider);
+final verifyRepositoryProvider = Provider<AuthRepository>((ref) {
+  final dataSource = ref.read(verifyDataSourceProvider);
   return AuthRepositoryImpl(dataSource);
 });
 
 // UseCase Provider
-final authUseCaseProvider = Provider<AuthUseCase>((ref) {
-  final repository = ref.read(authRepositoryProvider);
+final verifyUseCaseProvider = Provider<AuthUseCase>((ref) {
+  final repository = ref.read(verifyRepositoryProvider);
   return AuthUseCase(repository);
 });

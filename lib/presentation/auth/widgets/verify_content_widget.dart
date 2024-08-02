@@ -92,13 +92,6 @@ class VerifyContentWidget extends HookConsumerWidget {
               pastedTextStyle: context.appTextStyles.labelMedium.bold,
               animationType: AnimationType.fade,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (v) {
-                // if (v!.length < 4) {
-                //   return "I'm from validator";
-                // } else {
-                //   return null;
-                // }
-              },
               pinTheme: PinTheme(
                 shape: PinCodeFieldShape.box,
                 borderRadius: BorderRadius.circular(13),
@@ -121,9 +114,7 @@ class VerifyContentWidget extends HookConsumerWidget {
               onCompleted: (v) {
                 debugPrint("Completed");
               },
-              onTap: () {
-                print("Pressed");
-              },
+              onTap: () {},
               onChanged: (value) {},
               beforeTextPaste: (text) {
                 //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
