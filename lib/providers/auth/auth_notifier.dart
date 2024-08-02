@@ -1,4 +1,3 @@
-
 import 'package:brain_box_ai/providers/auth/state/auth_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,23 +11,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> login(String email, String password) async {
     state = const AuthLoading();
+    await Future.delayed(const Duration(seconds: 2));
+    state = AuthError("error.toString()");
     final params = AuthParams(email: email, password: password);
     final result = await authUseCase.login(params);
-    result.fold(
-      (error) {
-        state = AuthError(error.toString());
-      },
-      (data) {
-        state = const Authenticated();
-      },
-    );
-  }
-
-  Future<void> register(String email, String username, String password) async {
-    state = const AuthLoading();
-    final params =
-        AuthParams(email: email, username: username, password: password);
-    final result = await authUseCase.createAccount(params);
     result.fold(
       (error) {
         state = AuthError(error.toString());

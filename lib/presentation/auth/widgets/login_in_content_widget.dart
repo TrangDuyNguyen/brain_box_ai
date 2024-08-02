@@ -1,6 +1,8 @@
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
+import 'package:brain_box_ai/providers/auth/auth_notifier.dart';
+import 'package:brain_box_ai/providers/auth/state/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -13,9 +15,13 @@ class LoginInContentWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final usernameTextFieldController = TextEditingController();
+    final authState = ref.watch(authNotifierProvider);
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+
+    final emailTextFieldController = TextEditingController();
     final passwordTextFieldController = TextEditingController();
     final obscureText = useState(true);
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -64,7 +70,7 @@ class LoginInContentWidget extends HookConsumerWidget {
               ),
               height: 60,
               child: TextFormField(
-                controller: usernameTextFieldController,
+                controller: emailTextFieldController,
                 decoration: InputDecoration(
                   icon: Padding(
                     padding: const EdgeInsets.only(left: 20),
@@ -126,8 +132,27 @@ class LoginInContentWidget extends HookConsumerWidget {
             )
                 .paddingHorizontalSpace(SpaceType.medium)
                 .paddingBottomSpace(SpaceType.medium),
+            authState is AuthLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          context.appColors.primary),
+                    ).paddingBottomSpace(SpaceType.medium),
+                  )
+                : authState is AuthError
+                    ? Text(
+                        authState.toString(),
+                        style: context.appTextStyles.titleSmall
+                            .copyWith(color: context.appColors.error),
+                      )
+                        .paddingHorizontalSpace(SpaceType.medium)
+                        .paddingBottomSpace(SpaceType.medium)
+                    : const SizedBox(),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                authNotifier.login(emailTextFieldController.value.text,
+                    passwordTextFieldController.value.text);
+              },
               minWidth: double.maxFinite,
               elevation: 0,
               color: context.appColors.onSurface,
