@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/usecases/auth_use_case.dart';
 
-
 class RegisterNotifier extends StateNotifier<RegisterState> {
   final AuthUseCase authUseCase;
 
@@ -12,17 +11,20 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
 
   Future<void> register(String email, String username, String password) async {
     state = const RegisterLoading();
-    final params =
-        AuthParams(email: email, username: username, password: password);
-    final result = await authUseCase.createAccount(params);
-    result.fold(
-      (error) {
-        state = RegisterError(error.toString());
-      },
-      (data) {
-        state = const RegisterSuccess();
-      },
-    );
+    await Future.delayed(const Duration(seconds: 2));
+    state = const RegisterSuccess();
+    //state = const RegisterError("register fail");
+    // final params =
+    //     AuthParams(email: email, username: username, password: password);
+    // final result = await authUseCase.createAccount(params);
+    // result.fold(
+    //   (error) {
+    //     state = RegisterError(error.toString());
+    //   },
+    //   (data) {
+    //     state = const RegisterSuccess();
+    //   },
+    // );
   }
 }
 

@@ -8,6 +8,6 @@ class LoginPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const LoginInContentWidget();
+    return LoginInContentWidget();
   }
 }

@@ -7,6 +7,6 @@ class SignUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SignUpContentWidget();
+    return SignUpContentWidget();
   }
 }
