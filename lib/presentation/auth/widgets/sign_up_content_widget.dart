@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
+import '../../../providers/auth/sign_up_form_notifier.dart';
 import '../../../providers/auth/state/register_state.dart';
 
 abstract class SignUpCallBack {
@@ -61,9 +62,15 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
     final registerState = ref.watch(registerNotifierProvider);
     final registerNotifier = ref.read(registerNotifierProvider.notifier);
 
-    final fullNameTextFieldController = TextEditingController();
-    final emailTextFieldController = TextEditingController();
-    final passwordTextFieldController = TextEditingController();
+    final signUpFormState = ref.watch(signUpFormProvider);
+    final signUpFormNotifier = ref.read(signUpFormProvider.notifier);
+
+    final fullNameTextFieldController =
+        useTextEditingController(text: signUpFormState.fullName);
+    final emailTextFieldController =
+        useTextEditingController(text: signUpFormState.email);
+    final passwordTextFieldController =
+        useTextEditingController(text: signUpFormState.password);
     final obscureText = useState(true);
 
     ref.listen<RegisterState>(registerNotifierProvider,
@@ -86,7 +93,8 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
                 fullNameTextFieldController,
                 emailTextFieldController,
                 passwordTextFieldController,
-                obscureText),
+                obscureText,
+                signUpFormNotifier),
             _buildStateLoading(context, registerState),
             _buildRegisterButton(
                 context,
@@ -150,22 +158,25 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       TextEditingController fullNameTextFieldController,
       TextEditingController usernameTextFieldController,
       TextEditingController passwordTextFieldController,
-      ValueNotifier<bool> obscureText) {
+      ValueNotifier<bool> obscureText,
+      SignUpFormNotifier signUpFormNotifier) {
     return Form(
       key: _mFormKey,
       child: Column(
         children: [
-          _buildFullNameTextField(context, fullNameTextFieldController),
-          _buildEmailTextField(context, usernameTextFieldController),
-          _buildPasswordTextField(
-              context, passwordTextFieldController, obscureText),
+          _buildFullNameTextField(
+              context, fullNameTextFieldController, signUpFormNotifier),
+          _buildEmailTextField(
+              context, usernameTextFieldController, signUpFormNotifier),
+          _buildPasswordTextField(context, passwordTextFieldController,
+              obscureText, signUpFormNotifier),
         ],
       ),
     );
   }
 
-  Widget _buildFullNameTextField(
-      BuildContext context, TextEditingController controller) {
+  Widget _buildFullNameTextField(BuildContext context,
+      TextEditingController controller, SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
         color: context.appColors.onPrimary,
@@ -174,6 +185,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       height: 60,
       child: TextFormField(
         controller: controller,
+        onChanged: (value) => signUpFormNotifier.updateFullName(value),
         decoration: InputDecoration(
           icon: Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -195,8 +207,8 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
         .paddingBottomSpace(SpaceType.medium);
   }
 
-  Widget _buildEmailTextField(
-      BuildContext context, TextEditingController controller) {
+  Widget _buildEmailTextField(BuildContext context,
+      TextEditingController controller, SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
         color: context.appColors.onPrimary,
@@ -205,6 +217,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       height: 60,
       child: TextFormField(
         controller: controller,
+        onChanged: (value) => signUpFormNotifier.updateEmail(value),
         decoration: InputDecoration(
           icon: Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -226,8 +239,11 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
         .paddingBottomSpace(SpaceType.medium);
   }
 
-  Widget _buildPasswordTextField(BuildContext context,
-      TextEditingController controller, ValueNotifier<bool> obscureText) {
+  Widget _buildPasswordTextField(
+      BuildContext context,
+      TextEditingController controller,
+      ValueNotifier<bool> obscureText,
+      SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
         color: context.appColors.onPrimary,
@@ -236,6 +252,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       height: 60,
       child: TextFormField(
         controller: controller,
+        onChanged: (value) => signUpFormNotifier.updatePassword(value),
         obscureText: obscureText.value,
         decoration: InputDecoration(
           icon: Padding(

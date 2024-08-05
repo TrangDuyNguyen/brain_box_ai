@@ -14,17 +14,17 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     await Future.delayed(const Duration(seconds: 2));
     state = const RegisterSuccess();
     //state = const RegisterError("register fail");
-    // final params =
-    //     AuthParams(email: email, username: username, password: password);
-    // final result = await authUseCase.createAccount(params);
-    // result.fold(
-    //   (error) {
-    //     state = RegisterError(error.toString());
-    //   },
-    //   (data) {
-    //     state = const RegisterSuccess();
-    //   },
-    // );
+    final params =
+        AuthParams(email: email, username: username, password: password);
+    final result = await authUseCase.createAccount(params);
+    result.fold(
+      (error) {
+        state = RegisterError(error.toString());
+      },
+      (data) {
+        state = const RegisterSuccess();
+      },
+    );
   }
 }
 

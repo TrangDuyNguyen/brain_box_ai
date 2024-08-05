@@ -15,7 +15,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<Result> authenticate(String email, String password) {
     // TODO: implement authenticate
-
+    print("email: $email, password: $password");
     // post
     throw UnimplementedError();
   }
@@ -23,6 +23,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<Result> register(String email, String username, String password) {
     // TODO: implement register
+    print("email: $email, username: $username, password: $password");
     throw UnimplementedError();
   }
 
