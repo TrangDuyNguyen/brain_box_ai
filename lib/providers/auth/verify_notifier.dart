@@ -11,6 +11,8 @@ class VerifyNotifier extends StateNotifier<VerifyState> {
 
   Future<void> verifyAcc(String code) async {
     state = const VerifyLoading();
+    await Future.delayed(const Duration(seconds: 2));
+    state = const Verified();
     final result = await authUseCase.verifyAccount(code);
     result.fold(
       (error) {

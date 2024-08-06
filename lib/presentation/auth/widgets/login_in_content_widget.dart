@@ -37,7 +37,7 @@ class LoginInContentWidget extends HookConsumerWidget implements LoginCallBack {
   @override
   goToForgetPassword(BuildContext context) {
     // TODO: implement goToForgetPassword
-    throw UnimplementedError();
+    context.push(RouterPath.resetPass.getPath);
   }
 
   @override
@@ -223,7 +223,9 @@ class LoginInContentWidget extends HookConsumerWidget implements LoginCallBack {
       children: [
         const Spacer(),
         TextButton(
-            onPressed: () {},
+            onPressed: () {
+              goToForgetPassword(context);
+            },
             child: Text(
               "Forget Password ?",
               style: context.appTextStyles.titleSmall.copyWith(

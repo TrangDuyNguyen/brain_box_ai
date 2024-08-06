@@ -10,6 +10,8 @@ class SendVerifyNotifier extends StateNotifier<SendVerifyState> {
 
   Future<void> sendVerify(String email) async {
     state = const SendVerifyLoading();
+    await Future.delayed(const Duration(seconds: 2));
+    state = const SendVerified();
     final result = await authUseCase.sendVerify(email);
     result.fold(
       (error) {
@@ -22,7 +24,7 @@ class SendVerifyNotifier extends StateNotifier<SendVerifyState> {
   }
 }
 
-final verifyNotifierProvider =
+final sendVerifyNotifierProvider =
     StateNotifierProvider<SendVerifyNotifier, SendVerifyState>((ref) {
   final useCase = ref.read(sendVerifyUseCaseProvider);
   return SendVerifyNotifier(useCase);
