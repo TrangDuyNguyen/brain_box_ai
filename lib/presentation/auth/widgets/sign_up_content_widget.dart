@@ -29,13 +29,11 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
 
   @override
   goBack(BuildContext context) {
-    // TODO: implement goBack
     context.pop();
   }
 
   @override
   goToLogin(BuildContext context) {
-    // TODO: implement goToLogin
     context.pushReplacement(RouterPath.loginPage.getPath);
   }
 
@@ -53,7 +51,6 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
 
   @override
   onRegister(BuildContext context) {
-    // TODO: implement onRegister
     context.push(RouterPath.phoneNumber.getPath);
   }
 
