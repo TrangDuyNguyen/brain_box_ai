@@ -77,6 +77,8 @@ class Assets {
   static const AssetGenImage icLock = AssetGenImage('assets/ic_lock.png');
   static const AssetGenImage icManagement =
       AssetGenImage('assets/ic_management.png');
+  static const AssetGenImage icMenuVertical =
+      AssetGenImage('assets/ic_menu_vertical.png');
   static const AssetGenImage icNoti = AssetGenImage('assets/ic_noti.png');
   static const AssetGenImage icPhone = AssetGenImage('assets/ic_phone.png');
   static const AssetGenImage icProfile = AssetGenImage('assets/ic_profile.png');
@@ -96,6 +98,7 @@ class Assets {
         icHome,
         icLock,
         icManagement,
+        icMenuVertical,
         icNoti,
         icPhone,
         icProfile,
@@ -107,9 +110,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

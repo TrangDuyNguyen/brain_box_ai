@@ -2,6 +2,7 @@ import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/app_context.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
+import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -219,7 +220,8 @@ class HomeContentWidget extends HookConsumerWidget {
     );
   }
 
-  Widget _buildTopPrompt(BuildContext context, ValueNotifier<int> selectedChipIndex) {
+  Widget _buildTopPrompt(
+      BuildContext context, ValueNotifier<int> selectedChipIndex) {
     return Column(
       children: [
         Row(
@@ -245,6 +247,24 @@ class HomeContentWidget extends HookConsumerWidget {
             onChipSelected: (index) {
               selectedChipIndex.value = index;
             }),
+        ListView.separated(
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return const PromptCardWidget(
+                    title: 'Melos overview',
+                    promptContent:
+                        'Freezed là một gói giúp bạn tạo ra các lớp dữ liệu bất biến và các kiểu dữ liệu phân biệt (union/sealed classes) trong Dart.',
+                    category: '',
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                      height: 12,
+                    ),
+                itemCount: 10) //
+            .paddingTopSpace(SpaceType.medium)
+            .paddingBottomSpace(SpaceType.medium),
       ],
     );
   }

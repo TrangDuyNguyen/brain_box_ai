@@ -40,6 +40,12 @@ class AppColors {
   Color get onInverseSurface => _themeData.colorScheme.onInverseSurface;
   Color get inversePrimary => _themeData.colorScheme.inversePrimary;
   Color get surfaceTint => _themeData.colorScheme.surfaceTint;
+
+  LinearGradient get brandPrimaryGradient => LinearGradient(
+    colors: [primary, secondary],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
 
 extension ThemesExtension on BuildContext {
