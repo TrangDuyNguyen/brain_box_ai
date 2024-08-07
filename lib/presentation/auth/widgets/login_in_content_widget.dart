@@ -74,6 +74,12 @@ class LoginInContentWidget extends HookConsumerWidget implements LoginCallBack {
     final passwordTextFieldController = useTextEditingController();
     final obscureText = useState(true);
 
+    ref.listen<AuthState>(authNotifierProvider, (previousState, currentState) {
+      if (currentState is Authenticated) {
+        context.push(RouterPath.homePage.getPath);
+      }
+    });
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

@@ -70,14 +70,40 @@ class Assets {
   static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
   static const AssetGenImage icEmail = AssetGenImage('assets/ic_email.png');
   static const AssetGenImage icEyeOff = AssetGenImage('assets/ic_eye_off.png');
+  static const AssetGenImage icFilter = AssetGenImage('assets/ic_filter.png');
+  static const AssetGenImage icFourSquares =
+      AssetGenImage('assets/ic_four_squares.png');
+  static const AssetGenImage icHome = AssetGenImage('assets/ic_home.png');
   static const AssetGenImage icLock = AssetGenImage('assets/ic_lock.png');
+  static const AssetGenImage icManagement =
+      AssetGenImage('assets/ic_management.png');
+  static const AssetGenImage icNoti = AssetGenImage('assets/ic_noti.png');
   static const AssetGenImage icPhone = AssetGenImage('assets/ic_phone.png');
+  static const AssetGenImage icProfile = AssetGenImage('assets/ic_profile.png');
+  static const AssetGenImage icSearch = AssetGenImage('assets/ic_search.png');
+  static const AssetGenImage icSetting = AssetGenImage('assets/ic_setting.png');
   static const AssetGenImage icUser = AssetGenImage('assets/ic_user.png');
+  static const AssetGenImage icX = AssetGenImage('assets/ic_x.png');
   static const $AssetsOnBoardingGen onBoarding = $AssetsOnBoardingGen();
 
   /// List of all assets
-  static List<AssetGenImage> get values =>
-      [icBack, icEmail, icEyeOff, icLock, icPhone, icUser];
+  static List<AssetGenImage> get values => [
+        icBack,
+        icEmail,
+        icEyeOff,
+        icFilter,
+        icFourSquares,
+        icHome,
+        icLock,
+        icManagement,
+        icNoti,
+        icPhone,
+        icProfile,
+        icSearch,
+        icSetting,
+        icUser,
+        icX
+      ];
 }
 
 class AssetGenImage {

@@ -5,6 +5,7 @@ import 'package:brain_box_ai/presentation/auth/pages/reset_password_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/send_email_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/sign_up_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
+import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/auth/pages/on_boading_page.dart';
@@ -37,5 +38,9 @@ final List<RouteBase> routes = [
   GoRoute(
     path: RouterPath.resetPass.getPath,
     builder: (context, state) => const ResetPasswordPage(),
+  ),
+  GoRoute(
+    path: RouterPath.homePage.getPath,
+    builder: (context, state) => const HomePage(),
   ),
 ];
