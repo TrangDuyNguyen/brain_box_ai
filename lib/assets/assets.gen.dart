@@ -67,59 +67,86 @@ class Assets {
   Assets._();
 
   static const $AssetsAuthGen auth = $AssetsAuthGen();
+  static const AssetGenImage icAboutUs =
+      AssetGenImage('assets/ic_about_us.png');
+  static const AssetGenImage icArowRight =
+      AssetGenImage('assets/ic_arow_right.png');
   static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
+  static const AssetGenImage icCustomerService =
+      AssetGenImage('assets/ic_customer_service.png');
+  static const AssetGenImage icDarkTheme =
+      AssetGenImage('assets/ic_dark_theme.png');
   static const AssetGenImage icEmail = AssetGenImage('assets/ic_email.png');
   static const AssetGenImage icEyeOff = AssetGenImage('assets/ic_eye_off.png');
   static const AssetGenImage icFilter = AssetGenImage('assets/ic_filter.png');
   static const AssetGenImage icFourSquares =
       AssetGenImage('assets/ic_four_squares.png');
   static const AssetGenImage icHome = AssetGenImage('assets/ic_home.png');
+  static const AssetGenImage icLanguage =
+      AssetGenImage('assets/ic_language.png');
+  static const AssetGenImage icLightTheme =
+      AssetGenImage('assets/ic_light_theme.png');
+  static const AssetGenImage icLocation =
+      AssetGenImage('assets/ic_location.png');
   static const AssetGenImage icLock = AssetGenImage('assets/ic_lock.png');
+  static const AssetGenImage icLogOut = AssetGenImage('assets/ic_log_out.png');
   static const AssetGenImage icManagement =
       AssetGenImage('assets/ic_management.png');
   static const AssetGenImage icMenuVertical =
       AssetGenImage('assets/ic_menu_vertical.png');
   static const AssetGenImage icNoti = AssetGenImage('assets/ic_noti.png');
+  static const AssetGenImage icNotification =
+      AssetGenImage('assets/ic_notification.png');
   static const AssetGenImage icPhone = AssetGenImage('assets/ic_phone.png');
   static const AssetGenImage icProfile = AssetGenImage('assets/ic_profile.png');
   static const AssetGenImage icSearch = AssetGenImage('assets/ic_search.png');
   static const AssetGenImage icSetting = AssetGenImage('assets/ic_setting.png');
+  static const AssetGenImage icSwitchOff =
+      AssetGenImage('assets/ic_switch_off.png');
+  static const AssetGenImage icSwitchOn =
+      AssetGenImage('assets/ic_switch_on.png');
+  static const AssetGenImage icTheme = AssetGenImage('assets/ic_theme.png');
   static const AssetGenImage icUser = AssetGenImage('assets/ic_user.png');
   static const AssetGenImage icX = AssetGenImage('assets/ic_x.png');
   static const $AssetsOnBoardingGen onBoarding = $AssetsOnBoardingGen();
 
   /// List of all assets
   static List<AssetGenImage> get values => [
+        icAboutUs,
+        icArowRight,
         icBack,
+        icCustomerService,
+        icDarkTheme,
         icEmail,
         icEyeOff,
         icFilter,
         icFourSquares,
         icHome,
+        icLanguage,
+        icLightTheme,
+        icLocation,
         icLock,
+        icLogOut,
         icManagement,
         icMenuVertical,
         icNoti,
+        icNotification,
         icPhone,
         icProfile,
         icSearch,
         icSetting,
+        icSwitchOff,
+        icSwitchOn,
+        icTheme,
         icUser,
         icX
       ];
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName);
 
   final String _assetName;
-
-  final Size? size;
-  final Set<String> flavors;
 
   Image image({
     Key? key,

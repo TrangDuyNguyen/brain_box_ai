@@ -64,51 +64,16 @@ class PromptCardWidget extends StatelessWidget {
                 ),
               ),
             ],
+
+          ),
+          Text(
+            maxLines: 5,
+            overflow: TextOverflow.ellipsis,
+            promptContent,
+            style: context.appTextStyles.labelMedium
+                .copyWith(color: context.appColors.onPrimary),
           ),
           const SizedBox(height: 12.0),
-          Column(
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                      height: 14,
-                      width: 14,
-                      child:
-                          Image.asset("lib/design/assets/icons/calender.png")),
-                  const SizedBox(width: 8.0),
-                  Expanded(
-                    child: Text(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      "09:00 AM",
-                      style: context.appTextStyles.labelMedium
-                          .copyWith(color: context.appColors.onPrimary),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                children: [
-                  SizedBox(
-                      height: 14,
-                      width: 14,
-                      child: Image.asset(
-                          "lib/design/assets/icons/clock_card.png")),
-                  const SizedBox(width: 8.0),
-                  Expanded(
-                    child: Text(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      "05:00 PM",
-                      style: context.appTextStyles.labelMedium
-                          .copyWith(color: context.appColors.onPrimary),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          )
         ],
       ),
     );
