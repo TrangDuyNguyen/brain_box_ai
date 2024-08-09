@@ -3,12 +3,15 @@ import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/app_context.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
+import 'package:brain_box_ai/providers/home/state/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
+import '../../../providers/home/home_notifier.dart';
 import '../../widgets/chip_widget.dart';
+import '../../widgets/shimmer_widget.dart';
 
 final List<String> listChip = [
   "All",
@@ -27,9 +30,21 @@ final List<String> listChip = [
   "Gastroenteritis"
 ];
 
-abstract class HomeContentCallback {}
+abstract class HomeContentCallback {
+  goViewProfile(BuildContext context);
+  goNotification(BuildContext context);
+  goSearch(BuildContext context);
+  goFiller(BuildContext context);
+  goSeeAllPromptCategory(BuildContext context);
+  goListPromptCategory(BuildContext context, String category);
+  goSeeAllTopPrompt(BuildContext context);
+  goDetailPrompt(BuildContext context);
 
-class HomeContentWidget extends HookConsumerWidget {
+  onFillerTopPromptWithCategory(BuildContext context, String category);
+}
+
+class HomeContentWidget extends HookConsumerWidget
+    implements HomeContentCallback {
   const HomeContentWidget({super.key});
 
   @override
@@ -37,7 +52,19 @@ class HomeContentWidget extends HookConsumerWidget {
     final searchController = useTextEditingController();
     final searchFocusNote = useFocusNode();
 
+    final homeState = ref.watch(homeNotifierProvider);
+    final homeNotifier = ref.read(homeNotifierProvider.notifier);
+
     final selectedChipIndex = useState(0);
+
+    useEffect(() {
+      if (homeState is HomeInitial) {
+        Future.microtask(() {
+          homeNotifier.getListTopPrompt();
+        });
+      }
+      return null;
+    }, []);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -49,7 +76,8 @@ class HomeContentWidget extends HookConsumerWidget {
             _buildHeader(context),
             _buildSearch(context, searchController, searchFocusNote),
             _buildCategory(context),
-            _buildTopPrompt(context, selectedChipIndex),
+            _buildTopPrompt(
+                context, selectedChipIndex, homeState, homeNotifier),
           ],
         ),
       ),
@@ -59,35 +87,41 @@ class HomeContentWidget extends HookConsumerWidget {
   Widget _buildHeader(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 22,
-          child: ClipOval(
-            child: Image.network(
-              "https://firebasestorage.googleapis.com/v0/b/dortor-appointment.appspot.com/o/avatars%2F1u68fKDq41UFBoRwABz4THmGYyH2%2F1000000062.jpg?alt=media&token=043a0847-3dda-4609-bd59-57aab76214be",
-              errorBuilder: (context, error, stackTrace) {
-                return CircleAvatar(
-                  radius: context.width * 0.33 / 2,
-                  backgroundImage:
-                      const AssetImage('lib/design/assets/icons/avatar.png'),
-                );
-              },
+        GestureDetector(
+          onTap: () => {goViewProfile(context)},
+          child: CircleAvatar(
+            radius: 22,
+            child: ClipOval(
+              child: Image.network(
+                "https://firebasestorage.googleapis.com/v0/b/dortor-appointment.appspot.com/o/avatars%2F1u68fKDq41UFBoRwABz4THmGYyH2%2F1000000062.jpg?alt=media&token=043a0847-3dda-4609-bd59-57aab76214be",
+                errorBuilder: (context, error, stackTrace) {
+                  return CircleAvatar(
+                    radius: context.width * 0.33 / 2,
+                    backgroundImage:
+                        const AssetImage('lib/design/assets/icons/avatar.png'),
+                  );
+                },
+              ),
             ),
+          ).paddingRightSpace(SpaceType.small),
+        ),
+        GestureDetector(
+          onTap: () => {goViewProfile(context)},
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Welcome Back,",
+                style: context.appTextStyles.titleMedium
+                    .copyWith(color: context.appColors.secondary),
+              ),
+              Text(
+                "Nguyen Duy Trang",
+                style: context.appTextStyles.titleMedium.bold
+                    .copyWith(color: context.appColors.primary),
+              ),
+            ],
           ),
-        ).paddingRightSpace(SpaceType.small),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Welcome Back,",
-              style: context.appTextStyles.titleMedium
-                  .copyWith(color: context.appColors.secondary),
-            ),
-            Text(
-              "Nguyen Duy Trang",
-              style: context.appTextStyles.titleMedium.bold
-                  .copyWith(color: context.appColors.primary),
-            ),
-          ],
         ),
         const Expanded(child: SizedBox.shrink()),
         Stack(children: [
@@ -137,6 +171,8 @@ class HomeContentWidget extends HookConsumerWidget {
             child: TextFormField(
               controller: searchController,
               focusNode: searchFocusNote,
+              enabled: false,
+              onTap: () => {goSearch(context)},
               decoration: InputDecoration(
                   hintText: "Search",
                   hintStyle: context.appTextStyles.titleMedium
@@ -156,7 +192,9 @@ class HomeContentWidget extends HookConsumerWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              goFiller(context);
+            },
             child: Assets.icFilter.image(color: context.appColors.primary),
           )
         ],
@@ -175,7 +213,9 @@ class HomeContentWidget extends HookConsumerWidget {
               style: context.appTextStyles.titleMedium.bold,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                goSeeAllPromptCategory(context);
+              },
               child: Text(
                 "SEE ALL",
                 style: context.appTextStyles.titleMedium.bold
@@ -194,26 +234,30 @@ class HomeContentWidget extends HookConsumerWidget {
               crossAxisSpacing: 16.0,
             ),
             itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor:
-                        context.appColors.secondary.withOpacity(0.1),
-                    child: Image.asset(Assets.icX.path, width: 30, height: 30),
-                  ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: Text(
-                      "Category",
-                      style: context.appTextStyles.labelSmall,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+              return GestureDetector(
+                onTap: () => {goListPromptCategory(context, "category")},
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor:
+                          context.appColors.secondary.withOpacity(0.1),
+                      child:
+                          Image.asset(Assets.icX.path, width: 30, height: 30),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Expanded(
+                      child: Text(
+                        "Category",
+                        style: context.appTextStyles.labelSmall,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
               );
             }).paddingTopSpace(SpaceType.medium),
       ],
@@ -221,7 +265,10 @@ class HomeContentWidget extends HookConsumerWidget {
   }
 
   Widget _buildTopPrompt(
-      BuildContext context, ValueNotifier<int> selectedChipIndex) {
+      BuildContext context,
+      ValueNotifier<int> selectedChipIndex,
+      HomeState homeState,
+      HomeNotifier homeNotifier) {
     return Column(
       children: [
         Row(
@@ -232,7 +279,9 @@ class HomeContentWidget extends HookConsumerWidget {
               style: context.appTextStyles.titleMedium.bold,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                goSeeAllTopPrompt(context);
+              },
               child: Text(
                 "SEE ALL",
                 style: context.appTextStyles.titleMedium.bold
@@ -246,26 +295,88 @@ class HomeContentWidget extends HookConsumerWidget {
             selectedChipIndex: selectedChipIndex.value,
             onChipSelected: (index) {
               selectedChipIndex.value = index;
+              onFillerTopPromptWithCategory(context, "category");
             }),
-        ListView.separated(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return const PromptCardWidget(
-                    title: 'Melos overview',
-                    promptContent:
-                        'Freezed là một gói giúp bạn tạo ra các lớp dữ liệu bất biến và các kiểu dữ liệu phân biệt (union/sealed classes) trong Dart.',
-                    category: '',
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                      height: 12,
-                    ),
-                itemCount: 10) //
-            .paddingTopSpace(SpaceType.medium)
-            .paddingBottomSpace(SpaceType.medium),
+        homeState is HomeLoading
+            ? const ShimmerView().paddingTopSpace(SpaceType.medium)
+            : homeState is HomeError
+                ? const SizedBox()
+                : ListView.separated(
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => {goDetailPrompt(context)},
+                            child: const PromptCardWidget(
+                              title: 'Melos overview',
+                              promptContent:
+                                  'Freezed là một gói giúp bạn tạo ra các lớp dữ liệu bất biến và các kiểu dữ liệu phân biệt (union/sealed classes) trong Dart.',
+                              category: '',
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                              height: 12,
+                            ),
+                        itemCount: 10) //
+                    .paddingTopSpace(SpaceType.medium)
+                    .paddingBottomSpace(SpaceType.medium),
       ],
     );
+  }
+
+  @override
+  goFiller(BuildContext context) {
+    // TODO: implement goFiller
+    throw UnimplementedError();
+  }
+
+  @override
+  goListPromptCategory(BuildContext context, String category) {
+    // TODO: implement goListPromptCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  goNotification(BuildContext context) {
+    // TODO: implement goNotification
+    throw UnimplementedError();
+  }
+
+  @override
+  goSearch(BuildContext context) {
+    // TODO: implement goSearch
+    throw UnimplementedError();
+  }
+
+  @override
+  goSeeAllPromptCategory(BuildContext context) {
+    // TODO: implement goSeeAllPromptCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  goViewProfile(BuildContext context) {
+    // TODO: implement goViewProfile
+    throw UnimplementedError();
+  }
+
+  @override
+  onFillerTopPromptWithCategory(BuildContext context, String category) {
+    // TODO: implement onFillerTopPromptWithCategory
+    throw UnimplementedError();
+  }
+
+  @override
+  goSeeAllTopPrompt(BuildContext context) {
+    // TODO: implement goSeeAllTopPrompt
+    throw UnimplementedError();
+  }
+
+  @override
+  goDetailPrompt(BuildContext context) {
+    // TODO: implement goDetailPrompt
+    throw UnimplementedError();
   }
 }

@@ -1,3 +1,5 @@
-class HomeRepository {
-  // TODO: implement your HomeRepository
+import '../../core/exception/result.dart';
+
+abstract class HomeRepository {
+  Future<Result> getListTopPrompt();
 }
