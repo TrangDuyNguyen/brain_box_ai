@@ -58,11 +58,6 @@ class HomeContentWidget extends HookConsumerWidget
     final selectedChipIndex = useState(0);
 
     useEffect(() {
-      if (homeState is HomeInitial) {
-        Future.microtask(() {
-          homeNotifier.getListTopPrompt();
-        });
-      }
       return null;
     }, []);
 

@@ -7,7 +7,9 @@ import 'home_provider.dart';
 class HomeNotifier extends StateNotifier<HomeState> {
   final HomeUseCase homeUseCase;
 
-  HomeNotifier(this.homeUseCase) : super(const HomeInitial());
+  HomeNotifier(this.homeUseCase) : super(const HomeInitial()) {
+    getListTopPrompt();
+  }
 
   Future<void> getListTopPrompt() async {
     state = const HomeLoading();
