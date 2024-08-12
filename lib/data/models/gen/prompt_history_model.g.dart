@@ -9,7 +9,7 @@ part of '../prompt_history_model.dart';
 _$PromptHistoryModelImpl _$$PromptHistoryModelImplFromJson(
         Map<String, dynamic> json) =>
     _$PromptHistoryModelImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
       category: json['category'] as String,

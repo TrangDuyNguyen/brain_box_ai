@@ -1,5 +1,6 @@
 import 'package:brain_box_ai/data/datasources/prompt_management_datasource.dart';
 import 'package:brain_box_ai/data/repositories/prompt_management_repository_impl.dart';
+import 'package:brain_box_ai/domain/entities/prompt_entity.dart';
 import 'package:brain_box_ai/domain/repositories/prompt_management_repository.dart';
 import 'package:brain_box_ai/providers/prompt_management/state/prompt_history_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -16,7 +17,6 @@ class PromptHistoryNotifier extends StateNotifier<PromptHistoryState> {
   Future<void> getListHistoryPrompt() async {
     state = const PromptHistoryLoading();
     await Future.delayed(const Duration(seconds: 3));
-    state = const PromptHistorySuccess();
     const params = PromptManagementParams();
     final result = await useCase.getListHistoryPrompt(params);
     result.fold(
@@ -24,7 +24,7 @@ class PromptHistoryNotifier extends StateNotifier<PromptHistoryState> {
         state = PromptHistoryError(error.toString());
       },
       (data) {
-        state = const PromptHistorySuccess();
+        state = PromptHistorySuccess(data);
       },
     );
   }

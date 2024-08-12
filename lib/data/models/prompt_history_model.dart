@@ -7,7 +7,7 @@ part 'gen/prompt_history_model.g.dart';
 @unfreezed
 class PromptHistoryModel with _$PromptHistoryModel {
   factory PromptHistoryModel({
-    required int id,
+    required String id,
     required String title,
     required String content,
     required String category,

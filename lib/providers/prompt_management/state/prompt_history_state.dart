@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/prompt_entity.dart';
+
 @immutable
 abstract class PromptHistoryState {
   const PromptHistoryState();
@@ -14,7 +16,8 @@ class PromptHistoryLoading extends PromptHistoryState {
 }
 
 class PromptHistorySuccess extends PromptHistoryState {
-  const PromptHistorySuccess();
+  final List<PromptEntity> listPrompt;
+  const PromptHistorySuccess(this.listPrompt);
 }
 
 class PromptHistoryError extends PromptHistoryState {

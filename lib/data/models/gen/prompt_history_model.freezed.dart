@@ -20,8 +20,8 @@ PromptHistoryModel _$PromptHistoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PromptHistoryModel {
-  int get id => throw _privateConstructorUsedError;
-  set id(int value) => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
@@ -44,7 +44,7 @@ abstract class $PromptHistoryModelCopyWith<$Res> {
       _$PromptHistoryModelCopyWithImpl<$Res, PromptHistoryModel>;
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String title,
       String content,
       String category,
@@ -74,7 +74,7 @@ class _$PromptHistoryModelCopyWithImpl<$Res, $Val extends PromptHistoryModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$$PromptHistoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {String id,
       String title,
       String content,
       String category,
@@ -132,7 +132,7 @@ class __$$PromptHistoryModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class _$PromptHistoryModelImpl implements _PromptHistoryModel {
       _$$PromptHistoryModelImplFromJson(json);
 
   @override
-  int id;
+  String id;
   @override
   String title;
   @override
@@ -199,7 +199,7 @@ class _$PromptHistoryModelImpl implements _PromptHistoryModel {
 
 abstract class _PromptHistoryModel implements PromptHistoryModel {
   factory _PromptHistoryModel(
-      {required int id,
+      {required String id,
       required String title,
       required String content,
       required String category,
@@ -209,8 +209,8 @@ abstract class _PromptHistoryModel implements PromptHistoryModel {
       _$PromptHistoryModelImpl.fromJson;
 
   @override
-  int get id;
-  set id(int value);
+  String get id;
+  set id(String value);
   @override
   String get title;
   set title(String value);
