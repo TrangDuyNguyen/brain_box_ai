@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/prompt_card_widget.dart';
 
-class PromptEditedWidget extends StatelessWidget {
-  const PromptEditedWidget({super.key});
+class PromptSavedWidget extends StatelessWidget {
+  const PromptSavedWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

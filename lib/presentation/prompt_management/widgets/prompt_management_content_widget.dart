@@ -1,6 +1,6 @@
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
-import 'package:brain_box_ai/presentation/prompt_management/widgets/prompt_edited_widget.dart';
+import 'package:brain_box_ai/presentation/prompt_management/widgets/prompt_saved_widget.dart';
 import 'package:brain_box_ai/presentation/prompt_management/widgets/prompt_favorite_widget.dart';
 import 'package:brain_box_ai/presentation/prompt_management/widgets/prompt_history_widget.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +70,7 @@ class PromptManagementContentWidget extends HookConsumerWidget {
               tabs: const [
                 Tab(text: 'History'),
                 Tab(text: 'Favorite'),
-                Tab(text: 'Edited'),
+                Tab(text: 'Saved'),
               ],
             ),
           ),
@@ -81,7 +81,7 @@ class PromptManagementContentWidget extends HookConsumerWidget {
           children: const [
             PromptHistoryWidget(),
             PromptFavoriteWidget(),
-            PromptEditedWidget(),
+            PromptSavedWidget(),
           ],
         ));
   }

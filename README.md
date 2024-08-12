@@ -20,3 +20,5 @@ flutter pub get
 fluttergen -c pubspec.yaml
 
 flutter gen l10n
+
+pub run build_runner build --delete-conflicting-outputs
