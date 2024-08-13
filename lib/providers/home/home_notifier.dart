@@ -14,7 +14,6 @@ class HomeNotifier extends StateNotifier<HomeState> {
   Future<void> getListTopPrompt() async {
     state = const HomeLoading();
     await Future.delayed(const Duration(seconds: 3));
-    state = const HomeSuccess();
     const params = HomeParams();
     final result = await homeUseCase.call(params);
     result.fold(
@@ -22,7 +21,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
         state = HomeError(error.toString());
       },
       (data) {
-        state = const HomeSuccess();
+        state = HomeSuccess(data);
       },
     );
   }

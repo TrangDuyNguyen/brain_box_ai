@@ -16,7 +16,6 @@ class PromptFavoriteNotifier extends StateNotifier<PromptFavoriteState> {
   Future<void> getListFavoritePrompt() async {
     state = const PromptFavoriteLoading();
     await Future.delayed(const Duration(seconds: 3));
-    state = const PromptFavoriteSuccess();
     const params = PromptManagementParams();
     final result = await useCase.getListFavoritePrompt(params);
     result.fold(
@@ -24,7 +23,7 @@ class PromptFavoriteNotifier extends StateNotifier<PromptFavoriteState> {
         state = PromptFavoriteError(error.toString());
       },
           (data) {
-        state = const PromptFavoriteSuccess();
+        state = PromptFavoriteSuccess(data);
       },
     );
   }

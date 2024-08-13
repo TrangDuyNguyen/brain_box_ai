@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../providers/prompt_management/state/prompt_history_state.dart';
+import '../../widgets/empty_widget.dart';
 import '../../widgets/prompt_card_widget.dart';
 import '../../widgets/shimmer_widget.dart';
 
@@ -18,23 +19,26 @@ class PromptHistoryWidget extends HookConsumerWidget {
     return historyState is PromptHistoryLoading
         ? const ShimmerView().paddingTopSpace(SpaceType.medium)
         : historyState is PromptHistorySuccess
-            ? ListView.separated(
-                padding: const EdgeInsets.all(16.0),
-                itemCount: historyState.listPrompt.length,
-                separatorBuilder: (context, index) =>
-                    const SizedBox(height: 12),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: const PromptCardWidget(
-                      title: 'Melos overview',
-                      promptContent:
-                          'Freezed là một gói giúp bạn tạo ra các lớp dữ liệu bất biến và các kiểu dữ liệu phân biệt (union/sealed classes) trong Dart.',
-                      category: '',
-                    ),
-                  );
+            ? RefreshIndicator(
+                onRefresh: () {
+                  return historyNotifier.getListHistoryPrompt();
                 },
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(16.0),
+                  itemCount: historyState.listPrompt.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    var prompt = historyState.listPrompt[index];
+                    return GestureDetector(
+                      onTap: () {},
+                      child: PromptCardWidget(
+                        promptEntity: prompt,
+                      ),
+                    );
+                  },
+                ),
               )
-            : const SizedBox();
+            : const EmptyWidget();
   }
 }

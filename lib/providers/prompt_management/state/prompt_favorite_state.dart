@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/entities/prompt_entity.dart';
+
 @immutable
 abstract class PromptFavoriteState {
   const PromptFavoriteState();
@@ -14,7 +16,8 @@ class PromptFavoriteLoading extends PromptFavoriteState {
 }
 
 class PromptFavoriteSuccess extends PromptFavoriteState {
-  const PromptFavoriteSuccess();
+  final List<PromptEntity> listPrompt;
+  const PromptFavoriteSuccess(this.listPrompt);
 }
 
 class PromptFavoriteError extends PromptFavoriteState {

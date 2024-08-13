@@ -294,20 +294,16 @@ class HomeContentWidget extends HookConsumerWidget
             }),
         homeState is HomeLoading
             ? const ShimmerView().paddingTopSpace(SpaceType.medium)
-            : homeState is HomeError
-                ? const SizedBox()
-                : ListView.separated(
+            : homeState is HomeSuccess
+                ? ListView.separated(
                         scrollDirection: Axis.vertical,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () => {goDetailPrompt(context)},
-                            child: const PromptCardWidget(
-                              title: 'Melos overview',
-                              promptContent:
-                                  'Freezed là một gói giúp bạn tạo ra các lớp dữ liệu bất biến và các kiểu dữ liệu phân biệt (union/sealed classes) trong Dart.',
-                              category: '',
+                            child: PromptCardWidget(
+                              promptEntity: homeState.listPrompt[index],
                             ),
                           );
                         },
@@ -316,7 +312,8 @@ class HomeContentWidget extends HookConsumerWidget
                             ),
                         itemCount: 10) //
                     .paddingTopSpace(SpaceType.medium)
-                    .paddingBottomSpace(SpaceType.medium),
+                    .paddingBottomSpace(SpaceType.medium)
+                : const SizedBox(),
       ],
     );
   }

@@ -10,25 +10,14 @@ class PromptManagementRepositoryImpl implements PromptManagementRepository {
   PromptManagementRepositoryImpl(this.dataSource);
 
   @override
-  Future<Result> getListFavoritePrompt() async {
+  Future<Result<List<PromptEntity>>> getListFavoritePrompt() async {
     try {
-      final response = await dataSource.getListFavoritePrompt();
-      // Xử lý response và trả về kết quả
-      return Result.success(response);
-    } on Exception catch (e) {
-      return Result.errors(e);
-    }
-  }
-
-  @override
-  Future<Result<List<PromptEntity>>> getListHistoryPrompt() async {
-    try {
-      final result = await dataSource.getListHistoryPrompt();
+      final result = await dataSource.getListFavoritePrompt();
 
       if (result.isSuccess) {
-        final promptHistoryModels = result.data ?? [];
+        final promptFavoriteModels = result.data ?? [];
         final promptEntities =
-        promptHistoryModels.map((model) => model.toEntity()).toList();
+            promptFavoriteModels.map((model) => model.toEntity()).toList();
 
         return Result.success(promptEntities);
       } else {
@@ -40,11 +29,37 @@ class PromptManagementRepositoryImpl implements PromptManagementRepository {
   }
 
   @override
-  Future<Result> getListSavedPrompt() async {
+  Future<Result<List<PromptEntity>>> getListHistoryPrompt() async {
     try {
-      final response = await dataSource.getListSavedPrompt();
-      // Xử lý response và trả về kết quả
-      return Result.success(response);
+      final result = await dataSource.getListHistoryPrompt();
+      if (result.isSuccess) {
+        final promptHistoryModels = result.data ?? [];
+        final promptEntities =
+            promptHistoryModels.map((model) => model.toEntity()).toList();
+
+        return Result.success(promptEntities);
+      } else {
+        return Result.errors(result.getError()!);
+      }
+    } on Exception catch (e) {
+      return Result.errors(e);
+    }
+  }
+
+  @override
+  Future<Result<List<PromptEntity>>> getListSavedPrompt() async {
+    try {
+      final result = await dataSource.getListSavedPrompt();
+
+      if (result.isSuccess) {
+        final promptSavedModels = result.data ?? [];
+        final promptEntities =
+            promptSavedModels.map((model) => model.toEntity()).toList();
+
+        return Result.success(promptEntities);
+      } else {
+        return Result.errors(result.getError()!);
+      }
     } on Exception catch (e) {
       return Result.errors(e);
     }

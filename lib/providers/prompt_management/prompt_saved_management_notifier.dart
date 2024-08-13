@@ -16,15 +16,14 @@ class PromptSavedNotifier extends StateNotifier<PromptSavedState> {
   Future<void> getListSavedPrompt() async {
     state = const PromptSavedLoading();
     await Future.delayed(const Duration(seconds: 3));
-    state = const PromptSavedSuccess();
     const params = PromptManagementParams();
     final result = await useCase.getListSavedPrompt(params);
     result.fold(
-          (error) {
+      (error) {
         state = PromptSavedError(error.toString());
       },
-          (data) {
-        state = const PromptSavedSuccess();
+      (data) {
+        state = PromptSavedSuccess(data);
       },
     );
   }
@@ -32,13 +31,13 @@ class PromptSavedNotifier extends StateNotifier<PromptSavedState> {
 
 // DataSource Provider
 final promptSavedDataSourceProvider =
-Provider<PromptManagementDataSource>((ref) {
+    Provider<PromptManagementDataSource>((ref) {
   return PromptManagementDataSourceImpl();
 });
 
 // Repository Provider
 final promptSavedRepositoryProvider =
-Provider<PromptManagementRepository>((ref) {
+    Provider<PromptManagementRepository>((ref) {
   final dataSource = ref.read(promptSavedDataSourceProvider);
   return PromptManagementRepositoryImpl(dataSource);
 });
@@ -50,7 +49,7 @@ final promptSavedUseCaseProvider = Provider<PromptManagementUseCase>((ref) {
 });
 
 final promptSavedNotifierProvider =
-StateNotifierProvider<PromptSavedNotifier, PromptSavedState>((ref) {
+    StateNotifierProvider<PromptSavedNotifier, PromptSavedState>((ref) {
   final useCase = ref.read(promptSavedUseCaseProvider);
   return PromptSavedNotifier(useCase);
 });

@@ -3,6 +3,9 @@ class PromptEntity {
   final String title;
   final String content;
   final String category;
+  final bool like;
+  final bool save;
+  final double rate;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -11,6 +14,9 @@ class PromptEntity {
     required this.title,
     required this.content,
     required this.category,
+    required this.like,
+    required this.rate,
+    required this.save,
     required this.createdAt,
     required this.updatedAt,
   });

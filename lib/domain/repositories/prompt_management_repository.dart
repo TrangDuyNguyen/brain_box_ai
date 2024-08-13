@@ -5,6 +5,6 @@ import '../../core/exception/result.dart';
 abstract class PromptManagementRepository {
   // TODO: implement your PromptManagementRepository
   Future<Result<List<PromptEntity>>> getListHistoryPrompt();
-  Future<Result> getListFavoritePrompt();
-  Future<Result> getListSavedPrompt();
+  Future<Result<List<PromptEntity>>> getListFavoritePrompt();
+  Future<Result<List<PromptEntity>>> getListSavedPrompt();
 }

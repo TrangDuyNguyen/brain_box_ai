@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../domain/entities/prompt_entity.dart';
+
 @immutable
 abstract class HomeState {
   const HomeState();
@@ -14,7 +16,8 @@ class HomeLoading extends HomeState {
 }
 
 class HomeSuccess extends HomeState {
-  const HomeSuccess();
+  final List<PromptEntity> listPrompt;
+  const HomeSuccess(this.listPrompt);
 }
 
 class HomeError extends HomeState {

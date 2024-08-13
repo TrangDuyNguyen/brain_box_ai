@@ -77,10 +77,17 @@ class Assets {
   static const AssetGenImage icDarkTheme =
       AssetGenImage('assets/ic_dark_theme.png');
   static const AssetGenImage icEmail = AssetGenImage('assets/ic_email.png');
+  static const AssetGenImage icEmpty = AssetGenImage('assets/ic_empty.png');
+  static const AssetGenImage icEmptyBox =
+      AssetGenImage('assets/ic_empty_box.png');
   static const AssetGenImage icEyeOff = AssetGenImage('assets/ic_eye_off.png');
   static const AssetGenImage icFilter = AssetGenImage('assets/ic_filter.png');
   static const AssetGenImage icFourSquares =
       AssetGenImage('assets/ic_four_squares.png');
+  static const AssetGenImage icHeartFill =
+      AssetGenImage('assets/ic_heart_fill.png');
+  static const AssetGenImage icHeartOff =
+      AssetGenImage('assets/ic_heart_off.png');
   static const AssetGenImage icHome = AssetGenImage('assets/ic_home.png');
   static const AssetGenImage icLanguage =
       AssetGenImage('assets/ic_language.png');
@@ -99,6 +106,9 @@ class Assets {
       AssetGenImage('assets/ic_notification.png');
   static const AssetGenImage icPhone = AssetGenImage('assets/ic_phone.png');
   static const AssetGenImage icProfile = AssetGenImage('assets/ic_profile.png');
+  static const AssetGenImage icRatingStar =
+      AssetGenImage('assets/ic_rating_star.png');
+  static const AssetGenImage icSave = AssetGenImage('assets/ic_save.png');
   static const AssetGenImage icSearch = AssetGenImage('assets/ic_search.png');
   static const AssetGenImage icSetting = AssetGenImage('assets/ic_setting.png');
   static const AssetGenImage icSwitchOff =
@@ -118,9 +128,13 @@ class Assets {
         icCustomerService,
         icDarkTheme,
         icEmail,
+        icEmpty,
+        icEmptyBox,
         icEyeOff,
         icFilter,
         icFourSquares,
+        icHeartFill,
+        icHeartOff,
         icHome,
         icLanguage,
         icLightTheme,
@@ -133,6 +147,8 @@ class Assets {
         icNotification,
         icPhone,
         icProfile,
+        icRatingStar,
+        icSave,
         icSearch,
         icSetting,
         icSwitchOff,
