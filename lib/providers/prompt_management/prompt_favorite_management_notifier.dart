@@ -19,10 +19,10 @@ class PromptFavoriteNotifier extends StateNotifier<PromptFavoriteState> {
     const params = PromptManagementParams();
     final result = await useCase.getListFavoritePrompt(params);
     result.fold(
-          (error) {
+      (error) {
         state = PromptFavoriteError(error.toString());
       },
-          (data) {
+      (data) {
         state = PromptFavoriteSuccess(data);
       },
     );
@@ -31,13 +31,13 @@ class PromptFavoriteNotifier extends StateNotifier<PromptFavoriteState> {
 
 // DataSource Provider
 final promptFavoriteDataSourceProvider =
-Provider<PromptManagementDataSource>((ref) {
+    Provider<PromptManagementDataSource>((ref) {
   return PromptManagementDataSourceImpl();
 });
 
 // Repository Provider
 final promptFavoriteRepositoryProvider =
-Provider<PromptManagementRepository>((ref) {
+    Provider<PromptManagementRepository>((ref) {
   final dataSource = ref.read(promptFavoriteDataSourceProvider);
   return PromptManagementRepositoryImpl(dataSource);
 });
@@ -49,7 +49,7 @@ final promptFavoriteUseCaseProvider = Provider<PromptManagementUseCase>((ref) {
 });
 
 final promptFavoriteNotifierProvider =
-StateNotifierProvider<PromptFavoriteNotifier, PromptFavoriteState>((ref) {
+    StateNotifierProvider<PromptFavoriteNotifier, PromptFavoriteState>((ref) {
   final useCase = ref.read(promptFavoriteUseCaseProvider);
   return PromptFavoriteNotifier(useCase);
 });
