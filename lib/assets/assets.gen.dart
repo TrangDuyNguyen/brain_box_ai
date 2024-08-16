@@ -82,6 +82,9 @@ class Assets {
       AssetGenImage('assets/ic_empty_box.png');
   static const AssetGenImage icEyeOff = AssetGenImage('assets/ic_eye_off.png');
   static const AssetGenImage icFilter = AssetGenImage('assets/ic_filter.png');
+  static const AssetGenImage icFlagUsa =
+      AssetGenImage('assets/ic_flag_usa.png');
+  static const AssetGenImage icFlagVn = AssetGenImage('assets/ic_flag_vn.png');
   static const AssetGenImage icFourSquares =
       AssetGenImage('assets/ic_four_squares.png');
   static const AssetGenImage icHeartFill =
@@ -116,6 +119,7 @@ class Assets {
   static const AssetGenImage icSwitchOn =
       AssetGenImage('assets/ic_switch_on.png');
   static const AssetGenImage icTheme = AssetGenImage('assets/ic_theme.png');
+  static const AssetGenImage icTick = AssetGenImage('assets/ic_tick.png');
   static const AssetGenImage icUser = AssetGenImage('assets/ic_user.png');
   static const AssetGenImage icX = AssetGenImage('assets/ic_x.png');
   static const $AssetsOnBoardingGen onBoarding = $AssetsOnBoardingGen();
@@ -132,6 +136,8 @@ class Assets {
         icEmptyBox,
         icEyeOff,
         icFilter,
+        icFlagUsa,
+        icFlagVn,
         icFourSquares,
         icHeartFill,
         icHeartOff,
@@ -154,6 +160,7 @@ class Assets {
         icSwitchOff,
         icSwitchOn,
         icTheme,
+        icTick,
         icUser,
         icX
       ];

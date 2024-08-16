@@ -20,7 +20,8 @@ abstract class ProfileSettingContentCallback {
   onLogOut(BuildContext context);
 
   goProfile();
-  goLanguage();
+  goLanguage(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier);
   goCountry();
   goAboutUs();
   goCustomerService();
@@ -138,65 +139,66 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             "Settings",
             style: context.appTextStyles.titleMedium.bold,
           ),
-          Row(
-            children: [
-              Image.asset(Assets.icLanguage.path),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  "Languages",
-                  style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
+          GestureDetector(
+            onTap: () =>
+                {goLanguage(context, appSettingState, appSettingNotifier)},
+            child: Row(
+              children: [
+                Image.asset(Assets.icLanguage.path),
+                const SizedBox(
+                  width: 10,
                 ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: ClipOval(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Image.asset(
-                      Assets.icArowRight.path,
-                      color: context.appColors.primary,
-                    ),
+                Expanded(
+                  child: Text(
+                    "Languages",
+                    style: context.appTextStyles.labelMedium
+                        .copyWith(color: context.appColors.secondary),
                   ),
                 ),
-              ),
-            ],
-          ).paddingTopSpace(SpaceType.medium),
-          Row(
-            children: [
-              Image.asset(
-                Assets.icLocation.path,
-                color: context.appColors.primary,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  "Country",
-                  style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: ClipOval(
-                  child: SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: Image.asset(
-                      Assets.icArowRight.path,
-                      color: context.appColors.primary,
-                    ),
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Image.asset(
+                    appSettingState.languageCode == "vi"
+                        ? Assets.icFlagVn.path
+                        : Assets.icFlagUsa.path,
+                    //color: context.appColors.primary,
                   ),
                 ),
-              ),
-            ],
-          ).paddingTopSpace(SpaceType.medium),
+              ],
+            ).paddingTopSpace(SpaceType.medium),
+          ),
+          // Row(
+          //   children: [
+          //     Image.asset(
+          //       Assets.icLocation.path,
+          //       color: context.appColors.primary,
+          //     ),
+          //     const SizedBox(
+          //       width: 10,
+          //     ),
+          //     Expanded(
+          //       child: Text(
+          //         "Country",
+          //         style: context.appTextStyles.labelMedium
+          //             .copyWith(color: context.appColors.secondary),
+          //       ),
+          //     ),
+          //     InkWell(
+          //       onTap: () {},
+          //       child: ClipOval(
+          //         child: SizedBox(
+          //           width: 24,
+          //           height: 24,
+          //           child: Image.asset(
+          //             Assets.icArowRight.path,
+          //             color: context.appColors.primary,
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ).paddingTopSpace(SpaceType.medium),
           GestureDetector(
             onTap: () {
               onChangeTheme(context, appSettingState, appSettingNotifier);
@@ -423,9 +425,66 @@ class ProfileSettingContentWidget extends HookConsumerWidget
   }
 
   @override
-  goLanguage() {
-    // TODO: implement goLanguage
-    throw UnimplementedError();
+  goLanguage(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier) {
+    CustomBottomSheet.showBottomSheet(
+      context: context,
+      title: 'Language',
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20),
+            child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 2,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final languageCode = index == 0 ? "vi" : "en";
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: GestureDetector(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Image.asset(
+                            index == 0
+                                ? Assets.icFlagVn.path
+                                : Assets.icFlagUsa.path,
+                            //color: context.appColors.primary,
+                          ),
+                        ),
+                        Text(
+                          index == 0 ? "Tiếng Việt" : "English",
+                          style: context.appTextStyles.labelLarge,
+                        ).paddingLeftSpace(SpaceType.small),
+                        Visibility(
+                          visible: appSettingState.languageCode == languageCode,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Assets.icTick.image(width: 24, height: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      final code = languageCode;
+                      appSettingNotifier.setLanguage(code);
+                      context.pop();
+                    },
+                  ),
+                );
+              },
+            )),
+      ),
+      scrollable: false,
+      initialChildSize: 0.6,
+      minChildSize: 0.5,
+      maxChildSize: 0.8,
+      isCustomSizeWithKeyBoard: true,
+    );
   }
 
   @override
