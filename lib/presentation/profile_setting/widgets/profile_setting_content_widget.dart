@@ -2,18 +2,21 @@ import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
+import 'package:brain_box_ai/domain/entities/setting/app_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
+import '../../../providers/setting/setting_notifier.dart';
 import '../../widgets/bottom_sheet.dart';
 
 abstract class ProfileSettingContentCallback {
-  onChangeTheme(BuildContext context, ValueNotifier<bool> isLightTheme);
-  onChangeNotification(
-      BuildContext context, ValueNotifier<bool> isNotification);
+  onChangeTheme(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier);
+  onChangeNotification(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier);
   onLogOut(BuildContext context);
 
   goProfile();
@@ -29,8 +32,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var isNotification = useState(true);
-    var isLightTheme = useState(true);
+    final appSettingState = ref.watch(settingNotifierProvider);
+    final appSettingNotifier = ref.read(settingNotifierProvider.notifier);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -38,8 +41,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         children: [
           _buildAvatar(context),
           _buildName(context),
-          _buildSetting(context, isLightTheme),
-          _buildNotification(context, isNotification),
+          _buildSetting(context, appSettingState, appSettingNotifier),
+          _buildNotification(context, appSettingState, appSettingNotifier),
           _buildOtherSetting(context),
         ],
       ),
@@ -96,11 +99,9 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         ElevatedButton(
           onPressed: () {
             // Xử lý sự kiện đặt lại
-
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor:
-            context.appColors.primary, // Màu nền của nút
+            backgroundColor: context.appColors.primary, // Màu nền của nút
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -115,7 +116,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     );
   }
 
-  Widget _buildSetting(BuildContext context, ValueNotifier<bool> isLightTheme) {
+  Widget _buildSetting(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -197,7 +199,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
           ).paddingTopSpace(SpaceType.medium),
           GestureDetector(
             onTap: () {
-              onChangeTheme(context, isLightTheme);
+              onChangeTheme(context, appSettingState, appSettingNotifier);
             },
             child: Row(
               children: [
@@ -219,7 +221,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                   width: 24,
                   height: 24,
                   fit: BoxFit.fill,
-                  isLightTheme.value
+                  appSettingState.theme == 'light'
                       ? Assets.icLightTheme.path
                       : Assets.icDarkTheme.path,
                 ),
@@ -232,7 +234,10 @@ class ProfileSettingContentWidget extends HookConsumerWidget
   }
 
   Widget _buildNotification(
-      BuildContext context, ValueNotifier<bool> isNotification) {
+    BuildContext context,
+    AppSetting appSettingState,
+    SettingNotifier appSettingNotifier,
+  ) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -271,13 +276,14 @@ class ProfileSettingContentWidget extends HookConsumerWidget
               ),
               GestureDetector(
                 onTap: () {
-                  onChangeNotification(context, isNotification);
+                  onChangeNotification(
+                      context, appSettingState, appSettingNotifier);
                 },
                 child: Image.asset(
                   width: 36,
                   height: 36,
                   fit: BoxFit.fill,
-                  isNotification.value
+                  !appSettingState.notificationEnabled
                       ? Assets.icSwitchOff.path
                       : Assets.icSwitchOn.path,
                 ),
@@ -429,13 +435,14 @@ class ProfileSettingContentWidget extends HookConsumerWidget
   }
 
   @override
-  onChangeNotification(
-      BuildContext context, ValueNotifier<bool> isNotification) {
-    isNotification.value = !isNotification.value;
+  onChangeNotification(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier) {
+    appSettingNotifier.toggleNotification(!appSettingState.notificationEnabled);
   }
 
   @override
-  onChangeTheme(BuildContext context, ValueNotifier<bool> isLightTheme) {
+  onChangeTheme(BuildContext context, AppSetting appSettingState,
+      SettingNotifier appSettingNotifier) {
     CustomBottomSheet.showBottomSheet(
       context: context,
       title: 'Theme',
@@ -460,13 +467,10 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                         ),
                       ],
                     ),
-                    onTap: () => {
-                      // Change state topic
-                      if (index == 0)
-                        {isLightTheme.value = true}
-                      else
-                        {isLightTheme.value = false},
-                      context.pop()
+                    onTap: () {
+                      final newTheme = index == 0 ? "light" : "dark";
+                      appSettingNotifier.setUpdateTheme(newTheme);
+                      context.pop();
                     },
                   ),
                 );

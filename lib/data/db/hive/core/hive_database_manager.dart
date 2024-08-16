@@ -5,7 +5,6 @@ import '../../../../core/utility/file/file_operator.dart';
 import '../../../models/setting_model.dart';
 import '../../../models/user_session_model.dart';
 
-
 abstract class IDatabaseManager {
   Future<void> start();
 
@@ -36,7 +35,6 @@ class HiveDatabaseManager implements IDatabaseManager {
     await Hive.initFlutter(subPath);
   }
 
-  /// Register your generic model or make your operation before start
   void initialOperation() {
     Hive.registerAdapter(SettingModelAdapter());
     Hive.registerAdapter(UserSessionModelAdapter());

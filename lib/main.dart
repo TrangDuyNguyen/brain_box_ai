@@ -33,8 +33,8 @@ class App extends HookConsumerWidget {
       title: AppConfig.instance.appName,
       locale: const Locale("en"),
       theme: appSetting.theme == 'light'
-          ? ref.read(appThemeProvider).lightTheme
-          : ref.read(appThemeProvider).darkTheme,
+          ? appTheme.lightTheme
+          : appTheme.darkTheme,
       localizationsDelegates: AppStr.localizationsDelegates,
       supportedLocales: AppStr.supportedLocales,
       routeInformationParser: router.routeInformationParser,
