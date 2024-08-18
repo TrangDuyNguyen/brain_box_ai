@@ -9,14 +9,16 @@ class AppTheme {
     // TODO: add light theme here
     return ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
-        colorScheme: flexSchemeLight);
+        colorScheme: lightGentleScheme);
   }
 
   /// for getting dark theme
   ThemeData get darkTheme {
     // TODO: add dark theme here
     return ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(), colorScheme: flexSchemeDark);
+      textTheme: GoogleFonts.poppinsTextTheme(),
+      colorScheme: darkGentleScheme,
+    );
   }
 }
 
