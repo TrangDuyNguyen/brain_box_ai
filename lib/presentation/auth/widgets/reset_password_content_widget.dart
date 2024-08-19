@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
+import '../../../core/router/router_path.dart';
 import '../../../providers/auth/reset_notifier.dart';
 
 abstract class ResetPasswordCallBack {
@@ -29,7 +30,7 @@ class ResetPasswordContentWidget extends HookConsumerWidget
   @override
   onReset(BuildContext context) {
     // TODO: implement onReset
-    throw UnimplementedError();
+    context.pushReplacement(RouterPath.authPage.getPath);
   }
 
   @override
@@ -83,7 +84,7 @@ class ResetPasswordContentWidget extends HookConsumerWidget
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               offset: const Offset(0, 5),
-              color: context.appColors.outlineVariant.withOpacity(0.5),
+              color: context.appColors.outline.withOpacity(0.5),
               blurRadius: 10,
             )
           ]),
@@ -92,12 +93,13 @@ class ResetPasswordContentWidget extends HookConsumerWidget
               goBack(context);
             },
             style: ElevatedButton.styleFrom(
+              backgroundColor: context.appColors.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(16),
             ),
-            child: Assets.icBack.image(),
+            child: Assets.icBack.image(color: context.appColors.onSurface),
           ),
         ),
       ],
@@ -109,7 +111,8 @@ class ResetPasswordContentWidget extends HookConsumerWidget
   Widget _buildTitle(BuildContext context) {
     return Text(
       "Rest Your \nPassword",
-      style: context.appTextStyles.displaySmall.bold,
+      style: context.appTextStyles.displaySmall.bold
+          .copyWith(color: context.appColors.onSurface),
     )
         .paddingHorizontalSpace(SpaceType.medium)
         .paddingBottomSpace(SpaceType.extraLarge);
@@ -128,33 +131,37 @@ class ResetPasswordContentWidget extends HookConsumerWidget
           children: [
             Container(
               decoration: BoxDecoration(
-                color: context.appColors.onPrimary,
-                borderRadius: BorderRadius.circular(12),
+                color: context.appColors.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(4),
               ),
-              height: 60,
+              height: 56,
               child: TextFormField(
                 controller: passwordTextFieldController,
-                obscureText: obscurePass.value,
                 decoration: InputDecoration(
                     icon: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Assets.icLock.image(),
+                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+                      child: Assets.icLock.image(
+                          width: 24,
+                          height: 24,
+                          color: context.appColors.onSurface.withOpacity(0.6)),
                     ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(4),
                     ),
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                     hintText: "Password",
-                    hintStyle: TextStyle(
-                      color: context.appColors.secondary.withOpacity(0.4),
-                      fontSize: 14,
-                    ),
+                    hintStyle: context.appTextStyles.labelMedium.copyWith(
+                        color: context.appColors.onSurface.withOpacity(0.6)),
+                    labelStyle: context.appTextStyles.labelMedium
+                        .copyWith(color: context.appColors.onSurface),
                     suffixIcon: IconButton(
                       icon: Icon(
                           obscurePass.value
                               ? Icons.visibility_off
                               : Icons.visibility,
-                          color: context.appColors.secondary.withOpacity(0.4)),
+                          color: context.appColors.onSurface.withOpacity(0.6)),
                       onPressed: () {
                         obscurePass.value = !obscurePass.value;
                       },
@@ -165,33 +172,37 @@ class ResetPasswordContentWidget extends HookConsumerWidget
                 .paddingBottomSpace(SpaceType.medium),
             Container(
               decoration: BoxDecoration(
-                color: context.appColors.onPrimary,
-                borderRadius: BorderRadius.circular(12),
+                color: context.appColors.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(4),
               ),
-              height: 60,
+              height: 56,
               child: TextFormField(
                 controller: rePasswordTextFieldController,
-                obscureText: obscureRePass.value,
                 decoration: InputDecoration(
                     icon: Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Assets.icLock.image(),
+                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+                      child: Assets.icLock.image(
+                          width: 24,
+                          height: 24,
+                          color: context.appColors.onSurface.withOpacity(0.6)),
                     ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(4),
                     ),
-                    hintText: "Re password",
-                    hintStyle: TextStyle(
-                      color: context.appColors.secondary.withOpacity(0.4),
-                      fontSize: 14,
-                    ),
+                    contentPadding:
+                        const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                    hintText: "Re Password",
+                    hintStyle: context.appTextStyles.labelMedium.copyWith(
+                        color: context.appColors.onSurface.withOpacity(0.6)),
+                    labelStyle: context.appTextStyles.labelMedium
+                        .copyWith(color: context.appColors.onSurface),
                     suffixIcon: IconButton(
                       icon: Icon(
-                          obscureRePass.value
+                          obscurePass.value
                               ? Icons.visibility_off
                               : Icons.visibility,
-                          color: context.appColors.secondary.withOpacity(0.4)),
+                          color: context.appColors.onSurface.withOpacity(0.6)),
                       onPressed: () {
                         obscureRePass.value = !obscureRePass.value;
                       },
@@ -229,26 +240,29 @@ class ResetPasswordContentWidget extends HookConsumerWidget
       ResetNotifier resetNotifier,
       TextEditingController passwordTextFieldController,
       TextEditingController rePasswordTextFieldController) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: () {
         if (_mFormKey.currentState!.validate()) {
           resetNotifier.resetPassword(rePasswordTextFieldController.text);
         }
       },
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.onSurface,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.tertiary, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize:
+            const Size(double.infinity, 60), // Chiều rộng max và chiều cao 60
+        backgroundColor: context.appColors.primary,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.primary, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
         "Reset",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.surface),
+            .copyWith(color: context.appColors.onPrimary),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)
-        .paddingBottomSpace(SpaceType.medium);
+        .paddingTopSpace(SpaceType.medium);
   }
 }

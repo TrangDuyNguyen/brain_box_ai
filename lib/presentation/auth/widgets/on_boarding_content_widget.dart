@@ -71,8 +71,10 @@ class OnBoardingContentWidget extends HookConsumerWidget {
                       height: currentPage.value == index ? 24.0 : 8.0,
                       width: currentPage.value == index ? 24.0 : 8.0,
                       child: currentPage.value == index
-                          ? Assets.onBoarding.icDotSlide.image()
-                          : Assets.onBoarding.icDot.image(),
+                          ? Assets.onBoarding.icDotSlide
+                              .image(color: context.appColors.onSurface)
+                          : Assets.onBoarding.icDot
+                              .image(color: context.appColors.onSurface),
                     );
                   }),
                 ),
@@ -80,14 +82,15 @@ class OnBoardingContentWidget extends HookConsumerWidget {
                 Text(
                   onboardingData[currentPage.value]["title"]!,
                   textAlign: TextAlign.center,
-                  style: context.appTextStyles.titleLarge.bold,
+                  style: context.appTextStyles.titleLarge.bold
+                      .copyWith(color: context.appColors.onSurface),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   onboardingData[currentPage.value]["subtitle"]!,
                   textAlign: TextAlign.center,
-                  style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
+                  style: context.appTextStyles.labelMedium.copyWith(
+                      color: context.appColors.onSurface.withOpacity(0.6)),
                 ),
                 const Spacer(),
                 Padding(

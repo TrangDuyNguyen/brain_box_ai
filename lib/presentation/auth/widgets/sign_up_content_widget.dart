@@ -78,6 +78,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
     });
 
     return Scaffold(
+      backgroundColor: context.appColors.surface,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -101,7 +102,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
                 emailTextFieldController,
                 passwordTextFieldController),
             _buildLoginTextButton(context),
-            _buildDivider(),
+            _buildDivider(context),
             _buildSocialButtons(context),
           ],
         ),
@@ -118,7 +119,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               offset: const Offset(0, 5),
-              color: context.appColors.outlineVariant.withOpacity(0.5),
+              color: context.appColors.outline.withOpacity(0.5),
               blurRadius: 10,
             )
           ]),
@@ -127,12 +128,13 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
               goBack(context);
             },
             style: ElevatedButton.styleFrom(
+              backgroundColor: context.appColors.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(16),
             ),
-            child: Assets.icBack.image(),
+            child: Assets.icBack.image(color: context.appColors.onSurface),
           ),
         ),
       ],
@@ -144,7 +146,8 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
   Widget _buildTitle(BuildContext context) {
     return Text(
       "Create your \nAccount",
-      style: context.appTextStyles.displaySmall.bold,
+      style: context.appTextStyles.displaySmall.bold
+          .copyWith(color: context.appColors.onSurface),
     )
         .paddingHorizontalSpace(SpaceType.medium)
         .paddingBottomSpace(SpaceType.extraLarge);
@@ -176,27 +179,31 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       TextEditingController controller, SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
-        color: context.appColors.onPrimary,
-        borderRadius: BorderRadius.circular(12),
+        color: context.appColors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(4),
       ),
-      height: 60,
+      height: 56,
       child: TextFormField(
         controller: controller,
-        onChanged: (value) => signUpFormNotifier.updateFullName(value),
         decoration: InputDecoration(
           icon: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Assets.icUser.image(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+            child: Assets.icUser.image(
+                width: 24,
+                height: 24,
+                color: context.appColors.onSurface.withOpacity(0.6)),
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(4),
           ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
           hintText: "Full Name",
-          hintStyle: TextStyle(
-            color: context.appColors.secondary.withOpacity(0.4),
-            fontSize: 14,
-          ),
+          hintStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+          labelStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface),
         ),
       ),
     )
@@ -208,27 +215,31 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       TextEditingController controller, SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
-        color: context.appColors.onPrimary,
-        borderRadius: BorderRadius.circular(12),
+        color: context.appColors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(4),
       ),
-      height: 60,
+      height: 56,
       child: TextFormField(
         controller: controller,
-        onChanged: (value) => signUpFormNotifier.updateEmail(value),
         decoration: InputDecoration(
           icon: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Assets.icEmail.image(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+            child: Assets.icEmail.image(
+                width: 24,
+                height: 24,
+                color: context.appColors.onSurface.withOpacity(0.6)),
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(4),
           ),
-          hintText: "Enter Your Email",
-          hintStyle: TextStyle(
-            color: context.appColors.secondary.withOpacity(0.4),
-            fontSize: 14,
-          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+          hintText: "Email",
+          hintStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+          labelStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface),
         ),
       ),
     )
@@ -243,30 +254,32 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       SignUpFormNotifier signUpFormNotifier) {
     return Container(
       decoration: BoxDecoration(
-        color: context.appColors.onPrimary,
-        borderRadius: BorderRadius.circular(12),
+        color: context.appColors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(4),
       ),
-      height: 60,
+      height: 56,
       child: TextFormField(
         controller: controller,
-        onChanged: (value) => signUpFormNotifier.updatePassword(value),
-        obscureText: obscureText.value,
         decoration: InputDecoration(
-          icon: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Assets.icLock.image(),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          hintText: "Password",
-          hintStyle: TextStyle(
-            color: context.appColors.secondary.withOpacity(0.4),
-            fontSize: 14,
-          ),
-          suffixIcon: _obscureTextIcon(context, obscureText),
-        ),
+            icon: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+              child: Assets.icLock.image(
+                  width: 24,
+                  height: 24,
+                  color: context.appColors.onSurface.withOpacity(0.6)),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+            hintText: "Password",
+            hintStyle: context.appTextStyles.labelMedium
+                .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+            labelStyle: context.appTextStyles.labelMedium
+                .copyWith(color: context.appColors.onSurface),
+            suffixIcon: _obscureTextIcon(context, obscureText)),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)
@@ -277,7 +290,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       BuildContext context, ValueNotifier<bool> isShowPassword) {
     return IconButton(
       icon: Icon(isShowPassword.value ? Icons.visibility_off : Icons.visibility,
-          color: context.appColors.secondary.withOpacity(0.4)),
+          color: context.appColors.onSurface.withOpacity(0.6)),
       onPressed: () {
         isShowPassword.value = !isShowPassword.value;
       },
@@ -310,7 +323,7 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
       TextEditingController fullNameTextFieldController,
       TextEditingController emailTextFieldController,
       TextEditingController passwordTextFieldController) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: () {
         if (_mFormKey.currentState!.validate()) {
           registerNotifier.register(
@@ -319,17 +332,19 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
               passwordTextFieldController.text);
         }
       },
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.onSurface,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.tertiary, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(double.infinity, 60),
+        backgroundColor: context.appColors.surface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.outline, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
         "Register",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.surface),
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)
@@ -344,12 +359,13 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
           text: TextSpan(
             text: "Already Have An Account?",
             style: context.appTextStyles.titleSmall.copyWith(
-              color: context.appColors.secondary.withOpacity(0.4),
+              color: context.appColors.onSurface.withOpacity(0.6),
             ),
             children: [
               TextSpan(
                 text: " Login",
-                style: context.appTextStyles.titleSmall.bold,
+                style: context.appTextStyles.titleSmall.bold
+                    .copyWith(color: context.appColors.onSurface),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     // Action khi nhấn vào "Sign up"
@@ -363,8 +379,9 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
     ).paddingTopSpace(SpaceType.medium);
   }
 
-  Widget _buildDivider() {
-    return const Divider().paddingVerticalSpace(SpaceType.medium);
+  Widget _buildDivider(BuildContext context) {
+    return Divider(color: context.appColors.outline)
+        .paddingVerticalSpace(SpaceType.medium);
   }
 
   Widget _buildSocialButtons(BuildContext context) {
@@ -376,50 +393,62 @@ class SignUpContentWidget extends HookConsumerWidget implements SignUpCallBack {
             Text(
               "Continue With Accounts",
               style: context.appTextStyles.titleSmall.copyWith(
-                  color: context.appColors.secondary.withOpacity(0.4)),
-            ),
+                  color: context.appColors.onSurface.withOpacity(0.6)),
+            )
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: MaterialButton(
-                onPressed: () {},
-                elevation: 0,
-                color: context.appColors.errorContainer,
-                height: 60,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                onPressed: () {
+                  onGoogleLogin(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.minPositive, 60),
+                  backgroundColor: HexColor.formHex('#DB4437'),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: HexColor.formHex('#DB4437'), width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 child: Text(
                   "Google",
                   style: context.appTextStyles.titleMedium.bold
-                      .copyWith(color: context.appColors.error),
+                      .copyWith(color: context.appColors.onSurface),
                 ),
               ),
             ),
-            const SizedBox(
-              width: 14,
-            ),
+            const SizedBox(width: 14),
             Expanded(
-              child: MaterialButton(
-                onPressed: () {},
-                elevation: 0,
-                color: context.appColors.inversePrimary,
-                height: 60,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+              child: ElevatedButton(
+                onPressed: () {
+                  onGoogleLogin(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.minPositive, 60),
+                  backgroundColor: HexColor.formHex('#1877F2'),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: HexColor.formHex('#1877F2'), width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 child: Text(
-                  "Facebook",
+                  "FaceBook",
                   style: context.appTextStyles.titleMedium.bold
-                      .copyWith(color: context.appColors.surfaceTint),
+                      .copyWith(color: context.appColors.onSurface),
                 ),
               ),
             ),
           ],
         )
             .paddingHorizontalSpace(SpaceType.medium)
-            .paddingTopSpace(SpaceType.medium),
+            .paddingTopSpace(SpaceType.large)
       ],
     );
   }

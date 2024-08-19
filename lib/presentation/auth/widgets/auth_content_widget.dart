@@ -48,7 +48,7 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildLogo(),
+          _buildLogo(context),
           _buildTitle(context),
           _buildAuthButtons(context),
           _buildContinueWithAccountsText(context),
@@ -58,15 +58,18 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
     );
   }
 
-  Widget _buildLogo() {
-    return Center(child: Assets.auth.icAuthLogo.image())
+  Widget _buildLogo(BuildContext context) {
+    return Center(
+            child: Assets.auth.icAuthLogo
+                .image(color: context.appColors.primary))
         .paddingTopSpace(SpaceType.ultraLarge);
   }
 
   Widget _buildTitle(BuildContext context) {
     return Text(
       " Welcome to \nBrainBox",
-      style: context.appTextStyles.displaySmall.bold,
+      style: context.appTextStyles.displaySmall.bold
+          .copyWith(color: context.appColors.onSurface),
       textAlign: TextAlign.center,
     ).paddingTopSpace(SpaceType.medium);
   }
@@ -74,42 +77,46 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
   Widget _buildAuthButtons(BuildContext context) {
     return Column(
       children: [
-        MaterialButton(
+        ElevatedButton(
           onPressed: () {
             goToLogin(context);
           },
-          minWidth: double.maxFinite,
-          elevation: 0,
-          color: context.appColors.onSurface,
-          height: 60,
-          shape: RoundedRectangleBorder(
-              side: BorderSide(color: context.appColors.tertiary, width: 1),
-              borderRadius: BorderRadius.circular(30)),
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(
+                double.infinity, 60), // Chiều rộng max và chiều cao 60
+            backgroundColor: context.appColors.primary,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: context.appColors.primary, width: 1),
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
           child: Text(
             "Login",
             style: context.appTextStyles.titleMedium.bold
-                .copyWith(color: context.appColors.surface),
+                .copyWith(color: context.appColors.onPrimary),
           ),
         ),
-        const SizedBox(height: 23),
-        MaterialButton(
+        ElevatedButton(
           onPressed: () {
             goToSignUp(context);
           },
-          minWidth: double.maxFinite,
-          elevation: 0,
-          color: context.appColors.outlineVariant,
-          height: 60,
-          shape: RoundedRectangleBorder(
-              side:
-                  BorderSide(color: context.appColors.outlineVariant, width: 1),
-              borderRadius: BorderRadius.circular(30)),
-          child: Text(
-            "Sign up",
-            style: context.appTextStyles.titleMedium.bold
-                .copyWith(color: context.appColors.outline),
+          style: ElevatedButton.styleFrom(
+            minimumSize: const Size(
+                double.infinity, 60), // Chiều rộng max và chiều cao 60
+            backgroundColor: context.appColors.surface,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: context.appColors.outline, width: 1),
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
-        ),
+          child: Text(
+            "Sign In",
+            style: context.appTextStyles.titleMedium.bold
+                .copyWith(color: context.appColors.onSurface),
+          ),
+        ).paddingTopSpace(SpaceType.medium),
       ],
     ).paddingTopSpace(SpaceType.extraLarge);
   }
@@ -117,8 +124,8 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
   Widget _buildContinueWithAccountsText(BuildContext context) {
     return Text(
       "Continue With Accounts",
-      style: context.appTextStyles.titleMedium
-          .copyWith(color: context.appColors.outlineVariant),
+      style: context.appTextStyles.titleSmall
+          .copyWith(color: context.appColors.onSurface),
       textAlign: TextAlign.center,
     ).paddingTopSpace(SpaceType.medium);
   }
@@ -128,37 +135,47 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(
-          child: MaterialButton(
+          child: ElevatedButton(
             onPressed: () {
               onGoogleLogin(context);
             },
-            elevation: 0,
-            color: context.appColors.errorContainer,
-            height: 60,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(
+                  double.minPositive, 60),
+              backgroundColor: HexColor.formHex('#DB4437'),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: HexColor.formHex('#DB4437'), width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             child: Text(
               "Google",
               style: context.appTextStyles.titleMedium.bold
-                  .copyWith(color: context.appColors.error),
+                  .copyWith(color: context.appColors.onSurface),
             ),
           ),
         ),
         const SizedBox(width: 14),
         Expanded(
-          child: MaterialButton(
+          child: ElevatedButton(
             onPressed: () {
-              onFaceBookLogin(context);
+              onGoogleLogin(context);
             },
-            elevation: 0,
-            color: context.appColors.inversePrimary,
-            height: 60,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            style: ElevatedButton.styleFrom(
+              minimumSize: const Size(
+                  double.minPositive, 60),
+              backgroundColor: HexColor.formHex('#1877F2'),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(color: HexColor.formHex('#1877F2'), width: 1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             child: Text(
-              "Facebook",
+              "FaceBook",
               style: context.appTextStyles.titleMedium.bold
-                  .copyWith(color: context.appColors.surfaceTint),
+                  .copyWith(color: context.appColors.onSurface),
             ),
           ),
         ),

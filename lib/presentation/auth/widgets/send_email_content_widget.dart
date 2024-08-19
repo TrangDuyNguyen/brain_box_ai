@@ -11,6 +11,7 @@ import '../../../assets/assets.gen.dart';
 import '../../../providers/auth/send_verify_notifier.dart';
 
 abstract class SendEmailCallback {
+  goBack(BuildContext context);
   onSendEmailVerify(BuildContext context);
   onLater(BuildContext context);
 }
@@ -18,6 +19,12 @@ abstract class SendEmailCallback {
 class SendEmailContentWidget extends HookConsumerWidget
     implements SendEmailCallback {
   const SendEmailContentWidget({super.key});
+
+  @override
+  goBack(BuildContext context) {
+    // TODO: implement goBack
+    context.pop();
+  }
 
   @override
   onLater(BuildContext context) {
@@ -46,6 +53,7 @@ class SendEmailContentWidget extends HookConsumerWidget
     });
 
     return Scaffold(
+      backgroundColor: context.appColors.surface,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -73,21 +81,22 @@ class SendEmailContentWidget extends HookConsumerWidget
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               offset: const Offset(0, 5),
-              color: context.appColors.outlineVariant.withOpacity(0.5),
+              color: context.appColors.outline.withOpacity(0.5),
               blurRadius: 10,
             )
           ]),
           child: ElevatedButton(
             onPressed: () {
-              context.pop();
+              goBack(context);
             },
             style: ElevatedButton.styleFrom(
+              backgroundColor: context.appColors.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(16),
             ),
-            child: Assets.icBack.image(),
+            child: Assets.icBack.image(color: context.appColors.onSurface),
           ),
         ),
       ],
@@ -99,7 +108,8 @@ class SendEmailContentWidget extends HookConsumerWidget
   Widget _buildTitle(BuildContext context) {
     return Text(
       "Enter Your Email",
-      style: context.appTextStyles.displaySmall.bold,
+      style: context.appTextStyles.displaySmall.bold
+          .copyWith(color: context.appColors.onSurface),
     )
         .paddingHorizontalSpace(SpaceType.medium)
         .paddingBottomSpace(SpaceType.extraLarge);
@@ -109,26 +119,31 @@ class SendEmailContentWidget extends HookConsumerWidget
       TextEditingController phoneNumberTextFieldController) {
     return Container(
       decoration: BoxDecoration(
-        color: context.appColors.onPrimary,
-        borderRadius: BorderRadius.circular(12),
+        color: context.appColors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(4),
       ),
-      height: 60,
+      height: 56,
       child: TextFormField(
         controller: phoneNumberTextFieldController,
         decoration: InputDecoration(
           icon: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Assets.icEmail.image(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
+            child: Assets.icEmail.image(
+                width: 24,
+                height: 24,
+                color: context.appColors.onSurface.withOpacity(0.6)),
           ),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(4),
           ),
-          hintText: "example@gmail.com",
-          hintStyle: TextStyle(
-            color: context.appColors.secondary.withOpacity(0.4),
-            fontSize: 14,
-          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+          hintText: "Enter Your Email",
+          hintStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+          labelStyle: context.appTextStyles.labelMedium
+              .copyWith(color: context.appColors.onSurface),
         ),
       ),
     )
@@ -159,21 +174,23 @@ class SendEmailContentWidget extends HookConsumerWidget
       BuildContext context,
       SendVerifyNotifier sendVerifyNotifier,
       TextEditingController phoneNumberTextFieldController) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: () {
         sendVerifyNotifier.sendVerify(phoneNumberTextFieldController.text);
       },
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.onSurface,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.tertiary, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(double.infinity, 60),
+        backgroundColor: context.appColors.primary,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.primary, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
-        "Verification",
+        "Send Verify",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.surface),
+            .copyWith(color: context.appColors.onPrimary),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)
@@ -181,19 +198,21 @@ class SendEmailContentWidget extends HookConsumerWidget
   }
 
   Widget _buildButtonLater(BuildContext context) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: () {},
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.outlineVariant,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.outlineVariant, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(double.infinity, 60),
+        backgroundColor: context.appColors.surface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.outline, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
         "Later",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.outline),
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)

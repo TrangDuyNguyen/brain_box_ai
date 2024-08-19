@@ -8,16 +8,21 @@ class AppTheme {
   ThemeData get lightTheme {
     // TODO: add light theme here
     return ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-        colorScheme: lightGentleScheme);
+      useMaterial3: true,
+      textTheme: GoogleFonts.poppinsTextTheme(),
+      colorScheme: lightGentleScheme,
+      scaffoldBackgroundColor: lightGentleScheme.surface,
+    );
   }
 
   /// for getting dark theme
   ThemeData get darkTheme {
     // TODO: add dark theme here
     return ThemeData(
+      useMaterial3: true,
       textTheme: GoogleFonts.poppinsTextTheme(),
       colorScheme: darkGentleScheme,
+      scaffoldBackgroundColor: darkGentleScheme.surface,
     );
   }
 }

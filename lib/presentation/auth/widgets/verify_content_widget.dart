@@ -11,15 +11,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../assets/assets.gen.dart';
+import '../../../core/router/router_path.dart';
 import '../../../providers/auth/verify_notifier.dart';
 
 abstract class VerifyCallBack {
-  onVerify(context);
-  onResend(context);
+  onVerify(BuildContext context);
+  onResend(BuildContext context);
+
+  goBack(BuildContext context);
 }
 
 class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
   const VerifyContentWidget({super.key});
+
+  @override
+  goBack(BuildContext context) {
+    // TODO: implement goBack
+    context.pop();
+  }
 
   @override
   onResend(context) {
@@ -30,7 +39,7 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
   @override
   onVerify(context) {
     // TODO: implement onVerify
-    throw UnimplementedError();
+    context.push(RouterPath.homePage.getPath);
   }
 
   @override
@@ -96,21 +105,22 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
               offset: const Offset(0, 5),
-              color: context.appColors.outlineVariant.withOpacity(0.5),
+              color: context.appColors.outline.withOpacity(0.5),
               blurRadius: 10,
             )
           ]),
           child: ElevatedButton(
             onPressed: () {
-              context.pop();
+              goBack(context);
             },
             style: ElevatedButton.styleFrom(
+              backgroundColor: context.appColors.surface,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(16),
             ),
-            child: Assets.icBack.image(),
+            child: Assets.icBack.image(color: context.appColors.onSurface),
           ),
         ),
       ],
@@ -122,7 +132,8 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
   Widget _buildTitle(BuildContext context) {
     return Text(
       "Verify Phone \nNumber",
-      style: context.appTextStyles.displaySmall.bold,
+      style: context.appTextStyles.displaySmall.bold
+          .copyWith(color: context.appColors.onSurface),
     )
         .paddingHorizontalSpace(SpaceType.medium)
         .paddingBottomSpace(SpaceType.small);
@@ -132,7 +143,7 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
     return Text(
       "We Have Sent Code To Your Phone Number",
       style: context.appTextStyles.titleMedium
-          .copyWith(color: context.appColors.outlineVariant),
+          .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
     )
         .paddingHorizontalSpace(SpaceType.medium)
         .paddingBottomSpace(SpaceType.extraLarge);
@@ -143,17 +154,18 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
     return PinCodeTextField(
       appContext: context,
       length: 4,
-      pastedTextStyle: context.appTextStyles.labelMedium.bold,
+      pastedTextStyle: context.appTextStyles.labelMedium.bold
+          .copyWith(color: context.appColors.onSurface),
       animationType: AnimationType.fade,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
-        borderRadius: BorderRadius.circular(13),
+        borderRadius: BorderRadius.circular(4),
         borderWidth: 2,
         fieldHeight: 60,
         fieldWidth: 60,
         inactiveColor: context.appColors.outline,
-        inactiveFillColor: context.appColors.surface,
+        inactiveFillColor: context.appColors.surfaceContainerHighest,
         activeColor: context.appColors.outline,
         activeFillColor: context.appColors.surface,
         selectedColor: context.appColors.outline,
@@ -163,6 +175,8 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
       cursorColor: context.appColors.outline,
       animationDuration: const Duration(milliseconds: 300),
       enableActiveFill: true,
+      textStyle: context.appTextStyles.titleMedium
+          .copyWith(color: context.appColors.onSurface),
       controller: pinController,
       keyboardType: TextInputType.number,
       onCompleted: (v) {
@@ -185,10 +199,9 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
       BuildContext context, ValueNotifier<Duration> remainingTime) {
     return Visibility(
       visible: remainingTime.value > const Duration(seconds: 0),
-      child: Text(
-        formatDuration(remainingTime.value),
-        style: context.appTextStyles.labelMedium,
-      )
+      child: Text(formatDuration(remainingTime.value),
+              style: context.appTextStyles.labelMedium.copyWith(
+                  color: context.appColors.onSurface.withOpacity(0.6)))
           .paddingHorizontalSpace(SpaceType.medium)
           .paddingBottomSpace(SpaceType.medium),
     );
@@ -218,21 +231,24 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
 
   Widget _buildVerifyButton(BuildContext context, VerifyNotifier verifyNotifier,
       TextEditingController pinController) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: () {
         verifyNotifier.verifyAcc(pinController.text);
       },
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.onSurface,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.tertiary, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize:
+            const Size(double.infinity, 60), // Chiều rộng max và chiều cao 60
+        backgroundColor: context.appColors.primary,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.primary, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
         "Verification",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.surface),
+            .copyWith(color: context.appColors.onPrimary),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)
@@ -244,24 +260,26 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
       ValueNotifier<Duration> remainingTime,
       Duration duration,
       void Function() startTimer) {
-    return MaterialButton(
+    return ElevatedButton(
       onPressed: remainingTime.value != const Duration(seconds: 0)
           ? null
           : () {
               remainingTime.value = duration;
               startTimer();
             },
-      minWidth: double.maxFinite,
-      elevation: 0,
-      color: context.appColors.outlineVariant,
-      height: 60,
-      shape: RoundedRectangleBorder(
-          side: BorderSide(color: context.appColors.outlineVariant, width: 1),
-          borderRadius: BorderRadius.circular(30)),
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(double.infinity, 60),
+        backgroundColor: context.appColors.surface,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(color: context.appColors.outline, width: 1),
+          borderRadius: BorderRadius.circular(30),
+        ),
+      ),
       child: Text(
         "Send again",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.outline),
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)

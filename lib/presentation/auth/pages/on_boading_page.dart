@@ -12,6 +12,7 @@ class OnBoardingPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: context.appColors.surface,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +33,7 @@ class OnBoardingPage extends HookConsumerWidget {
                       child: Text("Skip",
                           style: context.appTextStyles.titleMedium.bold
                               .copyWith(
-                                  color: context.appColors.outline
+                                  color: context.appColors.onSurface.withOpacity(0.6)
                                       .withOpacity(0.6))),
                     ),
                   ],
