@@ -1,4 +1,5 @@
 import 'package:brain_box_ai/assets/assets.gen.dart';
+import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,7 +27,8 @@ class HomePage extends HookConsumerWidget {
 
     return Scaffold(
       body: _buildTabPage(tabController),
-      bottomNavigationBar: _buildBottomNavBar(tabController, selectedTab.value),
+      bottomNavigationBar:
+          _buildBottomNavBar(context, tabController, selectedTab.value),
     );
   }
 
@@ -41,11 +43,15 @@ class HomePage extends HookConsumerWidget {
     );
   }
 
-  Widget _buildBottomNavBar(TabController tabController, int value) {
+  Widget _buildBottomNavBar(
+      BuildContext context, TabController tabController, int value) {
     return Container(
       padding: const EdgeInsets.only(top: 15, bottom: 15, left: 20, right: 20),
-      decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, -4))
+      decoration: BoxDecoration(color: context.appColors.surface, boxShadow: [
+        BoxShadow(
+            color: context.appColors.outline,
+            blurRadius: 10,
+            offset: const Offset(0, -4))
       ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

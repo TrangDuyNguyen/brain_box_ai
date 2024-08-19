@@ -1,4 +1,5 @@
 import 'package:brain_box_ai/core/theme/app_color.dart';
+import 'package:brain_box_ai/core/utility/app_context.dart';
 import 'package:flutter/material.dart';
 
 class TabButton extends StatelessWidget {
@@ -18,19 +19,28 @@ class TabButton extends StatelessWidget {
         onTap: onPressed,
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              child: Image.asset(
-                fit: BoxFit.fill,
-                icon,
-                width: 30,
-                height: 30,
-                color: isSelect
-                    ? context.appColors.primary
-                    : context.appColors.secondary,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+                decoration: BoxDecoration(
+                    color: isSelect
+                        ? context.appColors.secondaryContainer
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(16)),
+                alignment: Alignment.center,
+                child: Image.asset(
+                  fit: BoxFit.fill,
+                  icon,
+                  width: 24,
+                  height: 24,
+                  color: isSelect
+                      ? context.appColors.primary
+                      : context.appColors.onPrimary,
+                ),
               ),
             ),
           ],

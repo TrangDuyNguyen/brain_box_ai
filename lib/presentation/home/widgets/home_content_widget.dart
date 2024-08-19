@@ -108,12 +108,12 @@ class HomeContentWidget extends HookConsumerWidget
               Text(
                 "Welcome Back,",
                 style: context.appTextStyles.titleMedium
-                    .copyWith(color: context.appColors.secondary),
+                    .copyWith(color: context.appColors.onSurface),
               ),
               Text(
                 "Nguyen Duy Trang",
                 style: context.appTextStyles.titleMedium.bold
-                    .copyWith(color: context.appColors.primary),
+                    .copyWith(color: context.appColors.onSurface),
               ),
             ],
           ),
@@ -152,13 +152,13 @@ class HomeContentWidget extends HookConsumerWidget
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       decoration: BoxDecoration(
-        color: context.appColors.secondaryContainer.withOpacity(0.4),
+        color: context.appColors.primaryContainer,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Assets.icSearch.image(color: context.appColors.secondary),
+          Assets.icSearch.image(color: context.appColors.onPrimaryContainer),
           const SizedBox(
             width: 10,
           ),
@@ -170,8 +170,9 @@ class HomeContentWidget extends HookConsumerWidget
               onTap: () => {goSearch(context)},
               decoration: InputDecoration(
                   hintText: "Search",
-                  hintStyle: context.appTextStyles.titleMedium
-                      .copyWith(color: context.appColors.secondary),
+                  hintStyle: context.appTextStyles.titleMedium.copyWith(
+                      color: context.appColors.onPrimaryContainer
+                          .withOpacity(0.6)),
                   border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
                   )),
@@ -183,14 +184,15 @@ class HomeContentWidget extends HookConsumerWidget
             child: Container(
               height: 20,
               width: 1,
-              color: context.appColors.secondary,
+              color: context.appColors.outline,
             ),
           ),
           InkWell(
             onTap: () {
               goFiller(context);
             },
-            child: Assets.icFilter.image(color: context.appColors.primary),
+            child: Assets.icFilter
+                .image(color: context.appColors.onPrimaryContainer),
           )
         ],
       ),
@@ -205,7 +207,8 @@ class HomeContentWidget extends HookConsumerWidget
           children: [
             Text(
               "Prompt Category",
-              style: context.appTextStyles.titleMedium.bold,
+              style: context.appTextStyles.titleMedium.bold
+                  .copyWith(color: context.appColors.onSurface),
             ),
             InkWell(
               onTap: () {
@@ -213,8 +216,8 @@ class HomeContentWidget extends HookConsumerWidget
               },
               child: Text(
                 "SEE ALL",
-                style: context.appTextStyles.titleMedium.bold
-                    .copyWith(color: context.appColors.secondary),
+                style: context.appTextStyles.titleSmall.bold.copyWith(
+                    color: context.appColors.onSurface.withOpacity(0.6)),
               ),
             ),
           ],
@@ -236,8 +239,7 @@ class HomeContentWidget extends HookConsumerWidget
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundColor:
-                          context.appColors.secondary.withOpacity(0.1),
+                      backgroundColor: context.appColors.primaryContainer,
                       child:
                           Image.asset(Assets.icX.path, width: 30, height: 30),
                     ),
@@ -245,7 +247,7 @@ class HomeContentWidget extends HookConsumerWidget
                     Expanded(
                       child: Text(
                         "Category",
-                        style: context.appTextStyles.labelSmall,
+                        style: context.appTextStyles.labelMedium,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
