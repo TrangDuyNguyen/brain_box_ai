@@ -248,7 +248,8 @@ class HomeContentWidget extends HookConsumerWidget
                     Flexible(
                       child: Text(
                         "Category",
-                        style: context.appTextStyles.labelLarge,
+                        style: context.appTextStyles.labelLarge
+                            .copyWith(color: context.appColors.onSurface),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -283,8 +284,8 @@ class HomeContentWidget extends HookConsumerWidget
               },
               child: Text(
                 "SEE ALL",
-                style: context.appTextStyles.titleSmall.bold
-                    .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+                style: context.appTextStyles.titleSmall.bold.copyWith(
+                    color: context.appColors.onSurface.withOpacity(0.6)),
               ),
             ),
           ],

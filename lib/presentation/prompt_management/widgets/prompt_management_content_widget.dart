@@ -17,13 +17,14 @@ class PromptManagementContentWidget extends HookConsumerWidget {
     final tabController = useTabController(initialLength: 3);
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          leading: const SizedBox(),
+          backgroundColor: context.appColors.surface,
+          shadowColor: context.appColors.surface,
+          leading: const SizedBox(width: 0,),
           centerTitle: true,
           title: Text(
             "Prompt Management",
-            style: context.appTextStyles.titleMedium.bold,
+            style: context.appTextStyles.titleMedium.bold
+                .copyWith(color: context.appColors.onSurface),
           ),
           actions: [
             InkWell(
@@ -64,8 +65,8 @@ class PromptManagementContentWidget extends HookConsumerWidget {
             child: TabBar(
               controller: tabController,
               labelStyle: context.appTextStyles.labelLarge,
-              labelColor: context.appColors.primary,
-              indicatorColor: context.appColors.primary,
+              labelColor: context.appColors.onSurface,
+              indicatorColor: context.appColors.secondary,
               dividerColor: Colors.transparent,
               tabs: const [
                 Tab(text: 'History'),

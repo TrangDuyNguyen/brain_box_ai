@@ -214,13 +214,16 @@ class BottomSheetHeader extends StatelessWidget {
                         SizedBox(
                             width: height,
                             child: IconButton(
-                                icon: const Icon(Icons.close),
+                                icon: Icon(
+                                  Icons.close,
+                                  color: context.appColors.onSurface,
+                                ),
                                 onPressed: () => Navigator.of(context).pop())),
                         Expanded(child: Container()),
                         Text(
                           title,
                           style: context.appTextStyles.titleLarge
-                              .copyWith(color: context.appColors.primary),
+                              .copyWith(color: context.appColors.onSurface),
                           textAlign: TextAlign.center,
                         ),
                         Expanded(child: Container()),
@@ -232,10 +235,10 @@ class BottomSheetHeader extends StatelessWidget {
                   : Text(
                       title,
                       style: context.appTextStyles.titleLarge.bold
-                          .copyWith(color: context.appColors.primary),
+                          .copyWith(color: context.appColors.onSurface),
                     ),
             ),
-            const Divider(height: 1)
+            Divider(height: 1, color: context.appColors.outline,)
           ],
         ),
       ),

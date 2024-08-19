@@ -4,7 +4,6 @@ import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/domain/entities/setting/app_setting.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -87,12 +86,12 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             Text(
               "Nguyen Duy Trang",
               style: context.appTextStyles.titleMedium.bold
-                  .copyWith(color: context.appColors.primary),
+                  .copyWith(color: context.appColors.onSurface),
             ),
             Text(
               "Trangndps10349@gmail.com",
               style: context.appTextStyles.labelMedium
-                  .copyWith(color: context.appColors.primary),
+                  .copyWith(color: context.appColors.onSurface),
             ),
           ],
         ),
@@ -102,7 +101,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             // Xử lý sự kiện đặt lại
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: context.appColors.primary, // Màu nền của nút
+            backgroundColor:
+                context.appColors.primaryContainer, // Màu nền của nút
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -122,8 +122,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: context.appColors.onPrimary,
-          borderRadius: BorderRadius.circular(16),
+          color: context.appColors.surface,
+          borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
               color: context.appColors.outline,
@@ -137,22 +137,28 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         children: [
           Text(
             "Settings",
-            style: context.appTextStyles.titleMedium.bold,
+            style: context.appTextStyles.titleMedium.bold
+                .copyWith(color: context.appColors.onSurface),
           ),
           GestureDetector(
             onTap: () =>
                 {goLanguage(context, appSettingState, appSettingNotifier)},
             child: Row(
               children: [
-                Image.asset(Assets.icLanguage.path),
-                const SizedBox(
-                  width: 10,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                  child: Image.asset(
+                    width: 18,
+                    height: 18,
+                    Assets.icLanguage.path,
+                    color: context.appColors.onSurface,
+                  ),
                 ),
                 Expanded(
                   child: Text(
                     "Languages",
                     style: context.appTextStyles.labelMedium
-                        .copyWith(color: context.appColors.secondary),
+                        .copyWith(color: context.appColors.onSurface),
                   ),
                 ),
                 SizedBox(
@@ -168,64 +174,38 @@ class ProfileSettingContentWidget extends HookConsumerWidget
               ],
             ).paddingTopSpace(SpaceType.medium),
           ),
-          // Row(
-          //   children: [
-          //     Image.asset(
-          //       Assets.icLocation.path,
-          //       color: context.appColors.primary,
-          //     ),
-          //     const SizedBox(
-          //       width: 10,
-          //     ),
-          //     Expanded(
-          //       child: Text(
-          //         "Country",
-          //         style: context.appTextStyles.labelMedium
-          //             .copyWith(color: context.appColors.secondary),
-          //       ),
-          //     ),
-          //     InkWell(
-          //       onTap: () {},
-          //       child: ClipOval(
-          //         child: SizedBox(
-          //           width: 24,
-          //           height: 24,
-          //           child: Image.asset(
-          //             Assets.icArowRight.path,
-          //             color: context.appColors.primary,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ).paddingTopSpace(SpaceType.medium),
           GestureDetector(
             onTap: () {
               onChangeTheme(context, appSettingState, appSettingNotifier);
             },
             child: Row(
               children: [
-                Image.asset(
-                  Assets.icTheme.path,
-                  color: context.appColors.primary,
-                ),
-                const SizedBox(
-                  width: 10,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                  child: Image.asset(
+                    Assets.icTheme.path,
+                    width: 18,
+                    height: 18,
+                    color: context.appColors.onSurface,
+                  ),
                 ),
                 Expanded(
                   child: Text(
                     "Theme",
                     style: context.appTextStyles.labelMedium
-                        .copyWith(color: context.appColors.secondary),
+                        .copyWith(color: context.appColors.onSurface),
                   ),
                 ),
                 Image.asset(
-                  width: 24,
-                  height: 24,
+                  width: 18,
+                  height: 18,
                   fit: BoxFit.fill,
                   appSettingState.theme == 'light'
                       ? Assets.icLightTheme.path
                       : Assets.icDarkTheme.path,
+                  color: appSettingState.theme == 'light'
+                      ? context.appColors.secondary
+                      : context.appColors.onSurface,
                 ),
               ],
             ).paddingTopSpace(SpaceType.medium),
@@ -243,8 +223,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: context.appColors.onPrimary,
-          borderRadius: BorderRadius.circular(16),
+          color: context.appColors.surface,
+          borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
               color: context.appColors.outline,
@@ -258,22 +238,25 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         children: [
           Text(
             "Notification",
-            style: context.appTextStyles.titleMedium.bold,
+            style: context.appTextStyles.titleMedium.bold
+                .copyWith(color: context.appColors.onSurface),
           ),
           Row(
             children: [
-              Image.asset(
-                Assets.icNotification.path,
-                color: context.appColors.primary,
-              ),
-              const SizedBox(
-                width: 10,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                child: Image.asset(
+                  Assets.icNotification.path,
+                  width: 18,
+                  height: 18,
+                  color: context.appColors.onSurface,
+                ),
               ),
               Expanded(
                 child: Text(
                   "Pop-up Notification",
                   style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
+                      .copyWith(color: context.appColors.onSurface),
                 ),
               ),
               GestureDetector(
@@ -288,6 +271,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                   !appSettingState.notificationEnabled
                       ? Assets.icSwitchOff.path
                       : Assets.icSwitchOn.path,
+                  color: context.appColors.onSurface,
                 ),
               ),
             ],
@@ -301,8 +285,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          color: context.appColors.onPrimary,
-          borderRadius: BorderRadius.circular(16),
+          color: context.appColors.surface,
+          borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
               color: context.appColors.outline,
@@ -316,22 +300,25 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         children: [
           Text(
             "Others",
-            style: context.appTextStyles.titleMedium.bold,
+            style: context.appTextStyles.titleMedium.bold
+                .copyWith(color: context.appColors.onSurface),
           ),
           Row(
             children: [
-              Image.asset(
-                Assets.icAboutUs.path,
-                color: context.appColors.primary,
-              ),
-              const SizedBox(
-                width: 10,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                child: Image.asset(
+                  width: 18,
+                  height: 18,
+                  Assets.icAboutUs.path,
+                  color: context.appColors.onSurface,
+                ),
               ),
               Expanded(
                 child: Text(
                   "About Us",
                   style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
+                      .copyWith(color: context.appColors.onSurface),
                 ),
               ),
               InkWell(
@@ -342,7 +329,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                     height: 24,
                     child: Image.asset(
                       Assets.icArowRight.path,
-                      color: context.appColors.primary,
+                      color: context.appColors.onSurface,
                     ),
                   ),
                 ),
@@ -351,18 +338,20 @@ class ProfileSettingContentWidget extends HookConsumerWidget
           ).paddingTopSpace(SpaceType.medium),
           Row(
             children: [
-              Image.asset(
-                Assets.icCustomerService.path,
-                color: context.appColors.primary,
-              ),
-              const SizedBox(
-                width: 10,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                child: Image.asset(
+                  width: 18,
+                  height: 18,
+                  Assets.icCustomerService.path,
+                  color: context.appColors.onSurface,
+                ),
               ),
               Expanded(
                 child: Text(
                   "Customer Service",
                   style: context.appTextStyles.labelMedium
-                      .copyWith(color: context.appColors.secondary),
+                      .copyWith(color: context.appColors.onSurface),
                 ),
               ),
               InkWell(
@@ -373,7 +362,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                     height: 24,
                     child: Image.asset(
                       Assets.icArowRight.path,
-                      color: context.appColors.primary,
+                      color: context.appColors.onSurface,
                     ),
                   ),
                 ),
@@ -384,12 +373,14 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             onTap: () => {onLogOut(context)},
             child: Row(
               children: [
-                Image.asset(
-                  Assets.icLogOut.path,
-                  color: context.appColors.error,
-                ),
-                const SizedBox(
-                  width: 10,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                  child: Image.asset(
+                    width: 18,
+                    height: 18,
+                    Assets.icLogOut.path,
+                    color: context.appColors.error,
+                  ),
                 ),
                 Expanded(
                   child: Text(
@@ -458,13 +449,17 @@ class ProfileSettingContentWidget extends HookConsumerWidget
                         ),
                         Text(
                           index == 0 ? "Tiếng Việt" : "English",
-                          style: context.appTextStyles.labelLarge,
+                          style: context.appTextStyles.labelLarge
+                              .copyWith(color: context.appColors.onSurface),
                         ).paddingLeftSpace(SpaceType.small),
                         Visibility(
                           visible: appSettingState.languageCode == languageCode,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8),
-                            child: Assets.icTick.image(width: 24, height: 16),
+                            child: Assets.icTick.image(
+                                width: 24,
+                                height: 16,
+                                color: context.appColors.onSurface),
                           ),
                         ),
                       ],
@@ -514,15 +509,41 @@ class ProfileSettingContentWidget extends HookConsumerWidget
               itemCount: 2,
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                final themeCode = index == 0 ? "light" : "dark";
                 return Padding(
                   padding: const EdgeInsets.all(16),
                   child: GestureDetector(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
+                          child: Image.asset(
+                            width: 18,
+                            height: 18,
+                            fit: BoxFit.fill,
+                            index == 0
+                                ? Assets.icLightTheme.path
+                                : Assets.icDarkTheme.path,
+                            color: index == 0
+                                ? context.appColors.secondary
+                                : context.appColors.onSurface,
+                          ),
+                        ),
                         Text(
                           index == 0 ? "Light" : "Dark",
-                          style: context.appTextStyles.labelLarge,
+                          style: context.appTextStyles.labelLarge
+                              .copyWith(color: context.appColors.onSurface),
+                        ),
+                        Visibility(
+                          visible: appSettingState.theme == themeCode,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Assets.icTick.image(
+                                width: 24,
+                                height: 16,
+                                color: context.appColors.onSurface),
+                          ),
                         ),
                       ],
                     ),
