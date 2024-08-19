@@ -230,6 +230,7 @@ class HomeContentWidget extends HookConsumerWidget
               crossAxisCount: 4,
               mainAxisSpacing: 16.0,
               crossAxisSpacing: 16.0,
+              childAspectRatio: 0.8,
             ),
             itemBuilder: (context, index) {
               return GestureDetector(
@@ -244,10 +245,10 @@ class HomeContentWidget extends HookConsumerWidget
                           Image.asset(Assets.icX.path, width: 30, height: 30),
                     ),
                     const SizedBox(height: 8),
-                    Expanded(
+                    Flexible(
                       child: Text(
                         "Category",
-                        style: context.appTextStyles.labelMedium,
+                        style: context.appTextStyles.labelLarge,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
@@ -273,7 +274,8 @@ class HomeContentWidget extends HookConsumerWidget
           children: [
             Text(
               "Top Prompt",
-              style: context.appTextStyles.titleMedium.bold,
+              style: context.appTextStyles.titleMedium.bold
+                  .copyWith(color: context.appColors.onSurface),
             ),
             InkWell(
               onTap: () {
@@ -281,8 +283,8 @@ class HomeContentWidget extends HookConsumerWidget
               },
               child: Text(
                 "SEE ALL",
-                style: context.appTextStyles.titleMedium.bold
-                    .copyWith(color: context.appColors.secondary),
+                style: context.appTextStyles.titleSmall.bold
+                    .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
               ),
             ),
           ],

@@ -42,7 +42,7 @@ class AppColors {
   Color get surfaceTint => _themeData.colorScheme.surfaceTint;
 
   LinearGradient get brandPrimaryGradient => LinearGradient(
-    colors: [primary, secondary],
+    colors: [primaryContainer, secondaryContainer],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );

@@ -99,7 +99,7 @@ class PromptCardWidget extends HookConsumerWidget {
         Assets.icRatingStar.path,
         color: context.appColors.onPrimary,
       ),
-      unratedColor: context.appColors.secondary,
+      unratedColor: context.appColors.outline,
       onRatingUpdate: (rating) {},
       ignoreGestures: true,
     );
@@ -127,15 +127,17 @@ class PromptCardWidget extends HookConsumerWidget {
 
   Widget _buildSaveIcon(BuildContext context, ValueNotifier<bool> isSave) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        isSave.value = !isSave.value;
+      },
       child: SizedBox(
         width: 24,
         height: 24,
         child: Image.asset(
           Assets.icSave.path,
           color: isSave.value
-              ? context.appColors.onPrimary
-              : context.appColors.secondary,
+              ? context.appColors.primary
+              : context.appColors.onPrimary,
         ),
       ),
     );
@@ -143,13 +145,17 @@ class PromptCardWidget extends HookConsumerWidget {
 
   Widget _buildLikeIcon(BuildContext context, ValueNotifier<bool> isLike) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        isLike.value = !isLike.value;
+      },
       child: SizedBox(
         width: 24,
         height: 24,
         child: Image.asset(
           isLike.value ? Assets.icHeartFill.path : Assets.icHeartOff.path,
-          color: context.appColors.onPrimary,
+          color: isLike.value
+              ? context.appColors.primary
+              : context.appColors.onPrimary,
         ),
       ),
     ).paddingTopSpace(SpaceType.small);

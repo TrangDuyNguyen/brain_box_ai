@@ -27,19 +27,21 @@ class ChipsHorizontalWidget extends StatelessWidget {
                 return ChoiceChip(
                   label: Text(
                     chipLabels[index],
-                    style: context.appTextStyles.labelMedium.copyWith(
+                    style: context.appTextStyles.labelLarge.copyWith(
                         color: selectedChipIndex == index
-                            ? context.appColors.secondary
+                            ? context.appColors.onPrimary
                             : context.appColors.primary),
                   ),
                   selected: selectedChipIndex == index,
                   onSelected: (selected) => onChipSelected(index),
                   backgroundColor: Colors.transparent,
-                  selectedColor: context.appColors.primary,
+                  selectedColor: context.appColors.primaryContainer,
                   showCheckmark: false,
-                  shape: StadiumBorder(
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(8), // Đặt border radius là 8
                     side: BorderSide(
-                      color: context.appColors.primary, // Border color
+                      color: context.appColors.primary, // Màu border
                     ),
                   ),
                   elevation: 0, // Remove shadow
