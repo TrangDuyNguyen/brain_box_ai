@@ -71,7 +71,10 @@ class Assets {
       AssetGenImage('assets/ic_about_us.png');
   static const AssetGenImage icArowRight =
       AssetGenImage('assets/ic_arow_right.png');
+  static const AssetGenImage icAvatar = AssetGenImage('assets/ic_avatar.png');
   static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
+  static const AssetGenImage icCalendar =
+      AssetGenImage('assets/ic_calendar.png');
   static const AssetGenImage icCustomerService =
       AssetGenImage('assets/ic_customer_service.png');
   static const AssetGenImage icDarkTheme =
@@ -128,7 +131,9 @@ class Assets {
   static List<AssetGenImage> get values => [
         icAboutUs,
         icArowRight,
+        icAvatar,
         icBack,
+        icCalendar,
         icCustomerService,
         icDarkTheme,
         icEmail,
@@ -167,9 +172,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName);
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

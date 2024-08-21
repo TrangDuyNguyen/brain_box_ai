@@ -7,7 +7,7 @@ final routerProvider = Provider<GoRouter>(
   (ref) {
     return GoRouter(
       // TODO: add your router here
-      initialLocation: RouterPath.onboard.getPath,
+      initialLocation: RouterPath.homePage.getPath,
       routes: routes,
     );
   },

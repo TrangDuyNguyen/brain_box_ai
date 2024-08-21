@@ -18,7 +18,7 @@ abstract class ProfileSettingContentCallback {
       SettingNotifier appSettingNotifier);
   onLogOut(BuildContext context);
 
-  goProfile();
+  goProfile(BuildContext context);
   goLanguage(BuildContext context, AppSetting appSettingState,
       SettingNotifier appSettingNotifier);
   goCountry();
@@ -60,12 +60,11 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             radius: 44,
             child: ClipOval(
               child: Image.network(
-                "https://firebasestorage.googleapis.com/v0/b/dortor-appointment.appspot.com/o/avatars%2F1u68fKDq41UFBoRwABz4THmGYyH2%2F1000000062.jpg?alt=media&token=043a0847-3dda-4609-bd59-57aab76214be",
+                "https://thispersondoesnotexist.com",
                 errorBuilder: (context, error, stackTrace) {
-                  return const CircleAvatar(
+                  return CircleAvatar(
                     radius: 44,
-                    backgroundImage:
-                        AssetImage('lib/design/assets/icons/avatar.png'),
+                    backgroundImage: AssetImage(Assets.icAvatar.path),
                   );
                 },
               ),
@@ -98,7 +97,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
         const Expanded(child: SizedBox.shrink()),
         ElevatedButton(
           onPressed: () {
-            // Xử lý sự kiện đặt lại
+            goProfile(context);
           },
           style: ElevatedButton.styleFrom(
             backgroundColor:
@@ -483,9 +482,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
   }
 
   @override
-  goProfile() {
-    // TODO: implement goProfile
-    throw UnimplementedError();
+  goProfile(BuildContext context) {
+    context.push(RouterPath.profile.getPath);
   }
 
   @override

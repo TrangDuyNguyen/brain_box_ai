@@ -3,6 +3,7 @@ import 'package:brain_box_ai/core/exception/result.dart';
 import 'package:brain_box_ai/core/usecases/usecase.dart';
 
 import '../repositories/auth_repository.dart';
+import '../repositories/user_session_repository.dart';
 
 class AuthUseCase implements UseCase<void, AuthParams> {
   // TODO: implement the output of your AuthUseCase

@@ -1,3 +1,4 @@
+import 'package:brain_box_ai/core/exception/no_result.dart';
 import 'package:brain_box_ai/core/exception/result.dart';
 
 import '../../core/usecases/usecase.dart';
@@ -18,7 +19,7 @@ class UserSessionUseCase implements UseCase<void, UserSessionParam> {
     return repository.getUserSession();
   }
 
-  Future<Result> setUserSession(UserSession param) {
+  Future<Result<NoResult>> setUserSession(UserSession param) {
     return repository.setUserSession(param);
   }
 

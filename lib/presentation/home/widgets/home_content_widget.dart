@@ -88,12 +88,11 @@ class HomeContentWidget extends HookConsumerWidget
             radius: 22,
             child: ClipOval(
               child: Image.network(
-                "https://firebasestorage.googleapis.com/v0/b/dortor-appointment.appspot.com/o/avatars%2F1u68fKDq41UFBoRwABz4THmGYyH2%2F1000000062.jpg?alt=media&token=043a0847-3dda-4609-bd59-57aab76214be",
+                "https://thispersondoesnotexist.com",
                 errorBuilder: (context, error, stackTrace) {
                   return CircleAvatar(
-                    radius: context.width * 0.33 / 2,
-                    backgroundImage:
-                        const AssetImage('lib/design/assets/icons/avatar.png'),
+                    radius: 22,
+                    backgroundImage: AssetImage(Assets.icAvatar.path),
                   );
                 },
               ),

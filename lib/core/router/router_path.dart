@@ -8,6 +8,7 @@ enum RouterPath {
   verifyAcc,
   resetPass,
   homePage,
+  profile,
 }
 
 extension RouterPathEx on RouterPath {
@@ -20,6 +21,7 @@ extension RouterPathEx on RouterPath {
     RouterPath.verifyAcc: 'verifyAcc',
     RouterPath.resetPass: 'resetPass',
     RouterPath.homePage: 'homePage',
+    RouterPath.profile: 'profile',
   };
 
   static const Map<RouterPath, String> _pagePaths = {
@@ -32,6 +34,7 @@ extension RouterPathEx on RouterPath {
     RouterPath.verifyAcc: '/verifyAcc',
     RouterPath.resetPass: '/resetPass',
     RouterPath.homePage: '/homePage',
+    RouterPath.profile: '/profile',
   };
 
   String get namePage => _pageNames[this] ?? '';

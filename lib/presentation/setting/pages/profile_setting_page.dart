@@ -14,7 +14,7 @@ class ProfileSettingPage extends StatelessWidget {
         centerTitle: true,
         leading: const SizedBox(),
         title: Text(
-          "My Profile",
+          "Setting",
           style: context.appTextStyles.titleMedium.bold
               .copyWith(color: context.appColors.onSurface),
         ),

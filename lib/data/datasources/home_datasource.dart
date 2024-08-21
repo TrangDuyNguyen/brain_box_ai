@@ -1,4 +1,4 @@
-import 'package:brain_box_ai/data/datasources/remote/dummy_data.dart';
+import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
 
 import '../../core/exception/result.dart';
 import '../models/prompt_top_model.dart';

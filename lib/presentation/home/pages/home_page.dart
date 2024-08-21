@@ -3,7 +3,7 @@ import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../profile_setting/pages/profile_setting_page.dart';
+import '../../setting/pages/profile_setting_page.dart';
 import '../../prompt_management/pages/prompt_management_page.dart';
 import '../../widgets/tab_button.dart';
 import '../widgets/home_content_widget.dart';
