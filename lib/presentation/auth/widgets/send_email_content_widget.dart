@@ -117,34 +117,29 @@ class SendEmailContentWidget extends HookConsumerWidget
 
   Widget _buildEmailTextField(BuildContext context,
       TextEditingController phoneNumberTextFieldController) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.appColors.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      height: 56,
-      child: TextFormField(
-        controller: phoneNumberTextFieldController,
-        decoration: InputDecoration(
-          icon: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
-            child: Assets.icEmail.image(
-                width: 24,
-                height: 24,
-                color: context.appColors.onSurface.withOpacity(0.6)),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-          hintText: "Enter Your Email",
-          hintStyle: context.appTextStyles.labelMedium
-              .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
-          labelStyle: context.appTextStyles.labelMedium
-              .copyWith(color: context.appColors.onSurface),
+    return TextFormField(
+      controller: phoneNumberTextFieldController,
+      decoration: InputDecoration(
+        prefixIcon: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+          child: Assets.icEmail.image(
+              width: 24,
+              height: 24,
+              color: context.appColors.onSurface.withOpacity(0.6)),
         ),
+        filled: true,
+        fillColor: context.appColors.surfaceContainerHighest,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+        hintText: "Enter Your Email",
+        hintStyle: context.appTextStyles.labelMedium
+            .copyWith(color: context.appColors.onSurface.withOpacity(0.6)),
+        labelStyle: context.appTextStyles.labelMedium
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)

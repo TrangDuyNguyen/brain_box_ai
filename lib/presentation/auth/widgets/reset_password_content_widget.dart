@@ -129,85 +129,75 @@ class ResetPasswordContentWidget extends HookConsumerWidget
         key: _mFormKey,
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: context.appColors.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              height: 56,
-              child: TextFormField(
-                controller: passwordTextFieldController,
-                decoration: InputDecoration(
-                    icon: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
-                      child: Assets.icLock.image(
-                          width: 24,
-                          height: 24,
-                          color: context.appColors.onSurface.withOpacity(0.6)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                    hintText: "Password",
-                    hintStyle: context.appTextStyles.labelMedium.copyWith(
+            TextFormField(
+              controller: passwordTextFieldController,
+              decoration: InputDecoration(
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: Assets.icLock.image(
+                        width: 24,
+                        height: 24,
                         color: context.appColors.onSurface.withOpacity(0.6)),
-                    labelStyle: context.appTextStyles.labelMedium
-                        .copyWith(color: context.appColors.onSurface),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                          obscurePass.value
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          color: context.appColors.onSurface.withOpacity(0.6)),
-                      onPressed: () {
-                        obscurePass.value = !obscurePass.value;
-                      },
-                    )),
-              ),
+                  ),
+                  filled: true,
+                  fillColor: context.appColors.surfaceContainerHighest,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                  hintText: "Password",
+                  hintStyle: context.appTextStyles.labelMedium.copyWith(
+                      color: context.appColors.onSurface.withOpacity(0.6)),
+                  labelStyle: context.appTextStyles.labelMedium
+                      .copyWith(color: context.appColors.onSurface),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        obscurePass.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: context.appColors.onSurface.withOpacity(0.6)),
+                    onPressed: () {
+                      obscurePass.value = !obscurePass.value;
+                    },
+                  )),
             )
                 .paddingHorizontalSpace(SpaceType.medium)
                 .paddingBottomSpace(SpaceType.medium),
-            Container(
-              decoration: BoxDecoration(
-                color: context.appColors.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              height: 56,
-              child: TextFormField(
-                controller: rePasswordTextFieldController,
-                decoration: InputDecoration(
-                    icon: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 0, 16),
-                      child: Assets.icLock.image(
-                          width: 24,
-                          height: 24,
-                          color: context.appColors.onSurface.withOpacity(0.6)),
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
-                    hintText: "Re Password",
-                    hintStyle: context.appTextStyles.labelMedium.copyWith(
+            TextFormField(
+              controller: rePasswordTextFieldController,
+              decoration: InputDecoration(
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                    child: Assets.icLock.image(
+                        width: 24,
+                        height: 24,
                         color: context.appColors.onSurface.withOpacity(0.6)),
-                    labelStyle: context.appTextStyles.labelMedium
-                        .copyWith(color: context.appColors.onSurface),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                          obscurePass.value
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          color: context.appColors.onSurface.withOpacity(0.6)),
-                      onPressed: () {
-                        obscureRePass.value = !obscureRePass.value;
-                      },
-                    )),
-              ),
+                  ),
+                  fillColor: context.appColors.surfaceContainerHighest,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
+                  hintText: "Re Password",
+                  hintStyle: context.appTextStyles.labelMedium.copyWith(
+                      color: context.appColors.onSurface.withOpacity(0.6)),
+                  labelStyle: context.appTextStyles.labelMedium
+                      .copyWith(color: context.appColors.onSurface),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                        obscurePass.value
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: context.appColors.onSurface.withOpacity(0.6)),
+                    onPressed: () {
+                      obscureRePass.value = !obscureRePass.value;
+                    },
+                  )),
             )
                 .paddingHorizontalSpace(SpaceType.medium)
                 .paddingBottomSpace(SpaceType.medium),
