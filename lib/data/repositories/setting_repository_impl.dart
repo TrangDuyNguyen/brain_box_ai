@@ -110,11 +110,22 @@ class SettingRepositoryImp extends SettingsRepository {
   }
 
   @override
-  Future<void> updateTheme(String theme) async {
+  Future<void> updateThemeMode(String theme) async {
     try {
       final appSetting = await getAppSettings();
       await mSettingLocalDataSource.updateSetting(
           AppSettingMapper().toDTO(appSetting.copyWith(theme: theme)));
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
+  Future<void> updateThemeColor(int id) async {
+    try {
+      final appSetting = await getAppSettings();
+      await mSettingLocalDataSource.updateSetting(AppSettingMapper()
+          .toDTO(appSetting.copyWith(selectedThemeColorId: id)));
     } catch (e) {
       return Future.error(e);
     }

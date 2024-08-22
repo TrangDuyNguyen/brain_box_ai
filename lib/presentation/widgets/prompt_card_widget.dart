@@ -21,7 +21,14 @@ class PromptCardWidget extends HookConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        gradient: context.appColors.brandPrimaryGradient,
+        gradient: LinearGradient(
+          colors: [
+            context.appColors.primaryContainer,
+            context.appColors.secondary
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Row(

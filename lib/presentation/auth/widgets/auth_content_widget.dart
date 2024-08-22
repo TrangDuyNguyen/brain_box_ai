@@ -94,7 +94,7 @@ class AuthContentWidget extends StatelessWidget implements AuthContentCallBack {
           child: Text(
             "Login",
             style: context.appTextStyles.titleMedium.bold
-                .copyWith(color: context.appColors.onPrimary),
+                .copyWith(color: context.appColors.onSurface),
           ),
         ),
         ElevatedButton(

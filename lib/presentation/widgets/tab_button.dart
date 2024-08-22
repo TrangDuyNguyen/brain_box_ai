@@ -39,7 +39,7 @@ class TabButton extends StatelessWidget {
                   height: 24,
                   color: isSelect
                       ? context.appColors.primary
-                      : context.appColors.onPrimary,
+                      : context.appColors.onSurface,
                 ),
               ),
             ),

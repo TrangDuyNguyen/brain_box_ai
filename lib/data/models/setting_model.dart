@@ -35,6 +35,8 @@ class SettingModel extends HiveObject with HiveModelMixin {
   final List<LanguageModel> supportLanguages;
   @HiveField(8)
   final List<CountryModel> supportCountries; // new field
+  @HiveField(9)
+  final int selectedThemeColorId;
 
   SettingModel({
     required this.languageCode,
@@ -45,7 +47,8 @@ class SettingModel extends HiveObject with HiveModelMixin {
     required this.isInstalled,
     required this.supportCurrencies,
     required this.supportLanguages,
-    required this.supportCountries, // new field
+    required this.supportCountries,
+    required this.selectedThemeColorId, // new field
   });
 
   SettingModel copyWith({
@@ -57,7 +60,8 @@ class SettingModel extends HiveObject with HiveModelMixin {
     bool? isInstalled,
     List<CurrencyModel>? supportCurrencies,
     List<LanguageModel>? supportLanguages,
-    List<CountryModel>? supportCountries, // new field
+    List<CountryModel>? supportCountries,
+    int? selectedThemeColorId, // new field
   }) {
     return SettingModel(
       languageCode: languageCode ?? this.languageCode,
@@ -68,28 +72,30 @@ class SettingModel extends HiveObject with HiveModelMixin {
       isInstalled: isInstalled ?? this.isInstalled,
       supportCurrencies: supportCurrencies ?? this.supportCurrencies,
       supportLanguages: supportLanguages ?? this.supportLanguages,
-      supportCountries: supportCountries ?? this.supportCountries, // new field
+      supportCountries: supportCountries ?? this.supportCountries,
+      selectedThemeColorId:
+          selectedThemeColorId ?? this.selectedThemeColorId, // new field
     );
   }
 
   static SettingModel fromJson(Map<String, dynamic> json) {
     return SettingModel(
-      languageCode: json['languageCode'] as String,
-      currencyCode: json['currencyCode'] as String,
-      countryCode: json['countryCode'] as String,
-      theme: json['theme'] as String,
-      notificationEnabled: json['notificationEnabled'] as bool,
-      isInstalled: json['isInstalled'] as bool,
-      supportCurrencies: (json['supportCurrencies'] as List)
-          .map((e) => CurrencyModel.fromJson(e))
-          .toList(),
-      supportLanguages: (json['supportLanguages'] as List)
-          .map((e) => LanguageModel.fromJson(e))
-          .toList(),
-      supportCountries: (json['supportCountries'] as List)
-          .map((e) => CountryModel.fromJson(e))
-          .toList(), // new field
-    );
+        languageCode: json['languageCode'] as String,
+        currencyCode: json['currencyCode'] as String,
+        countryCode: json['countryCode'] as String,
+        theme: json['theme'] as String,
+        notificationEnabled: json['notificationEnabled'] as bool,
+        isInstalled: json['isInstalled'] as bool,
+        supportCurrencies: (json['supportCurrencies'] as List)
+            .map((e) => CurrencyModel.fromJson(e))
+            .toList(),
+        supportLanguages: (json['supportLanguages'] as List)
+            .map((e) => LanguageModel.fromJson(e))
+            .toList(),
+        supportCountries: (json['supportCountries'] as List)
+            .map((e) => CountryModel.fromJson(e))
+            .toList(), // new field
+        selectedThemeColorId: json['selectedThemeColorId'] as int);
   }
 
   Map<String, dynamic> toJson() {
@@ -103,6 +109,7 @@ class SettingModel extends HiveObject with HiveModelMixin {
       'supportCurrencies': supportCurrencies.map((e) => e.toJson()).toList(),
       'supportLanguages': supportLanguages.map((e) => e.toJson()).toList(),
       'supportCountries': supportCountries.map((e) => e.toJson()).toList(),
+      'selectedThemeColorId': selectedThemeColorId,
       // new field
     };
   }

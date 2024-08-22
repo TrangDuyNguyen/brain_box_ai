@@ -248,7 +248,7 @@ class VerifyContentWidget extends HookConsumerWidget implements VerifyCallBack {
       child: Text(
         "Verification",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.onPrimary),
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)

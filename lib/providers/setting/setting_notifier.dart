@@ -14,6 +14,7 @@ class SettingNotifier extends StateNotifier<AppSetting> {
           currencyCode: AppConfig.instance.defaultCurrencyCode,
           countryCode: AppConfig.instance.defaultCountryCode,
           theme: AppConfig.instance.defaultThemeMode,
+          selectedThemeColorId: AppConfig.instance.defaultThemeColor,
         ));
 
   /// Method to handle async initialization after the constructor
@@ -25,6 +26,7 @@ class SettingNotifier extends StateNotifier<AppSetting> {
     AppConfig.instance.defaultCurrencyCode = setting.currencyCode;
     AppConfig.instance.defaultThemeMode = setting.theme;
     AppConfig.instance.isEnableNotification = setting.notificationEnabled;
+    AppConfig.instance.defaultThemeColor = setting.selectedThemeColorId;
 
     // Update the state with the fetched setting
     state = state.copyWith(
@@ -32,6 +34,7 @@ class SettingNotifier extends StateNotifier<AppSetting> {
       currencyCode: setting.currencyCode,
       theme: setting.theme,
       notificationEnabled: setting.notificationEnabled,
+      selectedThemeColorId: setting.selectedThemeColorId,
     );
   }
 
@@ -47,13 +50,18 @@ class SettingNotifier extends StateNotifier<AppSetting> {
   }
 
   void setUpdateTheme(String theme) {
-    useCase.updateTheme(theme);
+    useCase.updateThemeMode(theme);
     state = state.copyWith(theme: theme);
   }
 
   void toggleNotification(bool isEnable) {
     useCase.toggleNotification(isEnable);
     state = state.copyWith(notificationEnabled: isEnable);
+  }
+
+  void setUpdateThemeColor(int id) {
+    useCase.updateThemeColor(id);
+    state = state.copyWith(selectedThemeColorId: id);
   }
 }
 

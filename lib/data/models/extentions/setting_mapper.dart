@@ -31,6 +31,7 @@ class AppSettingMapper extends MapperModel<SettingModel, AppSetting> {
       supportCountries: dto.supportCountries
           .map((countryModel) => Country.fromJson(countryModel.toJson()))
           .toList(),
+      selectedThemeColorId: dto.selectedThemeColorId,
     );
   }
 
@@ -52,6 +53,7 @@ class AppSettingMapper extends MapperModel<SettingModel, AppSetting> {
       supportCountries: model.supportCountries
           .map((country) => CountryModel.fromJson(country.toJson()))
           .toList(),
+      selectedThemeColorId: model.selectedThemeColorId,
     );
   }
 }

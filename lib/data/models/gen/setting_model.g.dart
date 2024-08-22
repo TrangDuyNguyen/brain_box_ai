@@ -26,13 +26,14 @@ class SettingModelAdapter extends TypeAdapter<SettingModel> {
       supportCurrencies: (fields[6] as List).cast<CurrencyModel>(),
       supportLanguages: (fields[7] as List).cast<LanguageModel>(),
       supportCountries: (fields[8] as List).cast<CountryModel>(),
+      selectedThemeColorId: fields[9] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.languageCode)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class SettingModelAdapter extends TypeAdapter<SettingModel> {
       ..writeByte(7)
       ..write(obj.supportLanguages)
       ..writeByte(8)
-      ..write(obj.supportCountries);
+      ..write(obj.supportCountries)
+      ..writeByte(9)
+      ..write(obj.selectedThemeColorId);
   }
 
   @override
@@ -84,6 +87,7 @@ SettingModel _$SettingModelFromJson(Map<String, dynamic> json) => SettingModel(
       supportCountries: (json['supportCountries'] as List<dynamic>)
           .map((e) => CountryModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      selectedThemeColorId: (json['selectedThemeColorId'] as num).toInt(),
     );
 
 Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
@@ -100,4 +104,5 @@ Map<String, dynamic> _$SettingModelToJson(SettingModel instance) =>
           instance.supportLanguages.map((e) => e.toJson()).toList(),
       'supportCountries':
           instance.supportCountries.map((e) => e.toJson()).toList(),
+      'selectedThemeColorId': instance.selectedThemeColorId,
     };

@@ -6,6 +6,7 @@ import 'core/environments/app_config.dart';
 import 'core/environments/flavor_config.dart';
 import 'core/router/router.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_color_option.dart';
 import 'data/db/hive/core/hive_database_manager.dart';
 
 void main() async {
@@ -26,15 +27,20 @@ class App extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appSetting = ref.watch(settingNotifierProvider);
-    final appTheme = ref.read(appThemeProvider);
+
+    final selectedThemeColorOption = themeColorOptions.firstWhere(
+      (option) => option.id == appSetting.selectedThemeColorId,
+      orElse: () => themeColorOptions[0],
+    );
+
+    final themeData =
+        createTheme(selectedThemeColorOption, appSetting.theme == 'dark');
     final router = ref.read(routerProvider);
 
     return MaterialApp.router(
       title: AppConfig.instance.appName,
       locale: Locale(appSetting.languageCode),
-      theme: appSetting.theme == 'light'
-          ? appTheme.lightTheme
-          : appTheme.darkTheme,
+      theme: themeData,
       localizationsDelegates: AppStr.localizationsDelegates,
       supportedLocales: AppStr.supportedLocales,
       routeInformationParser: router.routeInformationParser,

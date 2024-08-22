@@ -293,7 +293,7 @@ class LoginInContentWidget extends HookConsumerWidget implements LoginCallBack {
       child: Text(
         "Login",
         style: context.appTextStyles.titleMedium.bold
-            .copyWith(color: context.appColors.onPrimary),
+            .copyWith(color: context.appColors.onSurface),
       ),
     )
         .paddingHorizontalSpace(SpaceType.medium)

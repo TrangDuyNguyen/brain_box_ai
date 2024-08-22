@@ -13,6 +13,7 @@ class AppConfig {
   String defaultLanguageCode;
   String defaultThemeMode;
   bool isEnableNotification = false;
+  int defaultThemeColor = 0;
 
   AppConfig({
     required this.appName,
@@ -23,6 +24,7 @@ class AppConfig {
     this.defaultLanguageCode = 'en',
     this.defaultThemeMode = 'light',
     this.defaultCurrencyCode = 'USD',
+    this.defaultThemeColor = 0,
   });
 
   static AppConfig? _instance;

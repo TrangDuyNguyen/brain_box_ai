@@ -12,6 +12,7 @@ class AppSetting {
   final List<Currency> supportCurrencies;
   final List<Language> supportLanguages;
   final List<Country> supportCountries; // new field
+  final int selectedThemeColorId;
 
   AppSetting({
     required this.languageCode,
@@ -22,7 +23,8 @@ class AppSetting {
     required this.isInstalled,
     required this.supportCurrencies,
     required this.supportLanguages,
-    required this.supportCountries, // new field
+    required this.supportCountries,
+    required this.selectedThemeColorId, // new field
   });
 
   AppSetting copyWith({
@@ -34,7 +36,8 @@ class AppSetting {
     bool? isInstalled,
     List<Currency>? supportCurrencies,
     List<Language>? supportLanguages,
-    List<Country>? supportCountries, // new field
+    List<Country>? supportCountries,
+    int? selectedThemeColorId,// new field
   }) {
     return AppSetting(
       languageCode: languageCode ?? this.languageCode,
@@ -45,7 +48,8 @@ class AppSetting {
       isInstalled: isInstalled ?? this.isInstalled,
       supportCurrencies: supportCurrencies ?? this.supportCurrencies,
       supportLanguages: supportLanguages ?? this.supportLanguages,
-      supportCountries: supportCountries ?? this.supportCountries, // new field
+      supportCountries: supportCountries ?? this.supportCountries,
+      selectedThemeColorId: selectedThemeColorId ?? this.selectedThemeColorId, // new field
     );
   }
 
@@ -60,7 +64,8 @@ class AppSetting {
       'supportCurrencies': supportCurrencies.map((e) => e.toJson()).toList(),
       'supportLanguages': supportLanguages.map((e) => e.toJson()).toList(),
       'supportCountries':
-          supportCountries.map((e) => e.toJson()).toList(), // new field
+          supportCountries.map((e) => e.toJson()).toList(),
+      'selectedThemeColorId': selectedThemeColorId,// new field
     };
   }
 
@@ -80,7 +85,8 @@ class AppSetting {
           .toList(),
       supportCountries: (map['supportCountries'] as List)
           .map((e) => Country.fromJson(e))
-          .toList(), // new field
+          .toList(),
+      selectedThemeColorId: map['selectedThemeColorId'] as int, // new field
     );
   }
 
@@ -93,7 +99,8 @@ class AppSetting {
     bool isInstalled = false,
     List<Currency> supportCurrencies = const [],
     List<Language> supportLanguages = const [],
-    List<Country> supportCountries = const [], // new field
+    List<Country> supportCountries = const [],
+    selectedThemeColorId = 0,// new field
   }) {
     return AppSetting(
       languageCode: 'en',
@@ -104,7 +111,8 @@ class AppSetting {
       isInstalled: false,
       supportCurrencies: [],
       supportLanguages: [],
-      supportCountries: [], // new field
+      supportCountries: [],
+      selectedThemeColorId: 0, // new field
     );
   }
 }

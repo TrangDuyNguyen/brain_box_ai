@@ -41,7 +41,7 @@ class ChipsHorizontalWidget extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(8), // Đặt border radius là 8
                     side: BorderSide(
-                      color: context.appColors.primary, // Màu border
+                      color: context.appColors.primaryContainer, // Màu border
                     ),
                   ),
                   elevation: 0, // Remove shadow

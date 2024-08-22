@@ -8,7 +8,8 @@ abstract class SettingsRepository {
   Future<void> updateLanguageCd(String languageCd);
   Future<void> updateCurrencyCd(String currencyCd);
   Future<void> updateCountryCd(String countryCd);
-  Future<void> updateTheme(String theme);
+  Future<void> updateThemeMode(String theme);
+  Future<void> updateThemeColor(int id);
   Future<void> toggleNotification(bool isEnabled);
   Future<void> installed(bool value);
   Future<void> updateSupportCurrencies(List<Currency> currencies);

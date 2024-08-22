@@ -34,8 +34,12 @@ class SettingUserCase implements UseCase<void, SettingParams> {
     return repository.updateCountryCd(countryCd);
   }
 
-  Future<void> updateTheme(String theme) {
-    return repository.updateTheme(theme);
+  Future<void> updateThemeMode(String theme) {
+    return repository.updateThemeMode(theme);
+  }
+
+  Future<void> updateThemeColor(int id) {
+    return repository.updateThemeColor(id);
   }
 }
 
