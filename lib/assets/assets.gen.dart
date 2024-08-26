@@ -122,6 +122,8 @@ class Assets {
   static const AssetGenImage icSwitchOn =
       AssetGenImage('assets/ic_switch_on.png');
   static const AssetGenImage icTheme = AssetGenImage('assets/ic_theme.png');
+  static const AssetGenImage icThemeColor =
+      AssetGenImage('assets/ic_theme_color.png');
   static const AssetGenImage icTick = AssetGenImage('assets/ic_tick.png');
   static const AssetGenImage icUser = AssetGenImage('assets/ic_user.png');
   static const AssetGenImage icX = AssetGenImage('assets/ic_x.png');
@@ -165,6 +167,7 @@ class Assets {
         icSwitchOff,
         icSwitchOn,
         icTheme,
+        icThemeColor,
         icTick,
         icUser,
         icX

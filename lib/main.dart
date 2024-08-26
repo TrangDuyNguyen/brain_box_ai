@@ -33,14 +33,14 @@ class App extends HookConsumerWidget {
       orElse: () => themeColorOptions[0],
     );
 
-    final themeData =
-        createTheme(selectedThemeColorOption, appSetting.theme == 'dark');
     final router = ref.read(routerProvider);
 
     return MaterialApp.router(
       title: AppConfig.instance.appName,
       locale: Locale(appSetting.languageCode),
-      theme: themeData,
+      theme: appSetting.theme == "light"
+          ? selectedThemeColorOption.themeDataLight
+          : selectedThemeColorOption.themeDataDark,
       localizationsDelegates: AppStr.localizationsDelegates,
       supportedLocales: AppStr.supportedLocales,
       routeInformationParser: router.routeInformationParser,
