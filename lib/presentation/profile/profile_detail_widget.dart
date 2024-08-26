@@ -88,7 +88,7 @@ class ProfileDetailWidget extends HookConsumerWidget
         height: context.height - context.bottomSpacer,
         child: Column(
           children: [
-            _buildAvatar(context),
+            _buildAvatar(context, profileState),
             _buildForm(
               context,
               mNameTextController,
@@ -123,7 +123,7 @@ class ProfileDetailWidget extends HookConsumerWidget
 
   ///Widget
 
-  Widget _buildAvatar(BuildContext context) {
+  Widget _buildAvatar(BuildContext context, ProfileState profileState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -135,7 +135,9 @@ class ProfileDetailWidget extends HookConsumerWidget
             radius: 44,
             child: ClipOval(
               child: CachedNetworkImage(
-                imageUrl: "https://thispersondoesnotexist.com",
+                imageUrl: profileState is ProfileSuccess
+                    ? profileState.profileEntity.avatarUrl
+                    : "",
                 errorWidget: (context, url, error) => CircleAvatar(
                   radius: 44,
                   backgroundImage: AssetImage(Assets.icAvatar.path),

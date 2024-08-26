@@ -1,15 +1,17 @@
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
-import 'package:brain_box_ai/core/utility/app_context.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
 import 'package:brain_box_ai/providers/home/state/home_state.dart';
+import 'package:brain_box_ai/providers/profile/state/update_profile_state.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
 import '../../../providers/home/home_notifier.dart';
+import '../../../providers/profile/profile_notifier.dart';
 import '../../widgets/chip_widget.dart';
 import '../../widgets/shimmer_widget.dart';
 
@@ -54,6 +56,7 @@ class HomeContentWidget extends HookConsumerWidget
 
     final homeState = ref.watch(homeNotifierProvider);
     final homeNotifier = ref.read(homeNotifierProvider.notifier);
+    final profileState = ref.watch(profileNotifierProvider);
 
     final selectedChipIndex = useState(0);
 
@@ -68,7 +71,7 @@ class HomeContentWidget extends HookConsumerWidget
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildHeader(context),
+            _buildHeader(context, profileState),
             _buildSearch(context, searchController, searchFocusNote),
             _buildCategory(context),
             _buildTopPrompt(
@@ -79,7 +82,7 @@ class HomeContentWidget extends HookConsumerWidget
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, ProfileState profileState) {
     return Row(
       children: [
         GestureDetector(
@@ -87,14 +90,15 @@ class HomeContentWidget extends HookConsumerWidget
           child: CircleAvatar(
             radius: 22,
             child: ClipOval(
-              child: Image.network(
-                "https://thispersondoesnotexist.com",
-                errorBuilder: (context, error, stackTrace) {
-                  return CircleAvatar(
-                    radius: 22,
-                    backgroundImage: AssetImage(Assets.icAvatar.path),
-                  );
-                },
+              child: CachedNetworkImage(
+                imageUrl: profileState is ProfileSuccess
+                    ? profileState.profileEntity.avatarUrl
+                    : "",
+                errorWidget: (context, url, error) => CircleAvatar(
+                  radius: 22,
+                  backgroundImage: AssetImage(Assets.icAvatar.path),
+                ),
+                fit: BoxFit.cover,
               ),
             ),
           ).paddingRightSpace(SpaceType.small),
@@ -110,7 +114,9 @@ class HomeContentWidget extends HookConsumerWidget
                     .copyWith(color: context.appColors.onSurface),
               ),
               Text(
-                "Nguyen Duy Trang",
+                  profileState is ProfileSuccess
+                      ? profileState.profileEntity.fullName
+                      : "",
                 style: context.appTextStyles.titleMedium.bold
                     .copyWith(color: context.appColors.onSurface),
               ),

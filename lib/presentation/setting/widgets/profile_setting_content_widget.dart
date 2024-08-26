@@ -3,12 +3,14 @@ import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/domain/entities/setting/app_setting.dart';
+import 'package:brain_box_ai/providers/profile/state/update_profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
 import '../../../core/theme/theme_color_option.dart';
+import '../../../providers/profile/profile_notifier.dart';
 import '../../../providers/setting/setting_notifier.dart';
 import '../../widgets/bottom_sheet.dart';
 
@@ -38,6 +40,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final profileState = ref.watch(profileNotifierProvider);
     final appSettingState = ref.watch(settingNotifierProvider);
     final appSettingNotifier = ref.read(settingNotifierProvider.notifier);
 
@@ -45,8 +48,8 @@ class ProfileSettingContentWidget extends HookConsumerWidget
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         children: [
-          _buildAvatar(context),
-          _buildNameSection(context),
+          _buildAvatar(context, profileState),
+          _buildNameSection(context, profileState),
           _buildSettingSection(context, appSettingState, appSettingNotifier),
           _buildNotificationSection(
               context, appSettingState, appSettingNotifier),
@@ -56,7 +59,7 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     );
   }
 
-  Widget _buildAvatar(BuildContext context) {
+  Widget _buildAvatar(BuildContext context, ProfileState profileState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -67,7 +70,9 @@ class ProfileSettingContentWidget extends HookConsumerWidget
             radius: 44,
             child: ClipOval(
               child: Image.network(
-                "https://thispersondoesnotexist.com",
+                profileState is ProfileSuccess
+                    ? profileState.profileEntity.avatarUrl
+                    : "",
                 errorBuilder: (context, error, stackTrace) {
                   return CircleAvatar(
                     radius: 44,
@@ -82,11 +87,11 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     ).paddingVerticalSpace(SpaceType.large);
   }
 
-  Widget _buildNameSection(BuildContext context) {
+  Widget _buildNameSection(BuildContext context, ProfileState profileState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildUserInfo(context),
+        _buildUserInfo(context, profileState),
         ElevatedButton(
           onPressed: () {
             goProfile(context);
@@ -102,17 +107,21 @@ class ProfileSettingContentWidget extends HookConsumerWidget
     );
   }
 
-  Widget _buildUserInfo(BuildContext context) {
+  Widget _buildUserInfo(BuildContext context, ProfileState profileState) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Nguyen Duy Trang",
+          profileState is ProfileSuccess
+              ? profileState.profileEntity.fullName
+              : "",
           style: context.appTextStyles.titleMedium.bold
               .copyWith(color: context.appColors.onSurface),
         ),
         Text(
-          "Trangndps10349@gmail.com",
+          profileState is ProfileSuccess
+              ? profileState.profileEntity.email
+              : "",
           style: context.appTextStyles.labelMedium
               .copyWith(color: context.appColors.onSurface),
         ),
