@@ -7,9 +7,11 @@ import 'package:brain_box_ai/presentation/auth/pages/sign_up_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
 import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:brain_box_ai/presentation/profile/profile_detail_page.dart';
+import 'package:brain_box_ai/presentation/search/pages/search_prompt_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/auth/pages/on_boading_page.dart';
+import '../../presentation/search/pages/filter_prompt_page.dart';
 
 final List<RouteBase> routes = [
   GoRoute(
@@ -47,5 +49,13 @@ final List<RouteBase> routes = [
   GoRoute(
     path: RouterPath.profile.getPath,
     builder: (context, state) => const ProfileDetailPage(),
+  ),
+  GoRoute(
+    path: RouterPath.search.getPath,
+    builder: (context, state) => const SearchPromptPage(),
+  ),
+  GoRoute(
+    path: RouterPath.filter.getPath,
+    builder: (context, state) => const FilterPromptPage(),
   ),
 ];

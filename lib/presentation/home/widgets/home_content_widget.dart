@@ -1,12 +1,15 @@
+import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
+import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
 import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
 import 'package:brain_box_ai/providers/home/state/home_state.dart';
 import 'package:brain_box_ai/providers/profile/state/update_profile_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
@@ -14,23 +17,6 @@ import '../../../providers/home/home_notifier.dart';
 import '../../../providers/profile/profile_notifier.dart';
 import '../../widgets/chip_widget.dart';
 import '../../widgets/shimmer_widget.dart';
-
-final List<String> listChip = [
-  "All",
-  "General",
-  "Gastroenteritis",
-  "Cardiologist",
-  "Orthopaedic",
-  "Neurologist",
-  "Otology",
-  "Dentist",
-  "Rhinology",
-  "Urologist",
-  "Otology",
-  "Pulmonologist",
-  "Neurologist",
-  "Gastroenteritis"
-];
 
 abstract class HomeContentCallback {
   goViewProfile(BuildContext context);
@@ -114,9 +100,9 @@ class HomeContentWidget extends HookConsumerWidget
                     .copyWith(color: context.appColors.onSurface),
               ),
               Text(
-                  profileState is ProfileSuccess
-                      ? profileState.profileEntity.fullName
-                      : "",
+                profileState is ProfileSuccess
+                    ? profileState.profileEntity.fullName
+                    : "",
                 style: context.appTextStyles.titleMedium.bold
                     .copyWith(color: context.appColors.onSurface),
               ),
@@ -171,7 +157,8 @@ class HomeContentWidget extends HookConsumerWidget
             child: TextFormField(
               controller: searchController,
               focusNode: searchFocusNote,
-              enabled: false,
+              enabled: true,
+              readOnly: true,
               onTap: () => {goSearch(context)},
               decoration: InputDecoration(
                   hintText: "Search",
@@ -296,7 +283,7 @@ class HomeContentWidget extends HookConsumerWidget
           ],
         ).paddingTopSpace(SpaceType.large),
         ChipsHorizontalWidget(
-            chipLabels: listChip,
+            chipLabels: listCategoryChip,
             selectedChipIndex: selectedChipIndex.value,
             onChipSelected: (index) {
               selectedChipIndex.value = index;
@@ -330,8 +317,7 @@ class HomeContentWidget extends HookConsumerWidget
 
   @override
   goFiller(BuildContext context) {
-    // TODO: implement goFiller
-    throw UnimplementedError();
+    context.push(RouterPath.filter.getPath);
   }
 
   @override
@@ -348,8 +334,7 @@ class HomeContentWidget extends HookConsumerWidget
 
   @override
   goSearch(BuildContext context) {
-    // TODO: implement goSearch
-    throw UnimplementedError();
+    context.push(RouterPath.search.getPath);
   }
 
   @override

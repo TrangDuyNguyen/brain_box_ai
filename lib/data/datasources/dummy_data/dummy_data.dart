@@ -1,3 +1,29 @@
+final List<String> listCategoryChip = [
+  "All",
+  "General",
+  "Gastroenteritis",
+  "Cardiologist",
+  "Orthopaedic",
+  "Neurologist",
+  "Otology",
+  "Dentist",
+  "Rhinology",
+  "Urologist",
+  "Otology",
+  "Pulmonologist",
+  "Neurologist",
+  "Gastroenteritis"
+];
+
+final List<String> listRateChip = [
+  "All",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+];
+
 List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "1",
@@ -90,5 +116,64 @@ List<Map<String, dynamic>> jsonPromptList = [
     "updatedAt": "2024-07-31T08:25:00Z"
   }
 ];
+
+List<Map<String, dynamic>> jsonPromptHistoryList = [
+  {
+    "id": "1",
+    "title": "Understanding Clean Architecture",
+    "content":
+    "Clean architecture is a software design philosophy that separates the concerns of the application into layers.",
+    "category": "Architecture",
+    "createdAt": "2024-08-09T10:00:00Z",
+    "updatedAt": "2024-08-09T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "title": "Getting Started with Riverpod",
+    "content":
+    "Riverpod is a state management library for Flutter applications, providing better control over state and dependency injection.",
+    "category": "State Management",
+    "createdAt": "2024-08-08T12:00:00Z",
+    "updatedAt": "2024-08-08T12:00:00Z"
+  },
+  {
+    "id": "3",
+    "title": "Effective Use of Flutter Hooks",
+    "content":
+    "Flutter Hooks is a powerful library that allows you to use hooks to manage the lifecycle of stateful widgets.",
+    "category": "Flutter",
+    "createdAt": "2024-08-07T09:30:00Z",
+    "updatedAt": "2024-08-07T09:30:00Z"
+  },
+  {
+    "id": "4",
+    "title": "Introduction to BLoC Pattern",
+    "content":
+    "The BLoC pattern is a popular approach in Flutter for managing state using reactive programming.",
+    "category": "State Management",
+    "createdAt": "2024-08-06T14:45:00Z",
+    "updatedAt": "2024-08-06T14:45:00Z"
+  },
+  {
+    "id": "5",
+    "title": "Building Responsive UI in Flutter",
+    "content":
+    "Learn how to create responsive layouts in Flutter that adapt to different screen sizes and orientations.",
+    "category": "Flutter",
+    "createdAt": "2024-08-05T16:20:00Z",
+    "updatedAt": "2024-08-05T16:20:00Z"
+  },
+  {
+    "id": "6",
+    "title": "Working with Firebase Authentication",
+    "content":
+    "Firebase Authentication provides a simple and secure way to integrate user authentication into your Flutter app.",
+    "category": "Authentication",
+    "createdAt": "2024-08-04T11:00:00Z",
+    "updatedAt": "2024-08-04T11:00:00Z"
+  },
+];
+
+
 
 
