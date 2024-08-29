@@ -28,6 +28,8 @@ mixin _$PromptSavedModel {
   set content(String value) => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   set category(String value) => throw _privateConstructorUsedError;
+  int get rate => throw _privateConstructorUsedError;
+  set rate(int value) => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   set createdAt(String value) => throw _privateConstructorUsedError;
 
@@ -48,6 +50,7 @@ abstract class $PromptSavedModelCopyWith<$Res> {
       String title,
       String content,
       String category,
+      int rate,
       String createdAt});
 }
 
@@ -68,6 +71,7 @@ class _$PromptSavedModelCopyWithImpl<$Res, $Val extends PromptSavedModel>
     Object? title = null,
     Object? content = null,
     Object? category = null,
+    Object? rate = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -87,6 +91,10 @@ class _$PromptSavedModelCopyWithImpl<$Res, $Val extends PromptSavedModel>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -108,6 +116,7 @@ abstract class _$$PromptSavedModelImplCopyWith<$Res>
       String title,
       String content,
       String category,
+      int rate,
       String createdAt});
 }
 
@@ -126,6 +135,7 @@ class __$$PromptSavedModelImplCopyWithImpl<$Res>
     Object? title = null,
     Object? content = null,
     Object? category = null,
+    Object? rate = null,
     Object? createdAt = null,
   }) {
     return _then(_$PromptSavedModelImpl(
@@ -145,6 +155,10 @@ class __$$PromptSavedModelImplCopyWithImpl<$Res>
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      rate: null == rate
+          ? _value.rate
+          : rate // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -161,6 +175,7 @@ class _$PromptSavedModelImpl implements _PromptSavedModel {
       required this.title,
       required this.content,
       required this.category,
+      required this.rate,
       required this.createdAt});
 
   factory _$PromptSavedModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -175,11 +190,13 @@ class _$PromptSavedModelImpl implements _PromptSavedModel {
   @override
   String category;
   @override
+  int rate;
+  @override
   String createdAt;
 
   @override
   String toString() {
-    return 'PromptSavedModel(id: $id, title: $title, content: $content, category: $category, createdAt: $createdAt)';
+    return 'PromptSavedModel(id: $id, title: $title, content: $content, category: $category, rate: $rate, createdAt: $createdAt)';
   }
 
   @JsonKey(ignore: true)
@@ -203,6 +220,7 @@ abstract class _PromptSavedModel implements PromptSavedModel {
       required String title,
       required String content,
       required String category,
+      required int rate,
       required String createdAt}) = _$PromptSavedModelImpl;
 
   factory _PromptSavedModel.fromJson(Map<String, dynamic> json) =
@@ -220,6 +238,9 @@ abstract class _PromptSavedModel implements PromptSavedModel {
   @override
   String get category;
   set category(String value);
+  @override
+  int get rate;
+  set rate(int value);
   @override
   String get createdAt;
   set createdAt(String value);

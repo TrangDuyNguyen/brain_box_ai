@@ -75,6 +75,7 @@ class Assets {
   static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
   static const AssetGenImage icCalendar =
       AssetGenImage('assets/ic_calendar.png');
+  static const AssetGenImage icClose = AssetGenImage('assets/ic_close.png');
   static const AssetGenImage icCustomerService =
       AssetGenImage('assets/ic_customer_service.png');
   static const AssetGenImage icDarkTheme =
@@ -136,6 +137,7 @@ class Assets {
         icAvatar,
         icBack,
         icCalendar,
+        icClose,
         icCustomerService,
         icDarkTheme,
         icEmail,

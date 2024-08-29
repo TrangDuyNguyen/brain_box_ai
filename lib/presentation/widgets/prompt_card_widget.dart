@@ -88,7 +88,7 @@ class PromptCardWidget extends HookConsumerWidget {
 
   Widget _buildRatingBar(BuildContext context) {
     return RatingBar.builder(
-      initialRating: promptEntity.rate,
+      initialRating: promptEntity.rate.toDouble(),
       minRating: 1,
       direction: Axis.horizontal,
       allowHalfRating: true,

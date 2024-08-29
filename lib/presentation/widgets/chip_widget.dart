@@ -1,8 +1,9 @@
 import 'package:brain_box_ai/core/theme/app_color.dart';
+import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
 import 'package:flutter/material.dart';
 
 class ChipsHorizontalWidget extends StatelessWidget {
-  final List<String> chipLabels;
+  final List<CategoryEntity> chipLabels;
   final Function(int) onChipSelected;
   final int selectedChipIndex;
 
@@ -26,7 +27,7 @@ class ChipsHorizontalWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ChoiceChip(
                   label: Text(
-                    chipLabels[index],
+                    chipLabels[index].name,
                     style: context.appTextStyles.labelLarge.copyWith(
                         color: selectedChipIndex == index
                             ? context.appColors.onPrimary

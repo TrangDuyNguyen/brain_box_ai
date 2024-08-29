@@ -4,8 +4,10 @@ import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
 import 'package:brain_box_ai/providers/search/state/filter_state.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../domain/entities/search/category_entity.dart';
 import '../../../providers/search/filter_notifier.dart';
 
 abstract class FilterPromptCallBack {
@@ -57,8 +59,10 @@ class FilterPromptWidget extends HookConsumerWidget
     );
   }
 
-  Widget _buildCategoryListChip(BuildContext context,
-      FilterNotifier filterNotifier, List<int> selectedCategoryChips) {
+  Widget _buildCategoryListChip(
+      BuildContext context,
+      FilterNotifier filterNotifier,
+      List<CategoryEntity> selectedCategoryChips) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         "Category",
@@ -69,17 +73,18 @@ class FilterPromptWidget extends HookConsumerWidget
         spacing: 8.0,
         runSpacing: 8.0,
         children: List<Widget>.generate(listCategoryChip.length, (int index) {
+          final category = listCategoryChip[index];
           return ChoiceChip(
             label: Text(
-              listCategoryChip[index],
+              category.name,
               style: context.appTextStyles.labelMedium.copyWith(
-                  color: selectedCategoryChips.contains(index)
+                  color: selectedCategoryChips.contains(category)
                       ? context.appColors.onPrimary
                       : context.appColors.primary),
             ),
-            selected: selectedCategoryChips.contains(index),
+            selected: selectedCategoryChips.contains(category),
             onSelected: (selected) {
-              filterNotifier.toggleCategoryChip(index);
+              filterNotifier.toggleCategoryChip(category);
             },
             backgroundColor: Colors.transparent,
             selectedColor: context.appColors.primary,
@@ -94,7 +99,7 @@ class FilterPromptWidget extends HookConsumerWidget
   }
 
   Widget _buildRateListChip(BuildContext context, FilterNotifier filterNotifier,
-      int selectedRateChip) {
+      CategoryEntity selectedRateChip) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -102,28 +107,31 @@ class FilterPromptWidget extends HookConsumerWidget
           "Rating star",
           style: context.appTextStyles.titleMedium.bold,
         ).paddingTopSpace(SpaceType.large),
-        SizedBox(
-          height: 36,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return ChoiceChip(
-                label: Text(listRateChip[index]),
-                selected: selectedRateChip == index,
-                onSelected: (selected) =>
-                    filterNotifier.updateRateFilter(index),
-                backgroundColor: Colors.transparent,
-                selectedColor: context.appColors.primary,
-                shape: StadiumBorder(
-                  side: BorderSide(color: context.appColors.primary),
-                ),
-                elevation: 0,
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(width: 10),
-            itemCount: listRateChip.length,
-          ),
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 8.0,
+          children: List<Widget>.generate(listRateChip.length, (int index) {
+            final rate = listRateChip[index];
+            return ChoiceChip(
+              label: Text(
+                rate.name,
+                style: context.appTextStyles.labelMedium.copyWith(
+                    color: rate.id == selectedRateChip.id
+                        ? context.appColors.onPrimary
+                        : context.appColors.primary),
+              ),
+              selected: rate.id == selectedRateChip.id,
+              onSelected: (selected) {
+                filterNotifier.updateRateFilter(rate);
+              },
+              backgroundColor: Colors.transparent,
+              selectedColor: context.appColors.primary,
+              shape: StadiumBorder(
+                side: BorderSide(color: context.appColors.primary),
+              ),
+              elevation: 0,
+            );
+          }).toList(),
         ).paddingTopSpace(SpaceType.medium),
       ],
     );
@@ -194,8 +202,11 @@ class FilterPromptWidget extends HookConsumerWidget
     filterNotifier.updateCategoryFilter(selectedCategories);
     filterNotifier.updateRateFilter(selectedRate);
 
-    print("Selected Categories: ${filterState.selectedCategoryIndices}");
-    print("Selected Rate: ${filterState.selectedRateIndex}");
+    print(
+        "Selected Categories: ${filterState.selectedCategoryIndices.map((e) => e.name).toList()}");
+    print("Selected Rate: ${filterState.selectedRateIndex.name}");
+
+    context.pop();
   }
 
   @override

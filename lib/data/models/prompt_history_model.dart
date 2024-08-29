@@ -11,6 +11,7 @@ class PromptHistoryModel with _$PromptHistoryModel {
     required String title,
     required String content,
     required String category,
+    required int rate,
     required String createdAt,
   }) = _PromptHistoryModel;
 

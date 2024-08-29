@@ -1,6 +1,8 @@
+import '../../../domain/entities/search/category_entity.dart';
+
 class FilterState {
-  final List<int> selectedCategoryIndices;
-  final int selectedRateIndex;
+  final List<CategoryEntity> selectedCategoryIndices;
+  final CategoryEntity selectedRateIndex;
 
   FilterState({
     required this.selectedCategoryIndices,
@@ -8,8 +10,8 @@ class FilterState {
   });
 
   FilterState copyWith({
-    List<int>? selectedCategoryIndices,
-    int? selectedRateIndex,
+    List<CategoryEntity>? selectedCategoryIndices,
+    CategoryEntity? selectedRateIndex,
   }) {
     return FilterState(
       selectedCategoryIndices: selectedCategoryIndices ?? this.selectedCategoryIndices,

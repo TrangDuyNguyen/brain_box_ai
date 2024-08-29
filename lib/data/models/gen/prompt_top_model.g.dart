@@ -12,6 +12,7 @@ _$PromptTopModelImpl _$$PromptTopModelImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       content: json['content'] as String,
       category: json['category'] as String,
+      rate: (json['rate'] as num).toInt(),
       createdAt: json['createdAt'] as String,
     );
 
@@ -22,5 +23,6 @@ Map<String, dynamic> _$$PromptTopModelImplToJson(
       'title': instance.title,
       'content': instance.content,
       'category': instance.category,
+      'rate': instance.rate,
       'createdAt': instance.createdAt,
     };

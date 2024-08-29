@@ -5,7 +5,7 @@ class PromptEntity {
   final String category;
   final bool like;
   final bool save;
-  final double rate;
+  final int rate;
   final DateTime createdAt;
   final DateTime updatedAt;
 
