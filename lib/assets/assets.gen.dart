@@ -71,6 +71,8 @@ class Assets {
       AssetGenImage('assets/ic_about_us.png');
   static const AssetGenImage icArowRight =
       AssetGenImage('assets/ic_arow_right.png');
+  static const AssetGenImage icArrowUp =
+      AssetGenImage('assets/ic_arrow_up.png');
   static const AssetGenImage icAvatar = AssetGenImage('assets/ic_avatar.png');
   static const AssetGenImage icBack = AssetGenImage('assets/ic_back.png');
   static const AssetGenImage icCalendar =
@@ -95,6 +97,7 @@ class Assets {
       AssetGenImage('assets/ic_heart_fill.png');
   static const AssetGenImage icHeartOff =
       AssetGenImage('assets/ic_heart_off.png');
+  static const AssetGenImage icHistory = AssetGenImage('assets/ic_history.png');
   static const AssetGenImage icHome = AssetGenImage('assets/ic_home.png');
   static const AssetGenImage icLanguage =
       AssetGenImage('assets/ic_language.png');
@@ -134,6 +137,7 @@ class Assets {
   static List<AssetGenImage> get values => [
         icAboutUs,
         icArowRight,
+        icArrowUp,
         icAvatar,
         icBack,
         icCalendar,
@@ -150,6 +154,7 @@ class Assets {
         icFourSquares,
         icHeartFill,
         icHeartOff,
+        icHistory,
         icHome,
         icLanguage,
         icLightTheme,

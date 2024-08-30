@@ -40,6 +40,19 @@ final List<String> searchHistory = [
   "Optimizing Flutter performance",
 ];
 
+final List<String> searchResult = [
+  "Understanding Flutter: A Comprehensive Guide",
+  "The Best Practices for Clean Architecture in Flutter",
+  "Riverpod vs Provider: Which State Management to Choose?",
+  "Building a Robust Authentication System in Flutter",
+  "Implementing Dark and Light Themes with Material 3",
+  "Managing User Sessions Effectively in Flutter",
+  "Creating Reusable Widgets with Flutter Hooks",
+  "Exploring the GoRouter for Efficient Navigation",
+  "Optimizing Performance in Flutter Apps",
+  "Using Freezed for Immutable Data Classes in Flutter",
+];
+
 List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "1",
@@ -53,7 +66,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "2",
     "title": "Getting Started with Riverpod",
-    "content": "Riverpod is a state management library for Flutter applications...",
+    "content":
+        "Riverpod is a state management library for Flutter applications...",
     "category": "Science",
     "rate": 5,
     "createdAt": "2024-08-08T12:00:00Z",
@@ -62,7 +76,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "3",
     "title": "Effective Use of Flutter Hooks",
-    "content": "Flutter Hooks is a powerful library that allows you to use hooks...",
+    "content":
+        "Flutter Hooks is a powerful library that allows you to use hooks...",
     "category": "Art",
     "rate": 3,
     "createdAt": "2024-08-07T09:30:00Z",
@@ -71,7 +86,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "4",
     "title": "Introduction to BLoC Pattern",
-    "content": "The BLoC pattern is a popular approach in Flutter for managing state...",
+    "content":
+        "The BLoC pattern is a popular approach in Flutter for managing state...",
     "category": "Music",
     "rate": 4,
     "createdAt": "2024-08-06T14:45:00Z",
@@ -98,7 +114,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "7",
     "title": "Best Practices for Flutter Development",
-    "content": "Discover the best practices to follow when developing Flutter applications...",
+    "content":
+        "Discover the best practices to follow when developing Flutter applications...",
     "category": "Education",
     "rate": 3,
     "createdAt": "2024-08-03T15:10:00Z",
@@ -107,7 +124,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "8",
     "title": "Exploring Dart Null Safety",
-    "content": "Dart's null safety feature helps you avoid null reference errors...",
+    "content":
+        "Dart's null safety feature helps you avoid null reference errors...",
     "category": "Travel",
     "rate": 4,
     "createdAt": "2024-08-02T13:35:00Z",
@@ -116,7 +134,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "9",
     "title": "Mastering Flutter Animations",
-    "content": "Learn how to create smooth and beautiful animations in Flutter...",
+    "content":
+        "Learn how to create smooth and beautiful animations in Flutter...",
     "category": "Food",
     "rate": 5,
     "createdAt": "2024-08-01T10:15:00Z",
@@ -125,7 +144,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "10",
     "title": "Optimizing Flutter App Performance",
-    "content": "Explore various techniques to optimize the performance of your Flutter applications...",
+    "content":
+        "Explore various techniques to optimize the performance of your Flutter applications...",
     "category": "Fashion",
     "rate": 4,
     "createdAt": "2024-07-31T08:25:00Z",
@@ -143,7 +163,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "12",
     "title": "Understanding the Flutter Rendering Engine",
-    "content": "A comprehensive guide to understanding how Flutter's rendering engine works...",
+    "content":
+        "A comprehensive guide to understanding how Flutter's rendering engine works...",
     "category": "History",
     "rate": 5,
     "createdAt": "2024-07-29T11:20:00Z",
@@ -161,7 +182,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "14",
     "title": "Flutter Web: Best Practices",
-    "content": "Best practices for building responsive and accessible web applications using Flutter...",
+    "content":
+        "Best practices for building responsive and accessible web applications using Flutter...",
     "category": "Finance",
     "rate": 5,
     "createdAt": "2024-07-27T13:45:00Z",
@@ -179,7 +201,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "16",
     "title": "Working with Flutter's Isolates",
-    "content": "An in-depth look at how to use isolates in Flutter for parallel processing...",
+    "content":
+        "An in-depth look at how to use isolates in Flutter for parallel processing...",
     "category": "Technology",
     "rate": 4,
     "createdAt": "2024-07-25T11:10:00Z",
@@ -188,7 +211,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "17",
     "title": "Building Real-Time Apps with Flutter and Firebase",
-    "content": "Learn how to build real-time apps using Flutter and Firebase Firestore...",
+    "content":
+        "Learn how to build real-time apps using Flutter and Firebase Firestore...",
     "category": "Science",
     "rate": 5,
     "createdAt": "2024-07-24T10:30:00Z",
@@ -197,7 +221,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "18",
     "title": "Securing Flutter Apps",
-    "content": "Explore various techniques for securing Flutter applications...",
+    "content":
+        "Explore various techniques for securing Flutter applications...",
     "category": "Art",
     "rate": 4,
     "createdAt": "2024-07-23T13:40:00Z",
@@ -206,7 +231,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "19",
     "title": "Using InheritedWidget for State Management",
-    "content": "Understand how to use InheritedWidget for state management in Flutter...",
+    "content":
+        "Understand how to use InheritedWidget for state management in Flutter...",
     "category": "Music",
     "rate": 3,
     "createdAt": "2024-07-22T14:00:00Z",
@@ -215,7 +241,8 @@ List<Map<String, dynamic>> jsonPromptList = [
   {
     "id": "20",
     "title": "Migrating to Flutter 3.0",
-    "content": "A step-by-step guide to migrating your existing Flutter projects to Flutter 3.0...",
+    "content":
+        "A step-by-step guide to migrating your existing Flutter projects to Flutter 3.0...",
     "category": "Sports",
     "rate": 5,
     "createdAt": "2024-07-21T12:15:00Z",
@@ -228,7 +255,7 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "1",
     "title": "Understanding Clean Architecture",
     "content":
-    "Clean architecture is a software design philosophy that separates the concerns of the application into layers.",
+        "Clean architecture is a software design philosophy that separates the concerns of the application into layers.",
     "category": "Architecture",
     "createdAt": "2024-08-09T10:00:00Z",
     "updatedAt": "2024-08-09T10:00:00Z"
@@ -237,7 +264,7 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "2",
     "title": "Getting Started with Riverpod",
     "content":
-    "Riverpod is a state management library for Flutter applications, providing better control over state and dependency injection.",
+        "Riverpod is a state management library for Flutter applications, providing better control over state and dependency injection.",
     "category": "State Management",
     "createdAt": "2024-08-08T12:00:00Z",
     "updatedAt": "2024-08-08T12:00:00Z"
@@ -246,7 +273,7 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "3",
     "title": "Effective Use of Flutter Hooks",
     "content":
-    "Flutter Hooks is a powerful library that allows you to use hooks to manage the lifecycle of stateful widgets.",
+        "Flutter Hooks is a powerful library that allows you to use hooks to manage the lifecycle of stateful widgets.",
     "category": "Flutter",
     "createdAt": "2024-08-07T09:30:00Z",
     "updatedAt": "2024-08-07T09:30:00Z"
@@ -255,7 +282,7 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "4",
     "title": "Introduction to BLoC Pattern",
     "content":
-    "The BLoC pattern is a popular approach in Flutter for managing state using reactive programming.",
+        "The BLoC pattern is a popular approach in Flutter for managing state using reactive programming.",
     "category": "State Management",
     "createdAt": "2024-08-06T14:45:00Z",
     "updatedAt": "2024-08-06T14:45:00Z"
@@ -264,7 +291,7 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "5",
     "title": "Building Responsive UI in Flutter",
     "content":
-    "Learn how to create responsive layouts in Flutter that adapt to different screen sizes and orientations.",
+        "Learn how to create responsive layouts in Flutter that adapt to different screen sizes and orientations.",
     "category": "Flutter",
     "createdAt": "2024-08-05T16:20:00Z",
     "updatedAt": "2024-08-05T16:20:00Z"
@@ -273,13 +300,9 @@ List<Map<String, dynamic>> jsonPromptHistoryList = [
     "id": "6",
     "title": "Working with Firebase Authentication",
     "content":
-    "Firebase Authentication provides a simple and secure way to integrate user authentication into your Flutter app.",
+        "Firebase Authentication provides a simple and secure way to integrate user authentication into your Flutter app.",
     "category": "Authentication",
     "createdAt": "2024-08-04T11:00:00Z",
     "updatedAt": "2024-08-04T11:00:00Z"
   },
 ];
-
-
-
-
