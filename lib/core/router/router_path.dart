@@ -11,6 +11,7 @@ enum RouterPath {
   profile,
   search,
   filter,
+  searchResult,
 }
 
 extension RouterPathEx on RouterPath {
@@ -26,6 +27,7 @@ extension RouterPathEx on RouterPath {
     RouterPath.profile: 'profile',
     RouterPath.search: 'search',
     RouterPath.filter: 'filter',
+    RouterPath.searchResult: 'searchResult',
   };
 
   static const Map<RouterPath, String> _pagePaths = {
@@ -41,6 +43,7 @@ extension RouterPathEx on RouterPath {
     RouterPath.profile: '/profile',
     RouterPath.search: '/search',
     RouterPath.filter: '/filter',
+    RouterPath.searchResult: '/searchResult',
   };
 
   String get namePage => _pageNames[this] ?? '';

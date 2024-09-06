@@ -1,41 +1,54 @@
+import 'dart:convert';
+
+import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
-import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
 import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
+import 'package:brain_box_ai/providers/search/search_notifier.dart';
 import 'package:brain_box_ai/providers/search/state/filter_state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:brain_box_ai/providers/search/state/search_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../assets/assets.gen.dart';
-import '../../../core/router/router_path.dart';
+import '../../../domain/entities/search/filter_search_entity.dart';
+import '../../../domain/entities/search/search_entity.dart';
+import '../../../domain/entities/search/search_result_param.dart';
 import '../../../providers/search/filter_notifier.dart';
 
-abstract class SearchPromptWidgetCallBack {
+abstract class SearchWidgetCallBack {
   void goFilter(BuildContext context);
-  void goSearchPromptResult(BuildContext context,
-      TextEditingController searchController, String text);
-  void onSearch(BuildContext context);
+  void goSearchPromptResult(BuildContext context, SearchNotifier searchNotifier,
+      FilterState filterState, String text);
+  void onSearchResult(
+      BuildContext context, String text, SearchNotifier searchNotifier);
   void pasteOnSearchBar(BuildContext context, String text,
       TextEditingController searchController, ValueNotifier<bool> isSearchOpen);
 }
 
-class SearchPromptWidget extends HookConsumerWidget
-    implements SearchPromptWidgetCallBack {
-  const SearchPromptWidget({super.key});
+class SearchWidget extends HookConsumerWidget implements SearchWidgetCallBack {
+  const SearchWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filterState = ref.watch(filterProvider);
+    final filterState = ref.watch(filterNotifierProvider);
+
+    final searchState = ref.watch(searchNotifierProvider);
+    final searchNotifier = ref.watch(searchNotifierProvider.notifier);
 
     final searchController = useTextEditingController();
+
     final searchFocusNode = useFocusNode();
+
     final isSearchOpen = useState(false);
-    final listSearchHistory = useState(searchHistory);
-    final listSearchResult = useState(searchResult);
+    isSearchOpen.addListener(() {
+      if (isSearchOpen.value == false) {
+        searchNotifier.getListSearchHistory();
+      }
+    });
 
     final isSearchFocused = useState(false);
     searchFocusNode.addListener(() {
@@ -43,8 +56,8 @@ class SearchPromptWidget extends HookConsumerWidget
     });
 
     return Scaffold(
-      appBar: _buildAppBar(
-          context, isSearchOpen, searchController, searchFocusNode),
+      appBar: _buildAppBar(context, isSearchOpen, searchController,
+          searchFocusNode, searchNotifier, filterState),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -57,10 +70,23 @@ class SearchPromptWidget extends HookConsumerWidget
                 return FadeTransition(opacity: animation, child: child);
               },
               child: isSearchFocused.value
-                  ? _buildSearchResult(
-                      context, listSearchResult, searchController)
-                  : _buildSearchHistory(context, listSearchHistory,
-                      searchController, isSearchOpen),
+                  ? searchState is SearchResultSuccess
+                      ? _buildSearchResult(
+                          context,
+                          searchState.listSearchResult,
+                          searchController,
+                          searchNotifier,
+                          filterState)
+                      : const SizedBox()
+                  : searchState is SearchHistorySuccess
+                      ? _buildSearchHistory(
+                          context,
+                          searchState.listSearchHistory,
+                          searchController,
+                          isSearchOpen,
+                          searchNotifier,
+                          filterState)
+                      : const SizedBox(),
             ),
           ],
         ),
@@ -68,8 +94,14 @@ class SearchPromptWidget extends HookConsumerWidget
     );
   }
 
-  AppBar _buildAppBar(BuildContext context, ValueNotifier<bool> isSearchOpen,
-      TextEditingController searchController, FocusNode searchFocusNode) {
+  AppBar _buildAppBar(
+    BuildContext context,
+    ValueNotifier<bool> isSearchOpen,
+    TextEditingController searchController,
+    FocusNode searchFocusNode,
+    SearchNotifier searchNotifier,
+    FilterState filterState,
+  ) {
     return AppBar(
       centerTitle: true,
       title: AnimatedSwitcher(
@@ -93,8 +125,12 @@ class SearchPromptWidget extends HookConsumerWidget
           }
         },
         child: isSearchOpen.value
-            ? _buildSearchBar(context, searchController, searchFocusNode,
-                key: const ValueKey('SearchBar'))
+            ? _buildSearchBar(
+                context,
+                searchController,
+                searchFocusNode,
+                key: const ValueKey('SearchBar'),
+                searchNotifier)
             : Text(
                 "Search Prompt",
                 key: const ValueKey('Title'),
@@ -125,19 +161,34 @@ class SearchPromptWidget extends HookConsumerWidget
             child: Assets.icSearch.image(
                 width: 24, height: 24, color: context.appColors.onSurface),
           ).paddingRightSpace(SpaceType.medium),
-        InkWell(
-          onTap: () {
-            goFilter(context);
-          },
-          child: Assets.icFilter
-              .image(width: 24, height: 24, color: context.appColors.onSurface),
-        ).paddingRightSpace(SpaceType.medium),
+        if (!isSearchOpen.value)
+          InkWell(
+            onTap: () {
+              goFilter(context);
+            },
+            child: Assets.icFilter.image(
+                width: 24, height: 24, color: context.appColors.onSurface),
+          ).paddingRightSpace(SpaceType.medium),
+        if (isSearchOpen.value)
+          TextButton(
+              onPressed: () => {
+                    goSearchPromptResult(context, searchNotifier, filterState,
+                        searchController.text)
+                  },
+              child: Text(
+                "Search",
+                style: context.appTextStyles.titleMedium
+                    .copyWith(color: context.appColors.onSurface),
+              )).paddingRightSpace(SpaceType.medium),
       ],
     );
   }
 
-  Widget _buildSearchBar(BuildContext context,
-      TextEditingController searchController, FocusNode searchFocusNode,
+  Widget _buildSearchBar(
+      BuildContext context,
+      TextEditingController searchController,
+      FocusNode searchFocusNode,
+      SearchNotifier searchNotifier,
       {required ValueKey<String> key}) {
     return Container(
       key: key,
@@ -158,7 +209,10 @@ class SearchPromptWidget extends HookConsumerWidget
         style: context.appTextStyles.titleMedium
             .copyWith(color: context.appColors.onSurface),
         onSubmitted: (query) {
-          onSearch(context);
+          onSearchResult(context, query, searchNotifier);
+        },
+        onChanged: (query) {
+          searchNotifier.onSearch(query);
         },
       ),
     );
@@ -215,9 +269,11 @@ class SearchPromptWidget extends HookConsumerWidget
 
   Widget _buildSearchHistory(
       BuildContext context,
-      ValueNotifier<List<String>> listSearchHistory,
+      List<SearchEntity> listSearchHistory,
       TextEditingController searchController,
-      ValueNotifier<bool> isSearchOpen) {
+      ValueNotifier<bool> isSearchOpen,
+      SearchNotifier searchNotifier,
+      FilterState filterState) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -230,19 +286,19 @@ class SearchPromptWidget extends HookConsumerWidget
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  var item = listSearchHistory.value[index];
+                  var item = listSearchHistory[index];
                   return _buildSearchItem(context,
-                      item: item,
+                      item: item.result,
                       onTap: () {
                         isSearchOpen.value = true;
                         return goSearchPromptResult(
-                            context, searchController, item);
+                            context, searchNotifier, filterState, item.result);
                       },
                       onPaste: () => pasteOnSearchBar(
-                          context, item, searchController, isSearchOpen),
+                          context, item.result, searchController, isSearchOpen),
                       onDismissed: () {
-                        listSearchHistory.value =
-                            List.from(listSearchHistory.value)..removeAt(index);
+                        // listSearchHistory.value =
+                        //     List.from(listSearchHistory.value)..removeAt(index);
                       },
                       leftIcon: Assets.icHistory.image(
                           width: 18,
@@ -256,7 +312,7 @@ class SearchPromptWidget extends HookConsumerWidget
                 separatorBuilder: (context, index) => const SizedBox(
                       height: 12,
                     ),
-                itemCount: listSearchHistory.value.length)
+                itemCount: listSearchHistory.length)
             .paddingTopSpace(SpaceType.medium)
             .paddingBottomSpace(SpaceType.medium),
       ],
@@ -265,8 +321,10 @@ class SearchPromptWidget extends HookConsumerWidget
 
   Widget _buildSearchResult(
       BuildContext context,
-      ValueNotifier<List<String>> listSearchResult,
-      TextEditingController searchController) {
+      List<SearchEntity> listSearchResult,
+      TextEditingController searchController,
+      SearchNotifier searchNotifier,
+      FilterState filterState) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -279,12 +337,12 @@ class SearchPromptWidget extends HookConsumerWidget
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  var item = listSearchResult.value[index];
+                  var item = listSearchResult[index];
                   return _buildSearchItem(
                     context,
-                    item: item,
-                    onTap: () =>
-                        goSearchPromptResult(context, searchController, item),
+                    item: item.result,
+                    onTap: () => goSearchPromptResult(
+                        context, searchNotifier, filterState, item.result),
                     onPaste: () {},
                     onDismissed: () {},
                     leftIcon: Assets.icSearch.image(
@@ -297,7 +355,7 @@ class SearchPromptWidget extends HookConsumerWidget
                 separatorBuilder: (context, index) => const SizedBox(
                       height: 12,
                     ),
-                itemCount: listSearchResult.value.length)
+                itemCount: listSearchResult.length)
             .paddingTopSpace(SpaceType.medium)
             .paddingBottomSpace(SpaceType.medium),
       ],
@@ -353,16 +411,29 @@ class SearchPromptWidget extends HookConsumerWidget
   }
 
   @override
-  void goFilter(BuildContext context) {}
-
-  @override
-  void goSearchPromptResult(BuildContext context,
-      TextEditingController searchController, String text) {
-    searchController.text = text;
+  void goFilter(BuildContext context) {
+    context.push(RouterPath.filter.getPath);
   }
 
   @override
-  void onSearch(BuildContext context) {}
+  void goSearchPromptResult(BuildContext context, SearchNotifier searchNotifier,
+      FilterState filterState, String text) {
+    SearchResultParam searchResultParam = SearchResultParam(
+        text: text,
+        filterSearch: FilterSearchEntity(
+            selectedCategoryIndices: filterState.selectedCategoryIndices,
+            selectedRateIndex: filterState.selectedRateIndex));
+
+    String jsonString = jsonEncode(searchResultParam.toJson());
+
+    context.push(RouterPath.searchResult.getPath, extra: jsonString);
+  }
+
+  @override
+  void onSearchResult(
+      BuildContext context, String text, SearchNotifier searchNotifier) {
+    searchNotifier.onSearch(text);
+  }
 
   @override
   void pasteOnSearchBar(
@@ -372,6 +443,5 @@ class SearchPromptWidget extends HookConsumerWidget
       ValueNotifier<bool> isSearchOpen) {
     searchController.text = text;
     isSearchOpen.value = true;
-    onSearch(context);
   }
 }

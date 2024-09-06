@@ -35,6 +35,6 @@ class FilterNotifier extends StateNotifier<FilterState> {
   }
 }
 
-final filterProvider = StateNotifierProvider<FilterNotifier, FilterState>(
+final filterNotifierProvider = StateNotifierProvider<FilterNotifier, FilterState>(
   (ref) => FilterNotifier(),
 );

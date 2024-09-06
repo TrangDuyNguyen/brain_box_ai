@@ -1,13 +1,6 @@
 import '../../../domain/entities/user_session.dart';
 import '../user_session_model.dart';
-
-abstract class MapperModel<DTO, Model> {
-  const MapperModel();
-
-  Model fromDTO(DTO dto);
-
-  DTO toDTO(Model model);
-}
+import 'base_mapper_model.dart';
 
 class UserSessionMapper extends MapperModel<UserSessionModel, UserSession> {
   @override

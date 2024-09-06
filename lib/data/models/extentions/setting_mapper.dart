@@ -6,7 +6,7 @@ import '../country_model.dart';
 import '../currency_model.dart';
 import '../language_model.dart';
 import '../setting_model.dart';
-import 'user_session_mapper.dart';
+import 'base_mapper_model.dart';
 
 class AppSettingMapper extends MapperModel<SettingModel, AppSetting> {
   AppSettingMapper._();

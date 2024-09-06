@@ -1,6 +1,7 @@
-import 'package:brain_box_ai/data/models/extentions/user_session_mapper.dart';
 import 'package:brain_box_ai/data/models/profile_user_model.dart';
 import 'package:brain_box_ai/domain/entities/profile/profile_entity.dart';
+
+import 'base_mapper_model.dart';
 
 class ProfileMapper extends MapperModel<ProfileUserModel, ProfileEntity> {
   @override

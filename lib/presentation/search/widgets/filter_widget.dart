@@ -17,14 +17,14 @@ abstract class FilterPromptCallBack {
       FilterNotifier filterNotifier);
 }
 
-class FilterPromptWidget extends HookConsumerWidget
+class FilterWidget extends HookConsumerWidget
     implements FilterPromptCallBack {
-  const FilterPromptWidget({super.key});
+  const FilterWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filterState = ref.watch(filterProvider);
-    final filterNotifier = ref.read(filterProvider.notifier);
+    final filterState = ref.watch(filterNotifierProvider);
+    final filterNotifier = ref.read(filterNotifierProvider.notifier);
 
     return SafeArea(
       child: LayoutBuilder(

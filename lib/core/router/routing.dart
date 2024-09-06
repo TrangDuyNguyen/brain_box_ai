@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/presentation/auth/pages/auth_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/login_page.dart';
@@ -7,11 +9,13 @@ import 'package:brain_box_ai/presentation/auth/pages/sign_up_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
 import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:brain_box_ai/presentation/profile/profile_detail_page.dart';
-import 'package:brain_box_ai/presentation/search/pages/search_prompt_page.dart';
+import 'package:brain_box_ai/presentation/search/pages/search_page.dart';
+import 'package:brain_box_ai/presentation/search/pages/search_result_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../domain/entities/search/search_result_param.dart';
 import '../../presentation/auth/pages/on_boading_page.dart';
-import '../../presentation/search/pages/filter_prompt_page.dart';
+import '../../presentation/search/pages/filter_page.dart';
 
 final List<RouteBase> routes = [
   GoRoute(
@@ -52,10 +56,18 @@ final List<RouteBase> routes = [
   ),
   GoRoute(
     path: RouterPath.search.getPath,
-    builder: (context, state) => const SearchPromptPage(),
+    builder: (context, state) => const SearchPage(),
   ),
   GoRoute(
     path: RouterPath.filter.getPath,
-    builder: (context, state) => const FilterPromptPage(),
+    builder: (context, state) => const FilterPage(),
+  ),
+  GoRoute(
+    path: RouterPath.searchResult.getPath,
+    builder: (context, state) {
+      final jsonString = state.extra as String;
+      final searchResultParam = SearchResultParam.fromJson(jsonDecode(jsonString));
+      return SearchResultPage(searchResultParam);
+    },
   ),
 ];

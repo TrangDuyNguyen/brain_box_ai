@@ -1,4 +1,5 @@
 import '../../../domain/entities/search/category_entity.dart';
+import '../../models/search_model.dart';
 
 final List<CategoryEntity> listCategoryChip = [
   CategoryEntity(id: 1, name: 'Technology'),
@@ -27,30 +28,33 @@ final List<CategoryEntity> listRateChip = [
   CategoryEntity(id: 5, name: '5 Stars'),
 ];
 
-final List<String> searchHistory = [
-  "Clean Architecture in Flutter",
-  "State Management with Riverpod",
-  "Flutter Hooks tutorial",
-  "Implementing BLoC in Flutter",
-  "Responsive UI design in Flutter",
-  "Firebase Authentication setup",
-  "Best practices for Flutter",
-  "Understanding Dart Null Safety",
-  "Creating animations in Flutter",
-  "Optimizing Flutter performance",
+final List<Map<String, dynamic>> searchHistory = [
+  {"id": 1, "result": "Clean Architecture in Flutter"},
+  {"id": 2, "result": "State Management with Riverpod"},
+  {"id": 3, "result": "Flutter Hooks tutorial"},
+  {"id": 4, "result": "Implementing BLoC in Flutter"},
+  {"id": 5, "result": "Responsive UI design in Flutter"},
+  {"id": 6, "result": "Firebase Authentication setup"},
+  {"id": 7, "result": "Best practices for Flutter"},
+  {"id": 8, "result": "Understanding Dart Null Safety"},
+  {"id": 9, "result": "Creating animations in Flutter"},
+  {"id": 10, "result": "Optimizing Flutter performance"},
 ];
 
-final List<String> searchResult = [
-  "Understanding Flutter: A Comprehensive Guide",
-  "The Best Practices for Clean Architecture in Flutter",
-  "Riverpod vs Provider: Which State Management to Choose?",
-  "Building a Robust Authentication System in Flutter",
-  "Implementing Dark and Light Themes with Material 3",
-  "Managing User Sessions Effectively in Flutter",
-  "Creating Reusable Widgets with Flutter Hooks",
-  "Exploring the GoRouter for Efficient Navigation",
-  "Optimizing Performance in Flutter Apps",
-  "Using Freezed for Immutable Data Classes in Flutter",
+final List<Map<String, dynamic>> searchResult = [
+  {"id": 1, "result": "Understanding Flutter: A Comprehensive Guide"},
+  {"id": 2, "result": "The Best Practices for Clean Architecture in Flutter"},
+  {
+    "id": 3,
+    "result": "Riverpod vs Provider: Which State Management to Choose?"
+  },
+  {"id": 4, "result": "Building a Robust Authentication System in Flutter"},
+  {"id": 5, "result": "Implementing Dark and Light Themes with Material 3"},
+  {"id": 6, "result": "Managing User Sessions Effectively in Flutter"},
+  {"id": 7, "result": "Creating Reusable Widgets with Flutter Hooks"},
+  {"id": 8, "result": "Exploring the GoRouter for Efficient Navigation"},
+  {"id": 9, "result": "Optimizing Performance in Flutter Apps"},
+  {"id": 10, "result": "Using Freezed for Immutable Data Classes in Flutter"},
 ];
 
 List<Map<String, dynamic>> jsonPromptList = [
