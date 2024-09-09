@@ -341,8 +341,7 @@ class HomeContentWidget extends HookConsumerWidget
 
   @override
   goSeeAllPromptCategory(BuildContext context) {
-    // TODO: implement goSeeAllPromptCategory
-    throw UnimplementedError();
+    context.push(RouterPath.category.getPath);
   }
 
   @override

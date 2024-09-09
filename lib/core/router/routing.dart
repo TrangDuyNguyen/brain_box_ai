@@ -7,6 +7,7 @@ import 'package:brain_box_ai/presentation/auth/pages/reset_password_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/send_email_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/sign_up_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
+import 'package:brain_box_ai/presentation/category/pages/category_page.dart';
 import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:brain_box_ai/presentation/profile/profile_detail_page.dart';
 import 'package:brain_box_ai/presentation/search/pages/search_page.dart';
@@ -69,5 +70,9 @@ final List<RouteBase> routes = [
       final searchResultParam = SearchResultParam.fromJson(jsonDecode(jsonString));
       return SearchResultPage(searchResultParam);
     },
+  ),
+  GoRoute(
+    path: RouterPath.category.getPath,
+    builder: (context, state) => const CategoryPage(),
   ),
 ];
