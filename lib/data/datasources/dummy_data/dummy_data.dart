@@ -1,5 +1,4 @@
 import '../../../domain/entities/search/category_entity.dart';
-import '../../models/search_model.dart';
 
 final List<CategoryEntity> listCategoryChip = [
   CategoryEntity(id: 1, name: 'Technology'),
@@ -17,6 +16,24 @@ final List<CategoryEntity> listCategoryChip = [
   CategoryEntity(id: 13, name: 'Business'),
   CategoryEntity(id: 14, name: 'Finance'),
   CategoryEntity(id: 15, name: 'Movies'),
+];
+
+final List<Map<String, dynamic>> listCategoryJson = [
+  {'id': 1, 'name': 'Technology'},
+  {'id': 2, 'name': 'Science'},
+  {'id': 3, 'name': 'Art'},
+  {'id': 4, 'name': 'Music'},
+  {'id': 5, 'name': 'Sports'},
+  {'id': 6, 'name': 'Health'},
+  {'id': 7, 'name': 'Education'},
+  {'id': 8, 'name': 'Travel'},
+  {'id': 9, 'name': 'Food'},
+  {'id': 10, 'name': 'Fashion'},
+  {'id': 11, 'name': 'Literature'},
+  {'id': 12, 'name': 'History'},
+  {'id': 13, 'name': 'Business'},
+  {'id': 14, 'name': 'Finance'},
+  {'id': 15, 'name': 'Movies'},
 ];
 
 final List<CategoryEntity> listRateChip = [

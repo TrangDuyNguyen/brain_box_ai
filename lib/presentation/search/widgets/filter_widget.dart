@@ -2,6 +2,7 @@ import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
+import 'package:brain_box_ai/providers/home/category_notifier.dart';
 import 'package:brain_box_ai/providers/search/state/filter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,12 +18,12 @@ abstract class FilterPromptCallBack {
       FilterNotifier filterNotifier);
 }
 
-class FilterWidget extends HookConsumerWidget
-    implements FilterPromptCallBack {
+class FilterWidget extends HookConsumerWidget implements FilterPromptCallBack {
   const FilterWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final categoryState = ref.watch(categoryNotifierProvider);
     final filterState = ref.watch(filterNotifierProvider);
     final filterNotifier = ref.read(filterNotifierProvider.notifier);
 
@@ -41,8 +42,11 @@ class FilterWidget extends HookConsumerWidget
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        _buildCategoryListChip(context, filterNotifier,
-                            filterState.selectedCategoryIndices),
+                        _buildCategoryListChip(
+                            context,
+                            filterNotifier,
+                            filterState.selectedCategoryIndices,
+                            categoryState.listCategory),
                         _buildRateListChip(context, filterNotifier,
                             filterState.selectedRateIndex),
                       ],
@@ -62,7 +66,8 @@ class FilterWidget extends HookConsumerWidget
   Widget _buildCategoryListChip(
       BuildContext context,
       FilterNotifier filterNotifier,
-      List<CategoryEntity> selectedCategoryChips) {
+      List<CategoryEntity> selectedCategoryChips,
+      List<CategoryEntity> listCategoryChip) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         "Category",
@@ -201,10 +206,6 @@ class FilterWidget extends HookConsumerWidget
     // Lưu giá trị filter vào provider
     filterNotifier.updateCategoryFilter(selectedCategories);
     filterNotifier.updateRateFilter(selectedRate);
-
-    print(
-        "Selected Categories: ${filterState.selectedCategoryIndices.map((e) => e.name).toList()}");
-    print("Selected Rate: ${filterState.selectedRateIndex.name}");
 
     context.pop();
   }

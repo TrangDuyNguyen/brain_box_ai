@@ -2,8 +2,9 @@ import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
-import 'package:brain_box_ai/data/datasources/dummy_data/dummy_data.dart';
+import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
 import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
+import 'package:brain_box_ai/providers/home/category_notifier.dart';
 import 'package:brain_box_ai/providers/home/state/home_state.dart';
 import 'package:brain_box_ai/providers/profile/state/update_profile_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -44,11 +45,9 @@ class HomeContentWidget extends HookConsumerWidget
     final homeNotifier = ref.read(homeNotifierProvider.notifier);
     final profileState = ref.watch(profileNotifierProvider);
 
-    final selectedChipIndex = useState(0);
+    final categoryState = ref.watch(categoryNotifierProvider);
 
-    useEffect(() {
-      return null;
-    }, []);
+    final selectedChipIndex = useState(0);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -59,9 +58,9 @@ class HomeContentWidget extends HookConsumerWidget
           children: [
             _buildHeader(context, profileState),
             _buildSearch(context, searchController, searchFocusNote),
-            _buildCategory(context),
-            _buildTopPrompt(
-                context, selectedChipIndex, homeState, homeNotifier),
+            _buildCategory(context, categoryState.listCategory),
+            _buildTopPrompt(context, selectedChipIndex, homeState, homeNotifier,
+                categoryState.listCategory),
           ],
         ),
       ),
@@ -191,7 +190,8 @@ class HomeContentWidget extends HookConsumerWidget
     ).paddingTopSpace(SpaceType.large);
   }
 
-  Widget _buildCategory(BuildContext context) {
+  Widget _buildCategory(
+      BuildContext context, List<CategoryEntity> listCategory) {
     return Column(
       children: [
         Row(
@@ -225,6 +225,7 @@ class HomeContentWidget extends HookConsumerWidget
               childAspectRatio: 0.8,
             ),
             itemBuilder: (context, index) {
+              var item = listCategory[index];
               return GestureDetector(
                 onTap: () => {goListPromptCategory(context, "category")},
                 child: Column(
@@ -239,7 +240,7 @@ class HomeContentWidget extends HookConsumerWidget
                     const SizedBox(height: 8),
                     Flexible(
                       child: Text(
-                        "Category",
+                        item.name,
                         style: context.appTextStyles.labelLarge
                             .copyWith(color: context.appColors.onSurface),
                         textAlign: TextAlign.center,
@@ -259,7 +260,8 @@ class HomeContentWidget extends HookConsumerWidget
       BuildContext context,
       ValueNotifier<int> selectedChipIndex,
       HomeState homeState,
-      HomeNotifier homeNotifier) {
+      HomeNotifier homeNotifier,
+      List<CategoryEntity> listCategoryChip) {
     return Column(
       children: [
         Row(
