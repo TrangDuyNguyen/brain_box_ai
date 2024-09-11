@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
 import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
@@ -16,25 +14,23 @@ class CategoryItemWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: context.appColors.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(15.0),
       ),
-      child: _buildCategoryDetails(context, category),
+      child: GestureDetector(
+          onTap: onTap, child: _buildCategoryDetails(context, category)),
     );
   }
 
   Widget _buildCategoryDetails(BuildContext context, CategoryEntity category) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
           radius: 30,
           backgroundColor: context.appColors.primaryContainer,
-          child:
-          Image.asset(Assets.icX.path, width: 30, height: 30),
-        ).paddingRightSpace(SpaceType.medium),
+          child: Image.asset(Assets.icX.path, width: 30, height: 30),
+        ).paddingBottomSpace(SpaceType.small),
         Flexible(
           child: Text(
             category.name,

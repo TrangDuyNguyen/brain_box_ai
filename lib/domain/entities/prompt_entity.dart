@@ -1,8 +1,10 @@
+import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
+
 class PromptEntity {
   final String id;
   final String title;
   final String content;
-  final String category;
+  final CategoryEntity category;
   final bool like;
   final bool save;
   final int rate;

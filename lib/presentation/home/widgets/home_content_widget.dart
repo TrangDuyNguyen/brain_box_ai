@@ -16,6 +16,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../assets/assets.gen.dart';
 import '../../../providers/home/home_notifier.dart';
 import '../../../providers/profile/profile_notifier.dart';
+import '../../widgets/category_item_widget.dart';
 import '../../widgets/chip_widget.dart';
 import '../../widgets/shimmer_widget.dart';
 
@@ -217,7 +218,7 @@ class HomeContentWidget extends HookConsumerWidget
         GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 8,
+            itemCount: listCategory.length > 8 ? 8 : listCategory.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
               mainAxisSpacing: 16.0,
@@ -226,31 +227,8 @@ class HomeContentWidget extends HookConsumerWidget
             ),
             itemBuilder: (context, index) {
               var item = listCategory[index];
-              return GestureDetector(
-                onTap: () => {goListPromptCategory(context, "category")},
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: context.appColors.primaryContainer,
-                      child:
-                          Image.asset(Assets.icX.path, width: 30, height: 30),
-                    ),
-                    const SizedBox(height: 8),
-                    Flexible(
-                      child: Text(
-                        item.name,
-                        style: context.appTextStyles.labelLarge
-                            .copyWith(color: context.appColors.onSurface),
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return CategoryItemWidget(
+                  item, () => goListPromptCategory(context, "category"));
             }).paddingTopSpace(SpaceType.medium),
       ],
     );
@@ -324,8 +302,7 @@ class HomeContentWidget extends HookConsumerWidget
 
   @override
   goListPromptCategory(BuildContext context, String category) {
-    // TODO: implement goListPromptCategory
-    throw UnimplementedError();
+    context.push(RouterPath.promptPage.getPath);
   }
 
   @override
@@ -358,8 +335,7 @@ class HomeContentWidget extends HookConsumerWidget
 
   @override
   goSeeAllTopPrompt(BuildContext context) {
-    // TODO: implement goSeeAllTopPrompt
-    throw UnimplementedError();
+    context.push(RouterPath.promptPage.getPath);
   }
 
   @override

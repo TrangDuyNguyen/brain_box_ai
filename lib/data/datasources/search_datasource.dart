@@ -1,4 +1,4 @@
-import 'package:brain_box_ai/data/models/prompt_search_result_model.dart';
+import 'package:brain_box_ai/data/models/prompt_model.dart';
 import 'package:brain_box_ai/data/models/search_model.dart';
 import 'package:brain_box_ai/domain/entities/search/filter_search_entity.dart';
 
@@ -10,7 +10,7 @@ abstract class SearchDatasource {
   Future<Result<List<SearchModel>>> deleteHistorySearch(String id);
 
   Future<Result<List<SearchModel>>> searchAll(String text);
-  Future<Result<List<PromptSearchResultModel>>> getSearchPromptResult(
+  Future<Result<List<PromptModel>>> getSearchPromptResult(
       String text, FilterSearchEntity filler);
 }
 
@@ -34,11 +34,11 @@ class SearchDatasourceImpl implements SearchDatasource {
   }
 
   @override
-  Future<Result<List<PromptSearchResultModel>>> getSearchPromptResult(
+  Future<Result<List<PromptModel>>> getSearchPromptResult(
       String text, FilterSearchEntity filler) async {
     try {
       final searchResultList = jsonPromptList
-          .map((json) => PromptSearchResultModel.fromJson(json))
+          .map((json) => PromptModel.fromJson(json))
           .toList();
       return Result.success(searchResultList);
     } on Exception catch (e) {

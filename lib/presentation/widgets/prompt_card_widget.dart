@@ -76,7 +76,7 @@ class PromptCardWidget extends HookConsumerWidget {
           ],
         ).paddingTopSpace(SpaceType.small),
         Text(
-          promptEntity.category,
+          promptEntity.category.name,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: context.appTextStyles.labelSmall

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../prompt_saved_model.dart';
+part of '../prompt_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,20 +14,20 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-PromptSavedModel _$PromptSavedModelFromJson(Map<String, dynamic> json) {
-  return _PromptSavedModel.fromJson(json);
+PromptModel _$PromptModelFromJson(Map<String, dynamic> json) {
+  return _PromptModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$PromptSavedModel {
+mixin _$PromptModel {
   String get id => throw _privateConstructorUsedError;
   set id(String value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   set content(String value) => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  set category(String value) => throw _privateConstructorUsedError;
+  CategoryModel get category => throw _privateConstructorUsedError;
+  set category(CategoryModel value) => throw _privateConstructorUsedError;
   int get rate => throw _privateConstructorUsedError;
   set rate(int value) => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
@@ -35,29 +35,31 @@ mixin _$PromptSavedModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $PromptSavedModelCopyWith<PromptSavedModel> get copyWith =>
+  $PromptModelCopyWith<PromptModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PromptSavedModelCopyWith<$Res> {
-  factory $PromptSavedModelCopyWith(
-          PromptSavedModel value, $Res Function(PromptSavedModel) then) =
-      _$PromptSavedModelCopyWithImpl<$Res, PromptSavedModel>;
+abstract class $PromptModelCopyWith<$Res> {
+  factory $PromptModelCopyWith(
+          PromptModel value, $Res Function(PromptModel) then) =
+      _$PromptModelCopyWithImpl<$Res, PromptModel>;
   @useResult
   $Res call(
       {String id,
       String title,
       String content,
-      String category,
+      CategoryModel category,
       int rate,
       String createdAt});
+
+  $CategoryModelCopyWith<$Res> get category;
 }
 
 /// @nodoc
-class _$PromptSavedModelCopyWithImpl<$Res, $Val extends PromptSavedModel>
-    implements $PromptSavedModelCopyWith<$Res> {
-  _$PromptSavedModelCopyWithImpl(this._value, this._then);
+class _$PromptModelCopyWithImpl<$Res, $Val extends PromptModel>
+    implements $PromptModelCopyWith<$Res> {
+  _$PromptModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,7 +92,7 @@ class _$PromptSavedModelCopyWithImpl<$Res, $Val extends PromptSavedModel>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CategoryModel,
       rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
@@ -101,31 +103,42 @@ class _$PromptSavedModelCopyWithImpl<$Res, $Val extends PromptSavedModel>
               as String,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<$Res> get category {
+    return $CategoryModelCopyWith<$Res>(_value.category, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$PromptSavedModelImplCopyWith<$Res>
-    implements $PromptSavedModelCopyWith<$Res> {
-  factory _$$PromptSavedModelImplCopyWith(_$PromptSavedModelImpl value,
-          $Res Function(_$PromptSavedModelImpl) then) =
-      __$$PromptSavedModelImplCopyWithImpl<$Res>;
+abstract class _$$PromptModelImplCopyWith<$Res>
+    implements $PromptModelCopyWith<$Res> {
+  factory _$$PromptModelImplCopyWith(
+          _$PromptModelImpl value, $Res Function(_$PromptModelImpl) then) =
+      __$$PromptModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String id,
       String title,
       String content,
-      String category,
+      CategoryModel category,
       int rate,
       String createdAt});
+
+  @override
+  $CategoryModelCopyWith<$Res> get category;
 }
 
 /// @nodoc
-class __$$PromptSavedModelImplCopyWithImpl<$Res>
-    extends _$PromptSavedModelCopyWithImpl<$Res, _$PromptSavedModelImpl>
-    implements _$$PromptSavedModelImplCopyWith<$Res> {
-  __$$PromptSavedModelImplCopyWithImpl(_$PromptSavedModelImpl _value,
-      $Res Function(_$PromptSavedModelImpl) _then)
+class __$$PromptModelImplCopyWithImpl<$Res>
+    extends _$PromptModelCopyWithImpl<$Res, _$PromptModelImpl>
+    implements _$$PromptModelImplCopyWith<$Res> {
+  __$$PromptModelImplCopyWithImpl(
+      _$PromptModelImpl _value, $Res Function(_$PromptModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -138,7 +151,7 @@ class __$$PromptSavedModelImplCopyWithImpl<$Res>
     Object? rate = null,
     Object? createdAt = null,
   }) {
-    return _then(_$PromptSavedModelImpl(
+    return _then(_$PromptModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -154,7 +167,7 @@ class __$$PromptSavedModelImplCopyWithImpl<$Res>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CategoryModel,
       rate: null == rate
           ? _value.rate
           : rate // ignore: cast_nullable_to_non_nullable
@@ -169,8 +182,8 @@ class __$$PromptSavedModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$PromptSavedModelImpl implements _PromptSavedModel {
-  _$PromptSavedModelImpl(
+class _$PromptModelImpl implements _PromptModel {
+  _$PromptModelImpl(
       {required this.id,
       required this.title,
       required this.content,
@@ -178,8 +191,8 @@ class _$PromptSavedModelImpl implements _PromptSavedModel {
       required this.rate,
       required this.createdAt});
 
-  factory _$PromptSavedModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$PromptSavedModelImplFromJson(json);
+  factory _$PromptModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PromptModelImplFromJson(json);
 
   @override
   String id;
@@ -188,7 +201,7 @@ class _$PromptSavedModelImpl implements _PromptSavedModel {
   @override
   String content;
   @override
-  String category;
+  CategoryModel category;
   @override
   int rate;
   @override
@@ -196,35 +209,34 @@ class _$PromptSavedModelImpl implements _PromptSavedModel {
 
   @override
   String toString() {
-    return 'PromptSavedModel(id: $id, title: $title, content: $content, category: $category, rate: $rate, createdAt: $createdAt)';
+    return 'PromptModel(id: $id, title: $title, content: $content, category: $category, rate: $rate, createdAt: $createdAt)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PromptSavedModelImplCopyWith<_$PromptSavedModelImpl> get copyWith =>
-      __$$PromptSavedModelImplCopyWithImpl<_$PromptSavedModelImpl>(
-          this, _$identity);
+  _$$PromptModelImplCopyWith<_$PromptModelImpl> get copyWith =>
+      __$$PromptModelImplCopyWithImpl<_$PromptModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$PromptSavedModelImplToJson(
+    return _$$PromptModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _PromptSavedModel implements PromptSavedModel {
-  factory _PromptSavedModel(
+abstract class _PromptModel implements PromptModel {
+  factory _PromptModel(
       {required String id,
       required String title,
       required String content,
-      required String category,
+      required CategoryModel category,
       required int rate,
-      required String createdAt}) = _$PromptSavedModelImpl;
+      required String createdAt}) = _$PromptModelImpl;
 
-  factory _PromptSavedModel.fromJson(Map<String, dynamic> json) =
-      _$PromptSavedModelImpl.fromJson;
+  factory _PromptModel.fromJson(Map<String, dynamic> json) =
+      _$PromptModelImpl.fromJson;
 
   @override
   String get id;
@@ -236,8 +248,8 @@ abstract class _PromptSavedModel implements PromptSavedModel {
   String get content;
   set content(String value);
   @override
-  String get category;
-  set category(String value);
+  CategoryModel get category;
+  set category(CategoryModel value);
   @override
   int get rate;
   set rate(int value);
@@ -246,6 +258,6 @@ abstract class _PromptSavedModel implements PromptSavedModel {
   set createdAt(String value);
   @override
   @JsonKey(ignore: true)
-  _$$PromptSavedModelImplCopyWith<_$PromptSavedModelImpl> get copyWith =>
+  _$$PromptModelImplCopyWith<_$PromptModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

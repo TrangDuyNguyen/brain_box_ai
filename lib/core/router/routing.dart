@@ -10,6 +10,7 @@ import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
 import 'package:brain_box_ai/presentation/category/pages/category_page.dart';
 import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:brain_box_ai/presentation/profile/profile_detail_page.dart';
+import 'package:brain_box_ai/presentation/prompts/pages/prompt_page.dart';
 import 'package:brain_box_ai/presentation/search/pages/search_page.dart';
 import 'package:brain_box_ai/presentation/search/pages/search_result_page.dart';
 import 'package:go_router/go_router.dart';
@@ -74,5 +75,9 @@ final List<RouteBase> routes = [
   GoRoute(
     path: RouterPath.category.getPath,
     builder: (context, state) => const CategoryPage(),
+  ),
+  GoRoute(
+    path: RouterPath.promptPage.getPath,
+    builder: (context, state) => const PromptPage(),
   ),
 ];
