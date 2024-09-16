@@ -32,10 +32,15 @@ class PromptNotifier extends StateNotifier<PromptState> {
   }
 
   void filterByCategory(int categoryId) {
-    final filteredList = state.originalList
-        .where((prompt) => prompt.category.id == categoryId)
-        .toList();
-    state = state.copyWith(filteredList: filteredList);
+    if (categoryId == 0) {
+      state = state.copyWith(filteredList: state.originalList);
+    } else {
+      // Lọc theo categoryId
+      final filteredList = state.originalList
+          .where((prompt) => prompt.category.id == categoryId)
+          .toList();
+      state = state.copyWith(filteredList: filteredList);
+    }
   }
 }
 

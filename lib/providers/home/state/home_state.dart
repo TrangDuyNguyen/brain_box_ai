@@ -16,8 +16,22 @@ class HomeLoading extends HomeState {
 }
 
 class HomeSuccess extends HomeState {
-  final List<PromptEntity> listPrompt;
-  const HomeSuccess(this.listPrompt);
+  final List<PromptEntity> originalList; // The original list of prompts
+  final List<PromptEntity> filteredList; // The filtered list of prompts
+  const HomeSuccess({
+    required this.originalList,
+    required this.filteredList,
+  });
+
+  HomeSuccess copyWith({
+    List<PromptEntity>? originalList,
+    List<PromptEntity>? filteredList,
+  }) {
+    return HomeSuccess(
+      originalList: originalList ?? this.originalList,
+      filteredList: filteredList ?? this.filteredList,
+    );
+  }
 }
 
 class HomeError extends HomeState {

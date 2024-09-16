@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:brain_box_ai/core/router/router_path.dart';
+import 'package:brain_box_ai/domain/entities/prompt_entity.dart';
 import 'package:brain_box_ai/presentation/auth/pages/auth_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/login_page.dart';
 import 'package:brain_box_ai/presentation/auth/pages/reset_password_page.dart';
@@ -10,6 +11,7 @@ import 'package:brain_box_ai/presentation/auth/pages/verify_page.dart';
 import 'package:brain_box_ai/presentation/category/pages/category_page.dart';
 import 'package:brain_box_ai/presentation/home/pages/home_page.dart';
 import 'package:brain_box_ai/presentation/profile/profile_detail_page.dart';
+import 'package:brain_box_ai/presentation/prompt_detail/pages/prompt_detail_page.dart';
 import 'package:brain_box_ai/presentation/prompts/pages/prompt_page.dart';
 import 'package:brain_box_ai/presentation/search/pages/search_page.dart';
 import 'package:brain_box_ai/presentation/search/pages/search_result_page.dart';
@@ -68,7 +70,8 @@ final List<RouteBase> routes = [
     path: RouterPath.searchResult.getPath,
     builder: (context, state) {
       final jsonString = state.extra as String;
-      final searchResultParam = SearchResultParam.fromJson(jsonDecode(jsonString));
+      final searchResultParam =
+          SearchResultParam.fromJson(jsonDecode(jsonString));
       return SearchResultPage(searchResultParam);
     },
   ),
@@ -78,6 +81,14 @@ final List<RouteBase> routes = [
   ),
   GoRoute(
     path: RouterPath.promptPage.getPath,
-    builder: (context, state) => const PromptPage(),
+    builder: (context, state) => PromptPage(
+      initialIndex: state.extra as int,
+    ),
+  ),
+  GoRoute(
+    path: RouterPath.promptDetail.getPath,
+    builder: (context, state) {
+      return PromptDetailPage(state.extra as PromptEntity);
+    },
   ),
 ];

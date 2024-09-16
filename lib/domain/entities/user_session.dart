@@ -1,13 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class BaseEntity extends Equatable {
-  final String id = const Uuid().v4();
-  final num createdAt = DateTime.now().millisecondsSinceEpoch;
-
-  @override
-  List<Object?> get props => [id, createdAt];
-}
+import 'base_entity.dart';
 
 class UserSession extends BaseEntity {
   String? guestToken;

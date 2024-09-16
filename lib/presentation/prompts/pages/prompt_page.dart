@@ -19,15 +19,16 @@ abstract class PromptPageCallBack {
 }
 
 class PromptPage extends HookConsumerWidget implements PromptPageCallBack {
-  const PromptPage({super.key});
+  final int initialIndex;
+  const PromptPage({super.key, this.initialIndex = 0});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final promptState = ref.watch(promptNotifierProvider);
-    final promptNotifier = ref.watch(promptNotifierProvider);
 
     final categoryState = ref.watch(categoryNotifierProvider);
     final tabController = useTabController(
+      initialIndex: initialIndex,
       initialLength: categoryState.listCategory.isNotEmpty
           ? categoryState.listCategory.length
           : 1,

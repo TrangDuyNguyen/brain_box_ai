@@ -2,6 +2,7 @@ import 'package:brain_box_ai/core/utility/compare_string.dart';
 import 'package:brain_box_ai/core/utility/scope_function.dart';
 import 'package:collection/collection.dart';
 
+import '../base_entity.dart';
 import '../user_session.dart';
 
 class Currencies extends BaseEntity {

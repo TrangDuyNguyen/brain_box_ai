@@ -2,6 +2,7 @@ import 'package:brain_box_ai/core/router/router_path.dart';
 import 'package:brain_box_ai/core/theme/app_color.dart';
 import 'package:brain_box_ai/core/theme/app_text_style.dart';
 import 'package:brain_box_ai/core/utility/space_utils.dart';
+import 'package:brain_box_ai/domain/entities/prompt_entity.dart';
 import 'package:brain_box_ai/domain/entities/search/category_entity.dart';
 import 'package:brain_box_ai/presentation/widgets/prompt_card_widget.dart';
 import 'package:brain_box_ai/providers/home/category_notifier.dart';
@@ -26,9 +27,9 @@ abstract class HomeContentCallback {
   goSearch(BuildContext context);
   goFiller(BuildContext context);
   goSeeAllPromptCategory(BuildContext context);
-  goListPromptCategory(BuildContext context, String category);
-  goSeeAllTopPrompt(BuildContext context);
-  goDetailPrompt(BuildContext context);
+  goListPromptCategory(BuildContext context, int initialIndex);
+  goSeeAllPrompt(BuildContext context, int initialIndex);
+  goDetailPrompt(BuildContext context, PromptEntity prompt);
 
   onFillerTopPromptWithCategory(BuildContext context, String category);
 }
@@ -228,7 +229,7 @@ class HomeContentWidget extends HookConsumerWidget
             itemBuilder: (context, index) {
               var item = listCategory[index];
               return CategoryItemWidget(
-                  item, () => goListPromptCategory(context, "category"));
+                  item, () => goSeeAllPrompt(context, index));
             }).paddingTopSpace(SpaceType.medium),
       ],
     );
@@ -252,7 +253,7 @@ class HomeContentWidget extends HookConsumerWidget
             ),
             InkWell(
               onTap: () {
-                goSeeAllTopPrompt(context);
+                goSeeAllPrompt(context, selectedChipIndex.value);
               },
               child: Text(
                 "SEE ALL",
@@ -263,31 +264,34 @@ class HomeContentWidget extends HookConsumerWidget
           ],
         ).paddingTopSpace(SpaceType.large),
         ChipsHorizontalWidget(
-            chipLabels: listCategoryChip,
-            selectedChipIndex: selectedChipIndex.value,
-            onChipSelected: (index) {
-              selectedChipIndex.value = index;
-              onFillerTopPromptWithCategory(context, "category");
-            }),
+          chipLabels: listCategoryChip,
+          selectedChipIndex: selectedChipIndex.value,
+          onChipSelected: (index) {
+            selectedChipIndex.value = index;
+            homeNotifier.filterByCategory(selectedChipIndex.value);
+          },
+        ),
         homeState is HomeLoading
             ? const ShimmerView().paddingTopSpace(SpaceType.medium)
             : homeState is HomeSuccess
                 ? ListView.separated(
-                        scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () => {goDetailPrompt(context)},
-                            child: PromptCardWidget(
-                              promptEntity: homeState.listPrompt[index],
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                              height: 12,
-                            ),
-                        itemCount: 10) //
+                    scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => goDetailPrompt(
+                            context, homeState.filteredList[index]),
+                        child: PromptCardWidget(
+                          promptEntity: homeState.filteredList[index],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 12,
+                    ),
+                    itemCount: homeState.filteredList.length,
+                  )
                     .paddingTopSpace(SpaceType.medium)
                     .paddingBottomSpace(SpaceType.medium)
                 : const SizedBox(),
@@ -301,8 +305,8 @@ class HomeContentWidget extends HookConsumerWidget
   }
 
   @override
-  goListPromptCategory(BuildContext context, String category) {
-    context.push(RouterPath.promptPage.getPath);
+  goListPromptCategory(BuildContext context, int initialIndex) {
+    context.push(RouterPath.promptPage.getPath, extra: initialIndex);
   }
 
   @override
@@ -334,13 +338,12 @@ class HomeContentWidget extends HookConsumerWidget
   }
 
   @override
-  goSeeAllTopPrompt(BuildContext context) {
-    context.push(RouterPath.promptPage.getPath);
+  goSeeAllPrompt(BuildContext context, int initialIndex) {
+    context.push(RouterPath.promptPage.getPath, extra: initialIndex);
   }
 
   @override
-  goDetailPrompt(BuildContext context) {
-    // TODO: implement goDetailPrompt
-    throw UnimplementedError();
+  goDetailPrompt(BuildContext context, PromptEntity prompt) {
+    context.push(RouterPath.promptDetail.getPath, extra: prompt);
   }
 }

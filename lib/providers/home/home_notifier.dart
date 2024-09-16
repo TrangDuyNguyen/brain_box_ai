@@ -17,13 +17,32 @@ class HomeNotifier extends StateNotifier<HomeState> {
     const params = HomeParams();
     final result = await homeUseCase.call(params);
     result.fold(
-      (error) {
+          (error) {
         state = HomeError(error.toString());
       },
-      (data) {
-        state = HomeSuccess(data);
+          (data) {
+        // Set both the original and filtered list when loading data
+        state = HomeSuccess(
+          originalList: data,
+          filteredList: data, // Initially, filteredList is the same as originalList
+        );
       },
     );
+  }
+
+  // Filter the prompts by category
+  void filterByCategory(int categoryId) {
+    if (categoryId == 0) {
+      // If "All" is selected, show all prompts (reset the filtered list to originalList)
+      state = (state as HomeSuccess).copyWith(filteredList: (state as HomeSuccess).originalList);
+    } else {
+      // Otherwise, filter based on category ID
+      final filteredList = (state as HomeSuccess)
+          .originalList
+          .where((prompt) => prompt.category.id == categoryId)
+          .toList();
+      state = (state as HomeSuccess).copyWith(filteredList: filteredList);
+    }
   }
 }
 

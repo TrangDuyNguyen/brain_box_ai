@@ -39,7 +39,7 @@ class CategoryWidget extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       var item = categoryState.listCategory[index];
                       return CategoryItemWidget(item,
-                          () => context.push(RouterPath.promptPage.getPath));
+                          () => context.push(RouterPath.promptPage.getPath, extra: index));
                     }),
               )
             : const EmptyWidget();
